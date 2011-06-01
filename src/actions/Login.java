@@ -13,7 +13,7 @@ import dao.UserServiceImpl;
 public class Login extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
-	@EJB
+	@Inject
 	private UserService service;
 	
 	private String username;
@@ -21,6 +21,7 @@ public class Login extends ActionSupport {
 	
 	public Login() {
 		super();
+		service = new UserServiceImpl();
 	}
 
 	public String execute() throws Exception {
