@@ -27,9 +27,9 @@
 		<action name="logout" class="actions.Login">
 			<result name="success" type="redirect">/login.jsp</result>
 		</action>
-		<action name="logout2" class="actions.Logout">
-			<result name="success" type="redirect">/login.jsp</result>
-		</action>
+<!--		<action name="logout2" class="actions.Logout">-->
+<!--			<result name="success" type="redirect">/login.jsp</result>-->
+<!--		</action>-->
 
 		<action name="doLogin" class="actions.Login">
 			<result name="login" type="redirect">/login.jsp</result>
