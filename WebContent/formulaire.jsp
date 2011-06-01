@@ -16,7 +16,7 @@
 </head>
 <body>
 <s:fielderror></s:fielderror>
-<s:form action="formulaire.action">
+<s:form action="formulaire.action" method="post" validate="true">
 	<s:textfield name="titre" label="%{getText('formulaire.titre')}" />
 	<s:textarea name="description"
 		label="%{getText('formulaire.description')}"></s:textarea>
