@@ -18,8 +18,7 @@
 			<result>/index.jsp</result>
 		</action>
 
-		<action name="formulaire" class="actions.ActionFormulaire"
-			method="execute">
+		<action name="formulaire" class="actions.ActionFormulaire">
 			<result name="success">/index.jsp</result>
 			<result name="input">/formulaire.jsp</result>
 		</action>

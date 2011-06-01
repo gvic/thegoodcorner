@@ -9,14 +9,9 @@ public class ActionFormulaire extends ActionSupport {
 	private float prix;
 
 	public String execute() throws Exception {
-		// Do the work (ie: create entity in DB)
-		if (titre != null) {
-			return SUCCESS;
-		} else {		
-			return INPUT;
-		}
+		return SUCCESS;
 	}
-
+	
 	public void setDescription(String description) {
 		this.description = description;
 	}
