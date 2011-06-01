@@ -3,6 +3,8 @@ package actions;
 import java.util.Map;
 
 import javax.ejb.EJB;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -23,7 +25,14 @@ public class Login extends ActionSupport {
 	
 	public Login() {
 		super();
-		service = new UserServiceImpl();
+		try {
+			InitialContext ctx = new InitialContext();
+			service = (UserService) ctx.lookup("ejbremote:dao.UserService");
+			System.out.println(service.toString());  
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public String execute() throws Exception {
