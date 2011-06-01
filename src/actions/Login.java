@@ -2,28 +2,25 @@ package actions;
 
 import java.util.Map;
 
-import com.google.inject.Inject;
+import javax.ejb.EJB;
+
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import dao.UserService;
+import dao.UserServiceImpl;
 
 
 public class Login extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
-	@Inject
+	@EJB
 	private UserService service;
+	
 	private String username;
 	private String password;
 	
-//	public Login() {
-//		super();
-//		service = new UserServiceImpl();
-//	}
-//	
-	public Login(UserService service) {
+	public Login() {
 		super();
-		this.service = service;
 	}
 
 	public String execute() throws Exception {
