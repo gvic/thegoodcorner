@@ -15,7 +15,7 @@ import dao.UserServiceImpl;
 public class Login extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
-	@Inject
+
 	private UserService service;
 	
 	private String username;

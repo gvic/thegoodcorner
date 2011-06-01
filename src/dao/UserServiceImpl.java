@@ -20,10 +20,6 @@ public class UserServiceImpl implements UserService {
         public UserServiceImpl() {
 			super();
 		}
-        
-        public void setEntityManager(EntityManager em) {
-            this.em = em;
-        }
 
         // supprimer une u via son identifiant
         public void deleteOne(Integer id) {
