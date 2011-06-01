@@ -6,6 +6,8 @@ import javax.ejb.EJB;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.inject.Inject;
+
 import dao.UserService;
 import dao.UserServiceImpl;
 

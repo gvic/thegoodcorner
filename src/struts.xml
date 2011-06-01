@@ -14,7 +14,6 @@
 
 	<package name="default" extends="struts-default">
 
-
 		<action name="index">
 			<result>/index.jsp</result>
 		</action>
