@@ -7,11 +7,6 @@
 	<constant name="struts.devMode" value="true" />
 	<constant name="struts.custom.i18n.resources" value="package"></constant>
 
-	<!-- Use Guice as the ObjectFactory for this application -->
-	<!-- <constant name="struts.objectFactory" value="guice" /> -->
-	<!-- When wiring actions use Guice bindings defined in the below module -->
-	<!-- <constant name="guice.module" value="core.EJBModule" /> -->
-
 	<package name="default" extends="struts-default">
 
 		<action name="index">
