@@ -21,7 +21,7 @@
 	<s:textarea name="description"
 		label="%{getText('formulaire.description')}"></s:textarea>
 	<s:textfield name="prix" label="%{getText('formulaire.prix')}" />
-	<s:submit value="%{getText('formulaire.valider')}" />
+	<s:submit method="execute" value="%{getText('formulaire.valider')}" />
 </s:form>
 
 <label>Address: </label>
