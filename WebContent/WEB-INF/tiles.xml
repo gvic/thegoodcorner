@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ 
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+    <definition name="baseLayout" template="/BaseLayout.jsp">
+   		<put-attribute name="title" value="" />
+        <put-attribute name="header" value="/header.jsp" />
+        <put-attribute name="body" value="" />
+        <put-attribute name="footer" value="/footer.jsp" />         
+    </definition>
+    <definition name="baseLayoutDressedUp" extends="baseLayout">
+    	<put-list-attribute name="css">
+        	<add-attribute value="/css/css.css"/>
+        	<add-attribute value="http://fonts.googleapis.com/css?family=Muli:light,regular|Raleway:100"/>
+        </put-list-attribute>
+        <put-list-attribute name="scripts" >
+        	<add-attribute value="http://code.jquery.com/jquery-1.6.1.min.js"/>
+        	<add-attribute value="/js/jquery.scrollTo-1.4.2-min.js"/>
+        </put-list-attribute>
+    </definition>
+    <definition name="/welcome.tiles" extends="baseLayoutDressedUp">
+        <put-attribute name="title" value="Welcome" />
+        <put-attribute name="body" value="/index.page.jsp" />
+        <put-list-attribute name="scripts">
+        	<add-attribute value="/js/index.init.js"/>
+       	</put-list-attribute>
+    </definition>
+</tiles-definitions>

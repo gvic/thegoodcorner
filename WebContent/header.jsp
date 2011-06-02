@@ -1,3 +1,5 @@
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <div id="title">
 	<a href="">The <span class="good">Good</span> Corner</a>
 </div>
