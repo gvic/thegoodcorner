@@ -2,23 +2,20 @@ package entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Adresse {
 	
 	@Id
 	private long id;
-	
 	private int numeroVoie;
-	
 	// bis, ter...
 	private String auxiliaire;
-	
 	private String nomVoie;
-	
 	private int codePostal;
-	
-	private String ville;
+	@OneToOne
+	private Ville ville;
 
 	public Adresse(){
 		super();
@@ -64,13 +61,11 @@ public class Adresse {
 		this.codePostal = codePostal;
 	}
 
-	public String getVille() {
-		return ville;
-	}
-
-	public void setVille(String ville) {
+	public void setVille(Ville ville) {
 		this.ville = ville;
 	}
-	
-	
+
+	public Ville getVille() {
+		return ville;
+	}
 }

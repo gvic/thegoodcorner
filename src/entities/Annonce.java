@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -35,6 +36,10 @@ public class Annonce {
 	private boolean telephonePortableVisible;
 	private boolean envoiColis;
 	
+	// Ou est l'objet a vendre?
+	@OneToOne
+	private Adresse adresse;
+	
 	@ManyToMany
 	// @JoinColumn(name = "categorie_id", nullable = false)
 	private Set<Categorie> categories;
@@ -44,7 +49,7 @@ public class Annonce {
 	
 	private String titre;
 	private String description;
-	private int prix;
+	private float prix;
 	
 	@Basic()
 	@Temporal(TemporalType.DATE)
@@ -85,14 +90,6 @@ public class Annonce {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public int getPrix() {
-		return prix;
-	}
-
-	public void setPrix(int prix) {
-		this.prix = prix;
 	}
 
 	public void setDate_de_publication(Date date_de_publication) {
@@ -149,6 +146,22 @@ public class Annonce {
 
 	public void setCategories(Set<Categorie> categories) {
 		this.categories = categories;
+	}
+
+	public void setAdresse(Adresse adresse) {
+		this.adresse = adresse;
+	}
+
+	public Adresse getAdresse() {
+		return adresse;
+	}
+
+	public void setPrix(float prix) {
+		this.prix = prix;
+	}
+
+	public float getPrix() {
+		return prix;
 	}
 	
 	

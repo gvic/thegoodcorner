@@ -1,7 +1,12 @@
 package entities;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -12,6 +17,12 @@ public class Departement {
 	private long id;
 	
 	private String nom;
+	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy = "departement")
+	private Set<Ville> villes;
+	
+	@ManyToOne
+	private Region region;
 
 	public void setId(long id) {
 		this.id = id;
@@ -27,5 +38,21 @@ public class Departement {
 
 	public String getNom() {
 		return nom;
+	}
+
+	public void setVilles(Set<Ville> villes) {
+		this.villes = villes;
+	}
+
+	public Set<Ville> getVilles() {
+		return villes;
+	}
+
+	public void setRegion(Region region) {
+		this.region = region;
+	}
+
+	public Region getRegion() {
+		return region;
 	}
 }
