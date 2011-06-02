@@ -9,11 +9,10 @@
 <body>
 	<s:actionerror />
 
-	<s:form namespace="/" action="doLogin" method="post" validate="true" >
+	<s:form action="doLogin.action" method="post" validate="true" >
 		<s:textfield name="username" label="username" />
 		<s:password name="password" label="password" />
-		<s:submit value="Connexion" align="center">
-		</s:submit>
+		<s:submit method="login" value="Connexion" align="center" />
 	</s:form>
 </body>
 </html>

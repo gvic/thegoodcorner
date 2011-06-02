@@ -4,16 +4,15 @@
 
 <html>
 <head>
-<title><s:property value="%{getText('login.page.titre')}" />
-</title>
+<title><s:property value="%{getText('login.page.titre')}" /></title>
 </head>
 <body>	
 	<s:actionerror />
 
-	<s:form namespace="/" action="doSignUp" method="post">
+	<s:form action="doSignUp.action" method="post" validate="true">
 		<s:textfield name="username" label="login.username" />
 		<s:password name="password" label="login.password" />
-		<s:submit value="login.submit" align="center" />
+		<s:submit method="signUp" value="login.submit" align="center" />
 	</s:form>
 </body>
 </html>

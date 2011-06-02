@@ -77,10 +77,11 @@ public class UserServiceImpl implements UserService {
 
 		@Override
 		public boolean createUser(String username, String password) {
+			System.out.println("=== createUser() called ===");
 			User u = new User();
 			u.setLogin(username);
 			u.setPassword(password);
-			u = saveOne(u);
+			saveOne(u);
 			return (u != null);
 		}
 
