@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 
 import entities.User;
 
-@Stateless
+@Stateless(mappedName="dao.UserServiceImpl")
 public class UserServiceImpl implements UserService {
 	 	@PersistenceContext
 		private EntityManager em;

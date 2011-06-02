@@ -6,7 +6,11 @@
 <struts>
 	<constant name="struts.devMode" value="true" />
 	<constant name="struts.custom.i18n.resources" value="package"></constant>
-
+	<!-- Use Guice as the ObjectFactory for this application -->
+	<constant name="struts.objectFactory" value="guice" />
+	<!-- When wiring actions use Guice bindings defined in the below module -->
+	<constant name="guice.module" value="core.EjbModule"/>
+	
 	<package name="default" extends="struts-default">
 
 		<action name="index">
@@ -18,22 +22,22 @@
 			<result name="input">/formulaire.jsp</result>
 		</action>
 		<action name="logout" class="actions.UserAction">
-			<result name="success" type="dispatcher">/index.jsp</result>
+			<result name="success" >/index.jsp</result>
 		</action>
 <!--		<action name="logout2" class="actions.Logout">-->
 <!--			<result name="success" type="redirect">/login.jsp</result>-->
 <!--		</action>-->
 
 		<action name="doLogin" class="actions.UserAction" method="login">
-			<result name="login" type="redirect">/login.jsp</result>
-			<result name="error" type="redirect">/login.jsp</result>
-			<result name="success" type="dispatcher">/index.jsp</result>
+			<result name="login" >/login.jsp</result>
+			<result name="error" >/login.jsp</result>
+			<result name="success" >/index.jsp</result>
 		</action>
 
 		<action name="doSignUp" class="actions.UserAction" method="signUp">
-			<result name="input" type="redirect">/signup.jsp</result>
-			<result name="error" type="redirect">/signup.jsp</result>
-			<result name="success" type="dispatcher">/index.jsp</result>
+			<result name="input" >/signup.jsp</result>
+			<result name="error" >/signup.jsp</result>
+			<result name="success" >/index.jsp</result>
 		</action>
 	</package>
 </struts>

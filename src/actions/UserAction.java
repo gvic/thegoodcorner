@@ -2,6 +2,7 @@ package actions;
 
 import java.util.Map;
 
+import com.google.inject.Inject;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -10,16 +11,12 @@ import dao.UserService;
 
 public class UserAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
-	private UserService service;
+	@Inject UserService service;
 	private String username;
 	private String password;
 	
-	public UserAction() {
-		super();
-	}
-	
-	public UserAction(UserService service) {
-		this.service = service;
+	public String execute() throws Exception {
+	    return SUCCESS;
 	}
 	
 	public String login() throws Exception {
@@ -28,16 +25,20 @@ public class UserAction extends ActionSupport {
 			session.put("logged-in", "true");
 			return SUCCESS;
 		} else {
-			return INPUT;
+			return LOGIN;
 		}
 	}
 
 	public String signUp() {
-		if (service.createUser(username, password)) {
-			return SUCCESS;
+		if (getUsername().equals("") && getPassword().equals("")) {
+			if (service.createUser(username, password)) {
+				return SUCCESS;
+			} else {
+				return ERROR;
+			}	
 		} else {
-			return ERROR;
-		}	
+			return INPUT;
+		}
 	}
 	
 	public String logout() throws Exception {
