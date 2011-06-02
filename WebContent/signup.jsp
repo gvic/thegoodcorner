@@ -7,16 +7,13 @@
 <title><s:property value="%{getText('login.page.titre')}" />
 </title>
 </head>
-<body>
-	<s:actionerror />	
+<body>	
 	<s:actionerror />
 
 	<s:form namespace="/" action="doSignUp" method="post">
 		<s:textfield name="username" label="login.username" />
 		<s:password name="password" label="login.password" />
-		<s:submit value="login.submit" align="center">
-			<s:param name="align" value="%{'center'}" />
-		</s:submit>
+		<s:submit value="login.submit" align="center" />
 	</s:form>
 </body>
 </html>

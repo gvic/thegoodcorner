@@ -17,20 +17,20 @@
 			<result name="success">/index.jsp</result>
 			<result name="input">/formulaire.jsp</result>
 		</action>
-		<action name="logout" class="actions.Login">
-			<result name="success" type="redirect">/login.jsp</result>
+		<action name="logout" class="actions.UserAction">
+			<result name="success" type="dispatcher">/index.jsp</result>
 		</action>
 <!--		<action name="logout2" class="actions.Logout">-->
 <!--			<result name="success" type="redirect">/login.jsp</result>-->
 <!--		</action>-->
 
-		<action name="doLogin" class="actions.Login">
+		<action name="doLogin" class="actions.UserAction" method="login">
 			<result name="login" type="redirect">/login.jsp</result>
 			<result name="error" type="redirect">/login.jsp</result>
 			<result name="success" type="dispatcher">/index.jsp</result>
 		</action>
 
-		<action name="doSignUp" class="actions.SignUp">
+		<action name="doSignUp" class="actions.UserAction" method="signUp">
 			<result name="input" type="redirect">/signup.jsp</result>
 			<result name="error" type="redirect">/signup.jsp</result>
 			<result name="success" type="dispatcher">/index.jsp</result>

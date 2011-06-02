@@ -3,24 +3,24 @@ package dao;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import entities.User;
 
 @Stateless
-@TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class UserServiceImpl implements UserService {
-
-		@PersistenceContext(unitName="thegoodcorner-pu") 
+	 	@PersistenceContext
 		private EntityManager em;
+       
+        public void setEntityManager(EntityManager em) {
+        	this.em = em;
+        }
         
-        public UserServiceImpl() {
-			super();
-		}
-
+        public EntityManager getEntityManager() {
+        	return em;
+        }
+        
         // supprimer une u via son identifiant
         public void deleteOne(Integer id) {
                 User u = em.find(User.class, id);

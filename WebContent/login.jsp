@@ -8,9 +8,8 @@
 </head>
 <body>
 	<s:actionerror />
-	<s:actionerror />
 
-	<s:form namespace="/" action="doLogin" method="post">
+	<s:form namespace="/" action="doLogin" method="post" validate="true" >
 		<s:textfield name="username" label="username" />
 		<s:password name="password" label="password" />
 		<s:submit value="Connexion" align="center">
