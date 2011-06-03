@@ -26,8 +26,6 @@ public interface UserService {
         // obtenir les personnes dont le nom correspond àun modèle
         public List<User> getAllLike(String modele);
 
-		public User findByUserNameAndPassword(String username, String password);
-
-		public boolean createUser(String username, String password);
+		public boolean find(User u);
 
 }

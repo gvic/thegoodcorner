@@ -18,19 +18,19 @@ public class SignUp extends ActionSupport{
 		service = new UserServiceImpl();
 	}
 	
-	public String execute() throws Exception {
-		System.out.println("Validating login");
-		if (username != null && password != null){
-			if (service.createUser(username, password)) {
-				return SUCCESS;
-			} else {
-				return ERROR;
-			}	
-		} else{
-			return INPUT;
-		}
-		
-	}
+//	public String execute() throws Exception {
+//		System.out.println("Validating login");
+//		if (username != null && password != null){
+//			if (service.createUser(username, password)) {
+//				return SUCCESS;
+//			} else {
+//				return ERROR;
+//			}	
+//		} else{
+//			return INPUT;
+//		}
+//		
+//	}
 
 	
 

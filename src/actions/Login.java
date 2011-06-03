@@ -35,23 +35,23 @@ public class Login extends ActionSupport {
 		}
 	}
 
-	public String execute() throws Exception {
-		System.out.println("Validating login");
-
-		if (getUsername() != null && getPassword() != null) {
-
-			System.out.println("================"+service.toString()+"====================");			
-			if (service.findByUserNameAndPassword(getUsername(), getPassword()) != null) {
-				Map session = ActionContext.getContext().getSession();
-				session.put("logged-in", "true");
-				return SUCCESS;
-
-			} else
-				return LOGIN;
-
-		} else
-			return LOGIN;
-	}
+//	public String execute() throws Exception {
+//		System.out.println("Validating login");
+//
+//		if (getUsername() != null && getPassword() != null) {
+//
+//			System.out.println("================"+service.toString()+"====================");			
+//			if (service.findByUserNameAndPassword(getUsername(), getPassword()) != null) {
+//				Map session = ActionContext.getContext().getSession();
+//				session.put("logged-in", "true");
+//				return SUCCESS;
+//
+//			} else
+//				return LOGIN;
+//
+//		} else
+//			return LOGIN;
+//	}
 
 	public String logout() throws Exception {
 

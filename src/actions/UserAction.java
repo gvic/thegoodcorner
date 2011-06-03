@@ -20,21 +20,14 @@ public class UserAction extends ActionSupport {
 //	    return SUCCESS;
 //	}
 	
-//	public String login() throws Exception {
-//		System.out.println("=== login() method called ===");
-//		if (username.equals("") && password.equals("")) {
-//			if (service.findByUserNameAndPassword(getUsername(), getPassword()) != null) {
-//				System.out.println("=== User found! ===");
-//				Map session = ActionContext.getContext().getSession();
-//				session.put("logged-in", "true");
-//				return SUCCESS;
-//			} else {
-//				return LOGIN;
-//			}
-//		} else {
-//			return INPUT;
-//		}
-//	}
+	public String login() throws Exception {
+		System.out.println("=== login() method called ===");
+		if (service.find(userBean)) {
+			return SUCCESS;
+		} else {
+			return INPUT;
+		}
+	}
 
 	public String signUp() throws Exception {
 		System.out.println("=== signUp() method called ===");

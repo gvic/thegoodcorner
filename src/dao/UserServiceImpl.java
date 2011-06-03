@@ -63,36 +63,10 @@ public class UserServiceImpl implements UserService {
                 return em.merge(u);
         }
 
-		public boolean createUser(String username, String password) {
-			// TODO Auto-generated method stub
-			return false;
+
+		@Override
+		public boolean find(User u) {
+			return em.contains(u);	
 		}
-
-		public User findByUserNameAndPassword(String username, String password) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-//		public User findByUserNameAndPassword(String username,
-//				String password) {
-//			User ret = null;
-//			User user = new User();
-//			user.setLogin(username);
-//			user.setPassword(password);
-//			if(em.contains(user)){
-//				ret = user;
-//			}
-//			return ret;
-//		}
-
-//		@Override
-//		public boolean createUser(String username, String password) {
-//			System.out.println("=== createUser() called ===");
-//			User u = new User();
-//			u.setLogin(username);
-//			u.setPassword(password);
-//			saveOne(u);
-//			return (u != null);
-//		}
 
 }
