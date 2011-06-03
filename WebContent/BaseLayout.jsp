@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<%@ taglib prefix="sx" uri="/struts-dojo-tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +16,7 @@
 <c:forEach var="item" items="${list}">
   <link href="${item}" rel="stylesheet" type="text/css" />
 </c:forEach>
+<sx:head/>
 </head>
 <body>
 	<div id="wrapper">
