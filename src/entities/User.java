@@ -1,5 +1,6 @@
 package entities;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.Set;
 
@@ -16,8 +17,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="Utilisateur")
-public class User {
+public class User implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@Column(name = "ID", nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
