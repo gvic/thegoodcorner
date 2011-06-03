@@ -81,28 +81,12 @@ public class User {
 		this.login = nickName;
 	}
 
-	public String getPassword() {
-		return md5_mdp;
-	}
-
-	public void setPassword(String md5_mdp) {
-		this.md5_mdp = md5_mdp;
-	}
-
 	public Adresse getAdresse() {
 		return adresse;
 	}
 
 	public void setAdresse(Adresse adresse) {
 		this.adresse = adresse;
-	}
-
-	public String getMail() {
-		return email;
-	}
-
-	public void setMail(String email) {
-		this.email = email;
 	}
 
 	public String getTelephoneFixe() {
@@ -147,6 +131,22 @@ public class User {
 	
 	public String toString() {
 		return "User : "+getLogin()+", "+getNom()+" "+getPrenom();
+	}
+
+	public void setMd5_mdp(String md5_mdp) {
+		this.md5_mdp = md5_mdp;
+	}
+
+	public String getMd5_mdp() {
+		return md5_mdp;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getEmail() {
+		return email;
 	}
 	
 }
