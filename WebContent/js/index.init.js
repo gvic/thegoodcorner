@@ -17,7 +17,7 @@ jQuery(function( $ ){
     
     // TOC, shows how to scroll the whole window
     $('#nav-steps a').click(function(){//$.scrollTo works EXACTLY the same way, but scrolls the whole screen
-        $.scrollTo( this.hash, 1500, { easing:'elasout', axis:'y'});
+        $.scrollTo( this.hash, 400, { easing:'elasout', axis:'y'});
         return false;
     });
     
