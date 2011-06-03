@@ -7,7 +7,7 @@
 	<s:textfield name="userBean.nom" label="login.nom" />
 	<s:textfield name="userBean.prenom" label="login.prenom" />
 	<s:textfield name="userBean.email" label="login.email" />
-	<s:submit method="signUp" value="login.submit" align="center" />
+	<s:submit value="login.submit" align="center" />
 </s:form>
 
 

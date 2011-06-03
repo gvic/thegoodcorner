@@ -38,6 +38,7 @@ public class UserAction extends ActionSupport {
 
 	public String signUp() throws Exception {
 		System.out.println("=== signUp() method called ===");
+		System.out.println(userBean.toString());
 		if (service.saveOne(userBean) != null) {
 			return SUCCESS;
 		} else {
