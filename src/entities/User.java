@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -33,14 +34,12 @@ public class User {
 	private String login;
 	private String md5_mdp;
 	
-	@OneToMany
+	@OneToOne
 	private Adresse adresse;
 	
 	private String email;
 	private String telephoneFixe;
 	private String telephonePortable;
-	
-	
 	
 	// Pour savoir quels utilisateurs sont 
 	// connectés
