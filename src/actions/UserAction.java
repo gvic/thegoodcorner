@@ -1,5 +1,6 @@
 package actions;
 
+import java.sql.Date;
 import java.util.Map;
 
 import com.google.inject.Inject;
@@ -15,10 +16,7 @@ public class UserAction extends ActionSupport {
 	@Inject UserService service;
 
 	private User userBean;
-	
-//	public String execute() throws Exception {
-//	    return SUCCESS;
-//	}
+	private String confirmPassword;
 	
 	public String login() throws Exception {
 		System.out.println("=== login() method called ===");
@@ -32,6 +30,15 @@ public class UserAction extends ActionSupport {
 	public String signUp() throws Exception {
 		System.out.println("=== signUp() method called ===");
 		System.out.println(userBean.toString());
+		if (service.fieldAlreadyUsed("login", userBean.getLogin())) {
+			addActionError(getText("username.used"));
+			return ERROR;
+		}
+		if (service.fieldAlreadyUsed("email", userBean.getEmail())) {
+			addActionError(getText("email.used"));
+			return ERROR;
+		}
+		userBean.setInscritDepuis(new Date(new java.util.Date().getTime())); // Subscribed today!
 		if (service.saveOne(userBean) != null) {
 			return SUCCESS;
 		} else {
@@ -51,6 +58,14 @@ public class UserAction extends ActionSupport {
 
 	public User getUserBean() {
 		return userBean;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
+	public String getConfirmPassword() {
+		return confirmPassword;
 	}
 
 }

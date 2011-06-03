@@ -17,6 +17,16 @@
             <message key="errors.required" />
         </field-validator>
     </field>
+    <field name="confirmPassword">
+    <field-validator type="fieldexpression">
+   		<param name="expression">userBean.md5_mdp == confirmPassword</param>
+    	<message>errors.confirmPassord</message>
+    </field-validator>
+    </field>
+<!--    <validator type="expression">-->
+<!--       <param name="expression">userBean.md5_mdp == confirmPassword</param>-->
+<!--       <message>errors.confirmPassord</message>-->
+<!--  	</validator>-->
 	<field name="userBean.prenom">
         <field-validator type="requiredstring">
             <message key="errors.required" />

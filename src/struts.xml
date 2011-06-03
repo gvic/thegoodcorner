@@ -33,14 +33,16 @@
 			<result name="success" type="tiles" >/welcome.tiles</result>
 		</action>
 
-		<action name="doLogin" class="actions.UserAction" method="login">
+		<action name="doLogin" class="actions.UserAction" method="input">
 			<result name="login" >login.jsp</result>
 			<result name="input" >login.jsp</result>
 			<result name="error" >login.jsp</result>
 			<result name="success" type="tiles" >/welcome.tiles</result>
 		</action>
 
-		<action name="doSignUp" class="actions.UserAction" method="signUp">
+<!--		Use a WildCard for the called method-->
+<!--		This disable first validation (on page load) called by : signUp_input.action-->
+		<action name="SignUp_*" class="actions.UserAction" method="{1}">
 			<interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>
 			<result name="input" type="tiles">/signup.tiles</result>
 			<result name="error" type="tiles">/signup.tiles</result>

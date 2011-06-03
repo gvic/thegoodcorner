@@ -3,7 +3,7 @@ body{
 	margin: 0;
 	padding: 0;
 	font-family: 'Muli', arial, serif;
-	background: #eeeeee url(images/page_rendering.png) repeat-x;
+	background: #eeeeee url(images/page_rendering.png) repeat-x 0 -100px;
 	/* Don't ask me why.. */
 	overflow-x: hidden;
 /*  Google Font API properties
@@ -20,8 +20,8 @@ body{
 }
 
 #header{
-	background: #002fa7 url(images/header_rendering.png) repeat-x;
-	height: 255px;
+	background: #002fa7 url(images/header_rendering.png) repeat-x 0 -100px;
+	height: 155px;
 	color: white;
 }
 #header #title{

@@ -47,6 +47,7 @@ public class User implements Serializable {
 	// Pour savoir quels utilisateurs sont 
 	// connectés
 	private Date derniereConnexion;
+	private Date inscritDepuis;
 
 	public User(){
 		super();
@@ -150,6 +151,14 @@ public class User implements Serializable {
 
 	public String getEmail() {
 		return email;
+	}
+
+	public void setInscritDepuis(Date inscritDepuis) {
+		this.inscritDepuis = inscritDepuis;
+	}
+
+	public Date getInscritDepuis() {
+		return inscritDepuis;
 	}
 	
 }

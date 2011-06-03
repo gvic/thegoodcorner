@@ -27,5 +27,7 @@ public interface UserService {
         public List<User> getAllLike(String modele);
 
 		public boolean find(User u);
+		
+		public boolean fieldAlreadyUsed(String field, String value) throws IllegalArgumentException; 
 
 }
