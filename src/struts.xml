@@ -23,12 +23,7 @@
 		<action name="index">
 			<result type="tiles">/welcome.tiles</result>
 		</action>
-
-		<action name="formulaire" class="actions.ActionFormulaire">
-			<result name="success">index.jsp</result>
-			<result name="input">formulaire.jsp</result>
-		</action>
-		
+				
 		<action name="logout" class="actions.UserAction">
 			<result name="success" type="tiles" >/welcome.tiles</result>
 		</action>

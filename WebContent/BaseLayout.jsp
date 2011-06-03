@@ -1,18 +1,18 @@
-<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<!-- This files are needed for AJAX Validation of XHTML Forms -->
-<script language="JavaScript" src="${pageContext.request.contextPath}/struts/utils.js" type="text/javascript"></script>
-<script language="JavaScript" src="${pageContext.request.contextPath}/struts/xhtml/validation.js" type="text/javascript"></script>
-<sj:head jqueryui="true"/>
-<!--<script language="JavaScript" src="${pageContext.request.contextPath}/struts/css_xhtml/validation.js" type="text/javascript"></script>-->
 <title><tiles:insertAttribute name="title" ignore="true" /></title>
+<!-- This file is needed for AJAX Validation of XHTML Forms -->
+<script src="${pageContext.request.contextPath}/struts/xhtml/validation.js" type="text/javascript"></script>
+<sj:head jqueryui="true"/>
+<s:head theme="xhtml"/>
 <!-- Add CSS and JS files configured in tiles.xml -->
 <tiles:useAttribute id="list" name="css" classname="java.util.List" />
 <tiles:useAttribute id="list2" name="scripts" classname="java.util.List" />
