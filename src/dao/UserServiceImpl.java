@@ -1,5 +1,8 @@
 package dao;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.sql.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -51,9 +54,23 @@ public class UserServiceImpl implements UserService {
         }
 
         // sauvegarder un user
+        // (Signup a user)
         public User saveOne(User u) {
-            em.persist(u);
-            return u;
+        	User res = u;
+    		u.setInscritDepuis(new Date(new java.util.Date().getTime())); // Subscribed today!
+    		String toEnc = u.getMd5_mdp();
+    		MessageDigest mdEnc;
+			try {
+				mdEnc = MessageDigest.getInstance("MD5");// Encryption algorithm
+				mdEnc.update(toEnc.getBytes(), 0, toEnc.length());
+	    		u.setMd5_mdp(new java.math.BigInteger(1, mdEnc.digest()).toString(16)); // Encrypted string
+	            em.persist(u);
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				res = null;
+			} 
+            return res;
         }
         
         // Check if a field is already used?
@@ -61,8 +78,7 @@ public class UserServiceImpl implements UserService {
         public boolean fieldAlreadyUsed(String field, String value) throws IllegalArgumentException {
         	boolean res = false;
         	try{
-        		User u = (User) em.createQuery("SELECT p FROM User p WHERE p.:field=:value")
-        							.setParameter("field", field)
+        		User u = (User) em.createQuery("SELECT p FROM User p WHERE p."+field+"=:value")
         							.setParameter("value", value).getSingleResult();
         		if (u != null) {
         			res = true;

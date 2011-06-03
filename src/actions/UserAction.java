@@ -1,6 +1,5 @@
 package actions;
 
-import java.sql.Date;
 import java.util.Map;
 
 import com.google.inject.Inject;
@@ -26,22 +25,26 @@ public class UserAction extends ActionSupport {
 			return INPUT;
 		}
 	}
+	
+	// Server-side validation
+	public void validate() {
+		System.out.println("=== validate() method called ===");
+		if (userBean != null) {
+			System.out.println(userBean.toString());
+			if (!userBean.getLogin().equals("") && service.fieldAlreadyUsed("login", userBean.getLogin())) {
+				addFieldError("userBean.login", getText("username.used"));
+			}
+			if (!userBean.getEmail().equals("") && service.fieldAlreadyUsed("email", userBean.getEmail())) {
+				addFieldError("userBean.email", getText("email.used"));
+			}
+		}
+	}
 
 	public String signUp() throws Exception {
-		System.out.println("=== signUp() method called ===");
-		System.out.println(userBean.toString());
-		if (service.fieldAlreadyUsed("login", userBean.getLogin())) {
-			addActionError(getText("username.used"));
-			return ERROR;
-		}
-		if (service.fieldAlreadyUsed("email", userBean.getEmail())) {
-			addActionError(getText("email.used"));
-			return ERROR;
-		}
-		userBean.setInscritDepuis(new Date(new java.util.Date().getTime())); // Subscribed today!
 		if (service.saveOne(userBean) != null) {
 			return SUCCESS;
 		} else {
+			addActionError(getText("signup.impossible"));
 			return ERROR;
 		}	
 	}

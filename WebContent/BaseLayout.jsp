@@ -7,10 +7,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<sj:head />
-        <!-- This files are needed for AJAX Validation of XHTML Forms -->
-        <script language="JavaScript" src="${pageContext.request.contextPath}/struts/utils.js" type="text/javascript"></script>
-        <script language="JavaScript" src="${pageContext.request.contextPath}/struts/xhtml/validation.js" type="text/javascript"></script>
+<!-- This files are needed for AJAX Validation of XHTML Forms -->
+<script language="JavaScript" src="${pageContext.request.contextPath}/struts/utils.js" type="text/javascript"></script>
+<script language="JavaScript" src="${pageContext.request.contextPath}/struts/xhtml/validation.js" type="text/javascript"></script>
+<sj:head jqueryui="true"/>
+<!--<script language="JavaScript" src="${pageContext.request.contextPath}/struts/css_xhtml/validation.js" type="text/javascript"></script>-->
 <title><tiles:insertAttribute name="title" ignore="true" /></title>
 <!-- Add CSS and JS files configured in tiles.xml -->
 <tiles:useAttribute id="list" name="css" classname="java.util.List" />
