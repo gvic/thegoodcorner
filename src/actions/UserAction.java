@@ -7,46 +7,42 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import dao.UserService;
+import entities.User;
 
 
 public class UserAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 	@Inject UserService service;
-	private String username;
-	private String password;
+
+	private User userBean;
 	
 //	public String execute() throws Exception {
 //	    return SUCCESS;
 //	}
 	
-	public String login() throws Exception {
-		System.out.println("=== login() method called ===");
-		if (username.equals("") && password.equals("")) {
-			if (service.findByUserNameAndPassword(getUsername(), getPassword()) != null) {
-				System.out.println("=== User found! ===");
-				Map session = ActionContext.getContext().getSession();
-				session.put("logged-in", "true");
-				return SUCCESS;
-			} else {
-				return LOGIN;
-			}
-		} else {
-			return INPUT;
-		}
-	}
+//	public String login() throws Exception {
+//		System.out.println("=== login() method called ===");
+//		if (username.equals("") && password.equals("")) {
+//			if (service.findByUserNameAndPassword(getUsername(), getPassword()) != null) {
+//				System.out.println("=== User found! ===");
+//				Map session = ActionContext.getContext().getSession();
+//				session.put("logged-in", "true");
+//				return SUCCESS;
+//			} else {
+//				return LOGIN;
+//			}
+//		} else {
+//			return INPUT;
+//		}
+//	}
 
 	public String signUp() throws Exception {
 		System.out.println("=== signUp() method called ===");
-		if (username.equals("") && password.equals("")) {
-			System.out.println("=== username && password not empty ===");
-			if (service.createUser(username, password)) {
-				return SUCCESS;
-			} else {
-				return ERROR;
-			}	
+		if (service.saveOne(userBean) != null) {
+			return SUCCESS;
 		} else {
-			return INPUT;
-		}
+			return ERROR;
+		}	
 	}
 	
 	public String logout() throws Exception {
@@ -55,20 +51,12 @@ public class UserAction extends ActionSupport {
 		return SUCCESS;
 	}
 
-	public String getUsername() {
-		return username;
+	public void setUserBean(User userBean) {
+		this.userBean = userBean;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
+	public User getUserBean() {
+		return userBean;
 	}
 
 }

@@ -33,10 +33,10 @@ public class User {
 	private String login;
 	private String md5_mdp;
 	
-//	@OneToMany
-//	private Adresse adresse;
+	@OneToMany
+	private Adresse adresse;
 	
-	private String mail;
+	private String email;
 	private String telephoneFixe;
 	private String telephonePortable;
 	
@@ -90,20 +90,20 @@ public class User {
 		this.md5_mdp = md5_mdp;
 	}
 
-//	public Adresse getAdresse() {
-//		return adresse;
-//	}
-//
-//	public void setAdresse(Adresse adresse) {
-//		this.adresse = adresse;
-//	}
-
-	public String getMail() {
-		return mail;
+	public Adresse getAdresse() {
+		return adresse;
 	}
 
-	public void setMail(String mail) {
-		this.mail = mail;
+	public void setAdresse(Adresse adresse) {
+		this.adresse = adresse;
+	}
+
+	public String getMail() {
+		return email;
+	}
+
+	public void setMail(String email) {
+		this.email = email;
 	}
 
 	public String getTelephoneFixe() {
@@ -146,5 +146,8 @@ public class User {
 		this.communautes = communautes;
 	}	
 	
+	public String toString() {
+		return "User : "+getLogin()+", "+getNom()+" "+getPrenom();
+	}
 	
 }
