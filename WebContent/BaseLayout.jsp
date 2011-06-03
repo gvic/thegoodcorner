@@ -9,11 +9,11 @@
 <title><tiles:insertAttribute name="title" ignore="true" /></title>
 <tiles:useAttribute id="list" name="css" classname="java.util.List" />
 <tiles:useAttribute id="list2" name="scripts" classname="java.util.List" />
-<c:forEach var="item" items="${list}">
-  <script type="text/javascript" src="<tiles:insertAttribute value="${item}" flush="true" />"></script>
-</c:forEach>
 <c:forEach var="item" items="${list2}">
-  <link href="<tiles:insertAttribute value="${item}" flush="true" />" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="${item}"></script>
+</c:forEach>
+<c:forEach var="item" items="${list}">
+  <link href="${item}" rel="stylesheet" type="text/css" />
 </c:forEach>
 </head>
 <body>
