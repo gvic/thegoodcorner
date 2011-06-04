@@ -31,5 +31,4 @@ public interface UserService {
 		
         // Find user by map of fields-values
 		public User findByField(Map<String,String> fieldValue) throws IllegalArgumentException; 
-
 }

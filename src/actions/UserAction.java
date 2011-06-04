@@ -3,13 +3,12 @@ package actions;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.collections.map.HashedMap;
-
 import com.google.inject.Inject;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import dao.UserService;
+import dao.UserServiceImpl;
 import entities.User;
 
 
@@ -29,8 +28,9 @@ public class UserAction extends ActionSupport {
 		System.out.println("=== login() method called ===");
 		HashMap<String, String> hm = new HashMap<String, String>();
 		hm.put("login", login);
-		hm.put("md5_mdp", password);
+		hm.put("md5_mdp", UserServiceImpl.md5Encryption(password));
 		if (service.findByField(hm) != null) {
+			addActionMessage(getText("welcome")+" "+login);
 			return SUCCESS;
 		} else {
 			addActionError(getText("errors.login"));
@@ -41,6 +41,7 @@ public class UserAction extends ActionSupport {
 	// Server-side validation
 	public void validate() {
 		System.out.println("=== validate() method called ===");
+		// Validate SignUp form
 		if (userBean != null) {
 			System.out.println(userBean.toString());
 			HashMap<String,String> mhm = new HashMap<String,String>();

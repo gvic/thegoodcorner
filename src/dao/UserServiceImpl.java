@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
             return res;
         }
         
-        public String md5Encryption(String text) {
+        static public String md5Encryption(String text) {
     		String toEnc = text;
     		String res = "";
     		MessageDigest mdEnc;

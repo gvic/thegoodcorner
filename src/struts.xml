@@ -28,10 +28,10 @@
 			<result name="success" type="tiles" >/welcome.tiles</result>
 		</action>
 
-		<action name="doLogin" class="actions.UserAction" method="input">
-			<result name="login" >login.jsp</result>
-			<result name="input" >login.jsp</result>
-			<result name="error" >login.jsp</result>
+		<action name="Login_*" class="actions.UserAction" method="{1}">
+			<interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>
+			<result name="input" type="tiles">/login.tiles</result>
+			<result name="error" type="tiles">/login.tiles</result>
 			<result name="success" type="tiles" >/welcome.tiles</result>
 		</action>
 

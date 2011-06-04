@@ -3,6 +3,7 @@
 <div id="title">
 	<a href="">The <span class="good">Good</span> Corner</a>
 </div>
+<s:actionmessage/>
 <div id="onglet-wrapper">
 	<div id="nav-login">
 		<s:a action="SignUp_input" >
@@ -10,9 +11,11 @@
 			Sign Up !
 		</div>
 		</s:a>
+		<s:a action="Login_input" >
 		<div id="onglet-login" class="onglet">
 			Log In
 		</div>
+		</s:a>
 	</div>
 	<div id="nav-steps">		
 		<div id="onglet-4step" class="onglet" title="#fourth-step">
