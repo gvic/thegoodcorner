@@ -8,11 +8,20 @@
 			<attribute name="owner.project.facets" value="#system#;jst.web"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
-		<attributes>
-			<attribute name="owner.project.facets" value="java"/>
-		</attributes>
-	</classpathentry>
+	
+	
+	
+	
+	<!-- Config en commentaire, car fait bugger mon eclipse (victor) -->
+
+	<!-- <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"> -->
+	<!-- 	<attributes> -->
+	<!-- 		<attribute name="owner.project.facets" value="java"/> -->
+	<!-- 	</attributes> -->
+	<!-- </classpathentry> -->
+	
+	
+	
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-maps-2.0.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-maps-meta-2.0.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-beanutils-1.7.0.jar"/>
@@ -35,6 +44,10 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/tiles-api-2.0.6.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/tiles-core-2.0.6.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/tiles-jsp-2.0.6.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/struts2-jquery-plugin-3.0.2.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/java-6-openjdk">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>
