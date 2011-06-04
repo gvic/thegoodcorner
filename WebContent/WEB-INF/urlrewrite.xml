@@ -18,20 +18,20 @@
 
 	<rule>
 		<from>/signup/</from>
-		<to type="forward">/SignUp_input.action</to>
+		<to>/SignUp</to>
 	</rule>
 	<outbound-rule>
-		<from>/SignUp_input.action</from>
+		<from>/SignUp_input</from>
 		<to>/signup/</to>
-	</outbound-rule>
+	</outbound-rule>	
 
 	<rule>
-		<from>/index.jsp</from>
-		<to type="forward">/index.action</to>
+		<from>/index.html</from>
+		<to>/index</to>
 	</rule>
 	<outbound-rule>
-		<from>/index.action</from>
-		<to>/index.jsp</to>
+		<from>/index</from>
+		<to>/index.html</to>
 	</outbound-rule>
 
 
