@@ -6,6 +6,7 @@ import static com.google.inject.jndi.JndiIntegration.fromJndi;
 import com.google.inject.Binder;
 import com.google.inject.Module;
 
+import dao.AdService;
 import dao.UserService;
 
 public class EjbModule implements Module {
@@ -16,5 +17,8 @@ public class EjbModule implements Module {
     // Bind the remote interface to the JNDI name using the JNDI Provider
     binder.bind(UserService.class)
           .toProvider(fromJndi(UserService.class, "dao.UserServiceImpl"));
+    
+    binder.bind(AdService.class)
+    .toProvider(fromJndi(AdService.class, "dao.AdServiceImpl"));
   }
 }

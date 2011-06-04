@@ -43,5 +43,15 @@
 			<result name="error" type="tiles">/signup.tiles</result>
 			<result name="success" type="tiles">/signup.success.tiles</result>
 		</action>
+		
+		<action name="index" class="actions.AdAction">
+			<result name="success">/index.jsp</result>
+		</action>
+		
+		<action name="listAdByCommunaute" class="actions.AdAction" method="getListAdByCommunaute">
+			<result name="Communaute" type="tiles">/adList.jsp</result>
+			<result name="Departement" type="tiles">/adList.jsp</result>
+			<result name="Region" type="tiles">/adList.jsp</result>
+		</action>
 	</package>
 </struts>
