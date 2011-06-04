@@ -3,17 +3,27 @@
 <div id="title">
 	<a href="">The <span class="good">Good</span> Corner</a>
 </div>
-<div id="nav-steps">
-	<div id="onglet_4step" class="onglet" title="#fourth-step">
-		Fourth Step
+<div id="onglet-wrapper">
+	<div id="nav-login">
+		<div id="onglet-signup" class="onglet" >
+			Sign Up !
+		</div>
+		<div id="onglet-login" class="onglet" >
+			Log In
+		</div>
 	</div>
-	<div id="onglet_3step" class="onglet" title="#third-step">
-		Third Step
-	</div>
-	<div id="onglet_2step" class="onglet" title="#second-step">
-		Second Step
-	</div>
-	<div id="onglet_1step" class="onglet" title="#first-step">
-		First Step
+	<div id="nav-steps">
+		<div id="onglet-4step" class="onglet" title="#fourth-step">
+			Fourth Step
+		</div>
+		<div id="onglet-3step" class="onglet" title="#third-step">
+			Third Step
+		</div>
+		<div id="onglet-2step" class="onglet" title="#second-step">
+			Second Step
+		</div>
+		<div id="onglet-1step" class="onglet" title="#first-step">
+			First Step
+		</div>
 	</div>
 </div>
