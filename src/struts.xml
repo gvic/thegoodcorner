@@ -21,37 +21,37 @@
         <default-action-ref name="index"></default-action-ref>
         
 		<action name="index">
-			<result type="tiles">/welcome.tiles</result>
+			<result type="tiles">welcome</result>
 		</action>
 				
 		<action name="logout" class="actions.UserAction">
-			<result name="success" type="tiles" >/welcome.tiles</result>
+			<result name="success" type="tiles" >welcome</result>
 		</action>
 
 		<action name="Login_*" class="actions.LogInAction" method="{1}">
 			<interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>
-			<result name="input" type="tiles">/login.tiles</result>
-			<result name="error" type="tiles">/login.tiles</result>
-			<result name="success" type="tiles" >/welcome.tiles</result>
+			<result name="input" type="tiles">login</result>
+			<result name="error" type="tiles">login</result>
+			<result name="success" type="tiles" >welcome</result>
 		</action>
 
 <!--		Use a WildCard for the called method-->
 <!--		This disable first validation (on page load) called by : signUp_input.action-->
 		<action name="SignUp_*" class="actions.SignUpAction" method="{1}">
 			<interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>
-			<result name="input" type="tiles">/signup.tiles</result>
-			<result name="error" type="tiles">/signup.tiles</result>
-			<result name="success" type="tiles">/signup.success.tiles</result>
+			<result name="input" type="tiles">signup</result>
+			<result name="error" type="tiles">signup</result>
+			<result name="success" type="tiles">signup.success</result>
 		</action>
 		
-		<action name="index" class="actions.AdAction">
-			<result name="success">/index.jsp</result>
-		</action>
+<!--		<action name="index" class="actions.AdAction">-->
+<!--			<result name="success">/index.jsp</result>-->
+<!--		</action>-->
 		
-		<action name="listAdByCommunaute" class="actions.AdAction" method="getListAdByCommunaute">
-			<result name="Communaute" type="tiles">/adList.jsp</result>
-			<result name="Departement" type="tiles">/adList.jsp</result>
-			<result name="Region" type="tiles">/adList.jsp</result>
-		</action>
+<!--		<action name="listAdByCommunaute" class="actions.AdAction" method="getListAdByCommunaute">-->
+<!--			<result name="Communaute" type="tiles">/adList.jsp</result>-->
+<!--			<result name="Departement" type="tiles">/adList.jsp</result>-->
+<!--			<result name="Region" type="tiles">/adList.jsp</result>-->
+<!--		</action>-->
 	</package>
 </struts>
