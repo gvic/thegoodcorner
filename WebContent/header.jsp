@@ -5,14 +5,16 @@
 </div>
 <div id="onglet-wrapper">
 	<div id="nav-login">
-		<div id="onglet-signup" class="onglet" >
+		<s:a action="SignUp_input" >
+		<div id="onglet-signup" class="onglet">
 			Sign Up !
 		</div>
-		<div id="onglet-login" class="onglet" >
+		</s:a>
+		<div id="onglet-login" class="onglet">
 			Log In
 		</div>
 	</div>
-	<div id="nav-steps">
+	<div id="nav-steps">		
 		<div id="onglet-4step" class="onglet" title="#fourth-step">
 			Fourth Step
 		</div>

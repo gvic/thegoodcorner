@@ -24,6 +24,10 @@ body{
 	height: 155px;
 	color: white;
 }
+#header a {
+	color: white;
+	text-decoration: none;
+}
 #header #title{
 	font-family: 'Raleway';
 	font-size: 38px;
@@ -84,12 +88,15 @@ body{
 	box-shadow: 1px -1px 5px rgba(0,0,0,0.4);
 	cursor: pointer;
 }
-/* Don't display the steps onglet by default.. */
-#header #nav-steps .onglet {
-	display: none;
-}
 #header .onglet:hover {
 	opacity:1;
+}
+#header #nav-login .onglet{
+	background-color: rgba(50, 50, 50, 0.9);
+}
+#header #nav-steps .onglet{
+	background-color: rgba(255, 162, 25, 0.9);
+	display: none;/* Don't display the steps onglet by default.. */
 }
 #page {
 	width: 980px;
