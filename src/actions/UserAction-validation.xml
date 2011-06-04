@@ -23,10 +23,6 @@
     	<message>errors.confirmPassord</message>
     </field-validator>
     </field>
-<!--    <validator type="expression">-->
-<!--       <param name="expression">userBean.md5_mdp == confirmPassword</param>-->
-<!--       <message>errors.confirmPassord</message>-->
-<!--  	</validator>-->
 	<field name="userBean.prenom">
         <field-validator type="requiredstring">
             <message key="errors.required" />
@@ -43,6 +39,16 @@
         </field-validator>
         <field-validator type="email">
             <message key="errors.email" />
+        </field-validator>
+    </field>
+	<field name="username">
+        <field-validator type="requiredstring">
+            <message key="errors.required" />
+        </field-validator>
+    </field>
+	<field name="password">
+        <field-validator type="requiredstring">
+            <message key="errors.required" />
         </field-validator>
     </field>
 </validators>

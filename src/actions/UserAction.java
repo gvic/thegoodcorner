@@ -26,16 +26,8 @@ public class UserAction extends ActionSupport {
 	
 	public String login() throws Exception {
 		System.out.println("=== login() method called ===");
-		HashMap<String, String> hm = new HashMap<String, String>();
-		hm.put("login", login);
-		hm.put("md5_mdp", UserServiceImpl.md5Encryption(password));
-		if (service.findByField(hm) != null) {
-			addActionMessage(getText("welcome")+" "+login);
-			return SUCCESS;
-		} else {
-			addActionError(getText("errors.login"));
-			return ERROR;
-		}
+		addActionMessage(getText("welcome")+" "+login);
+		return SUCCESS;
 	}
 	
 	// Server-side validation
@@ -53,6 +45,15 @@ public class UserAction extends ActionSupport {
 			mhm.put("email", userBean.getEmail());
 			if (!userBean.getEmail().equals("") && service.findByField(mhm)!=null) {
 				addFieldError("userBean.email", getText("email.used"));
+			}
+		}
+		// Validate LogIn form
+		if (login != null && password != null) {
+			HashMap<String, String> hm = new HashMap<String, String>();
+			hm.put("login", login);
+			hm.put("md5_mdp", UserServiceImpl.md5Encryption(password));
+			if (service.findByField(hm) == null) {
+				addActionError(getText("errors.login"));
 			}
 		}
 	}
