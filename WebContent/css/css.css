@@ -38,6 +38,9 @@ input:focus {
 	-webkit-box-shadow: 0px 0px 4px rgba(0,0,0,0.4);
 	box-shadow: 0px 0px 4px rgba(0,0,0,0.4);
 }
+.float-right {
+	float:right;	
+}
 #header{
 	background: #002fa7 url(images/header_rendering.png) repeat-x 0 -100px;
 	height: 155px;
@@ -174,3 +177,4 @@ input:focus {
 	border-top-right-radius: 2px;
 	border-bottom-right-radius: 2px;
 }
+

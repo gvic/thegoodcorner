@@ -9,7 +9,7 @@
 	<s:textfield name="userBean.nom" label="login.nom" />
 	<s:textfield name="userBean.prenom" label="login.prenom" />
 	<s:textfield name="userBean.email" label="login.email" />
-	<sj:submit button="true" value="login.submit" validate="true" indicator="indicator" />
+	<sj:submit button="true" value="login.submit" validate="true" indicator="indicator" cssClass="float-right" />
 </s:form>
 <img id="indicator" src="images/indicator.gif" alt="Loading..." style="display:none"/>
 
