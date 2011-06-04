@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.Remote;
 
@@ -26,8 +27,9 @@ public interface UserService {
         // obtenir les personnes dont le nom correspond àun modèle
         public List<User> getAllLike(String modele);
 
-		public boolean find(User u);
+        public boolean isUser(String username, String password);
 		
-		public boolean fieldAlreadyUsed(String field, String value) throws IllegalArgumentException; 
+        // Find user by map of fields-values
+		public User findByField(Map<String,String> fieldValue) throws IllegalArgumentException; 
 
 }

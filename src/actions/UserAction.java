@@ -1,6 +1,9 @@
 package actions;
 
+import java.util.HashMap;
 import java.util.Map;
+
+import org.apache.commons.collections.map.HashedMap;
 
 import com.google.inject.Inject;
 import com.opensymphony.xwork2.ActionContext;
@@ -14,15 +17,24 @@ public class UserAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 	@Inject UserService service;
 
+	// Signup form
 	private User userBean;
 	private String confirmPassword;
 	
+	// Login form
+	private String login;
+	private String password;
+	
 	public String login() throws Exception {
 		System.out.println("=== login() method called ===");
-		if (service.find(userBean)) {
+		HashMap<String, String> hm = new HashMap<String, String>();
+		hm.put("login", login);
+		hm.put("md5_mdp", password);
+		if (service.findByField(hm) != null) {
 			return SUCCESS;
 		} else {
-			return INPUT;
+			addActionError(getText("errors.login"));
+			return ERROR;
 		}
 	}
 	
@@ -31,10 +43,14 @@ public class UserAction extends ActionSupport {
 		System.out.println("=== validate() method called ===");
 		if (userBean != null) {
 			System.out.println(userBean.toString());
-			if (!userBean.getLogin().equals("") && service.fieldAlreadyUsed("login", userBean.getLogin())) {
+			HashMap<String,String> mhm = new HashMap<String,String>();
+			mhm.put("login", userBean.getLogin());
+			if (!userBean.getLogin().equals("") && service.findByField(mhm)!=null) {
 				addFieldError("userBean.login", getText("username.used"));
 			}
-			if (!userBean.getEmail().equals("") && service.fieldAlreadyUsed("email", userBean.getEmail())) {
+			mhm.clear();
+			mhm.put("email", userBean.getEmail());
+			if (!userBean.getEmail().equals("") && service.findByField(mhm)!=null) {
 				addFieldError("userBean.email", getText("email.used"));
 			}
 		}
@@ -70,6 +86,22 @@ public class UserAction extends ActionSupport {
 
 	public String getConfirmPassword() {
 		return confirmPassword;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getPassword() {
+		return password;
 	}
 
 }

@@ -3,13 +3,18 @@ package dao;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import entities.User;
 
@@ -58,36 +63,65 @@ public class UserServiceImpl implements UserService {
         public User saveOne(User u) {
         	User res = u;
     		u.setInscritDepuis(new Date(new java.util.Date().getTime())); // Subscribed today!
-    		String toEnc = u.getMd5_mdp();
+    		u.setMd5_mdp(md5Encryption(u.getMd5_mdp()));
+			if (res != null) {
+				em.persist(u);
+			}
+            return res;
+        }
+        
+        public String md5Encryption(String text) {
+    		String toEnc = text;
+    		String res = "";
     		MessageDigest mdEnc;
 			try {
 				mdEnc = MessageDigest.getInstance("MD5");// Encryption algorithm
 				mdEnc.update(toEnc.getBytes(), 0, toEnc.length());
-	    		u.setMd5_mdp(new java.math.BigInteger(1, mdEnc.digest()).toString(16)); // Encrypted string
-	            em.persist(u);
+	    		res = new java.math.BigInteger(1, mdEnc.digest()).toString(16); // Encrypted string
 			} catch (NoSuchAlgorithmException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				res = null;
-			} 
-            return res;
+			}
+			return res;
         }
         
         // Check if a field is already used?
         // throws Exception in case of bad field parameter
-        public boolean fieldAlreadyUsed(String field, String value) throws IllegalArgumentException {
-        	boolean res = false;
+        public User findByField(Map<String,String> fieldValue) throws IllegalArgumentException {
+        	User res = null;
         	try{
-        		User u = (User) em.createQuery("SELECT p FROM User p WHERE p."+field+"=:value")
-        							.setParameter("value", value).getSingleResult();
+        		Set<String> keys = fieldValue.keySet();
+        		Iterator<String> iteKeys = keys.iterator();
+        		Collection<String> values = fieldValue.values();
+        		Iterator<String> iteValues = values.iterator();
+        		String query = "SELECT p FROM User p WHERE";
+        		// Iterator on keys
+        		int i = 0;
+        		while(iteKeys.hasNext()) {
+        			if (i!=0) {
+        				query += " AND";
+        			}
+        			query += " p."+iteKeys.next()+"=:value"+i;
+        			i++;
+        		}
+        		Query q = em.createQuery(query);
+        		// Iterator on values
+        		i = 0;
+        		while(iteValues.hasNext()) {
+        			q.setParameter("value"+i, iteValues.next());
+        			i++;
+        		}
+        		User u = (User) q.getSingleResult();
         		if (u != null) {
-        			res = true;
+        			res = u;
         		}
         	} catch(NoResultException e) {
         		e.printStackTrace();
         	} catch(NonUniqueResultException e) {
         		e.printStackTrace();
         		// Very Strange if it happens!
+        	} catch(NullPointerException e) {
+        		e.printStackTrace();
         	}
         	return res;
         }
@@ -101,10 +135,12 @@ public class UserServiceImpl implements UserService {
         	return em.merge(u);
         }
 
-
-		@Override
-		public boolean find(User u) {
-			return em.contains(u);	
+		public boolean isUser(String username, String password) {
+			boolean res = false;
+			
+			
+			
+			return res;
 		}
 
 }
