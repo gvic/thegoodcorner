@@ -28,7 +28,7 @@
 			<result name="success" type="tiles" >/welcome.tiles</result>
 		</action>
 
-		<action name="Login_*" class="actions.UserAction" method="{1}">
+		<action name="Login_*" class="actions.LogInAction" method="{1}">
 			<interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>
 			<result name="input" type="tiles">/login.tiles</result>
 			<result name="error" type="tiles">/login.tiles</result>
@@ -37,7 +37,7 @@
 
 <!--		Use a WildCard for the called method-->
 <!--		This disable first validation (on page load) called by : signUp_input.action-->
-		<action name="SignUp_*" class="actions.UserAction" method="{1}">
+		<action name="SignUp_*" class="actions.SignUpAction" method="{1}">
 			<interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>
 			<result name="input" type="tiles">/signup.tiles</result>
 			<result name="error" type="tiles">/signup.tiles</result>

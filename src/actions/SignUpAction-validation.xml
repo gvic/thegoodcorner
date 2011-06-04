@@ -41,14 +41,14 @@
             <message key="errors.email" />
         </field-validator>
     </field>
-	<field name="username">
-        <field-validator type="requiredstring">
-            <message key="errors.required" />
-        </field-validator>
-    </field>
-	<field name="password">
-        <field-validator type="requiredstring">
-            <message key="errors.required" />
-        </field-validator>
-    </field>
+<!--	<field name="username">-->
+<!--        <field-validator type="requiredstring">-->
+<!--            <message key="errors.required" />-->
+<!--        </field-validator>-->
+<!--    </field>-->
+<!--	<field name="password">-->
+<!--        <field-validator type="requiredstring">-->
+<!--            <message key="errors.required" />-->
+<!--        </field-validator>-->
+<!--    </field>-->
 </validators>

@@ -3,14 +3,13 @@
         "-//OpenSymphony Group//XWork Validator 1.0.2//EN"
         "http://www.geniusweb.fr/xwork/xwork-validator-1.0.2.dtd">
 <validators>
-    <field name="titre">
+	<field name="username">
         <field-validator type="requiredstring">
-            <param name="trim">true</param>
             <message key="errors.required" />
         </field-validator>
     </field>
-    <field name="description">
-        <field-validator type="required">
+	<field name="password">
+        <field-validator type="requiredstring">
             <message key="errors.required" />
         </field-validator>
     </field>
