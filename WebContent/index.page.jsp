@@ -43,4 +43,46 @@
 		Lorem ipsum<br/>
 		Lorem ipsum<br/>
 	</div>
+	<div id="third-step">
+		<h1>3. Time has come</h1>
+		Lorem ipsum<br/>
+		Lorem ipsum<br/>
+		Lorem ipsum<br/>
+		Lorem ipsum<br/>
+		Lorem ipsum<br/>
+		Lorem ipsum<br/>
+		Lorem ipsum<br/>
+		Lorem ipsum<br/>
+		Lorem ipsum<br/>
+		Lorem ipsum<br/>
+		Lorem ipsum<br/>
+		Lorem ipsum<br/>
+		Lorem ipsum<br/>
+		Lorem ipsum<br/>
+		Lorem ipsum<br/>
+		Lorem ipsum<br/>
+		Lorem ipsum<br/>
+		Lorem ipsum<br/>
+	</div>
+	<div id="fourth-step">
+		<h1>4. Free at last</h1>
+		Lorem ipsum<br/>
+		Lorem ipsum<br/>
+		Lorem ipsum<br/>
+		Lorem ipsum<br/>
+		Lorem ipsum<br/>
+		Lorem ipsum<br/>
+		Lorem ipsum<br/>
+		Lorem ipsum<br/>
+		Lorem ipsum<br/>
+		Lorem ipsum<br/>
+		Lorem ipsum<br/>
+		Lorem ipsum<br/>
+		Lorem ipsum<br/>
+		Lorem ipsum<br/>
+		Lorem ipsum<br/>
+		Lorem ipsum<br/>
+		Lorem ipsum<br/>
+		Lorem ipsum<br/>
+	</div>
 </div>

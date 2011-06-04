@@ -48,6 +48,37 @@ body{
 	color: #ffa219;
 	font-weight: 900;
 }
+
+#header #nav-steps {
+	width: 980px;
+	margin: 0 auto;
+}
+#header .onglet {
+	float: right;
+	padding: 10px;
+	margin-right:10px;
+	position: relative;
+	top:76px;
+	background: #ffa219 url(images/onglet_rendering.png) no-repeat 0 100%;
+	border: 1px outset #444;
+	border-bottom: 0;
+	text-shadow: 2px 2px 1px #444;
+	font-weight: bold;
+	-webkit-border-top-left-radius: 4px;
+	-webkit-border-top-right-radius: 4px;
+	-moz-border-radius-topleft: 4px;
+	-moz-border-radius-topright: 4px;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	opacity:0.8;
+	-moz-box-shadow: -1px -1px 4px rgba(0,0,0,0.4);
+	-webkit-box-shadow: -1px -1px 4px rgba(0,0,0,0.4);
+	box-shadow: -1px -1px 4px rgba(0,0,0,0.4);
+	cursor: pointer;
+}
+#header .onglet:hover {
+	opacity:1;
+}
 #page {
 	width: 980px;
 	margin: 0 auto;

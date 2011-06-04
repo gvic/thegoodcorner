@@ -4,6 +4,16 @@
 	<a href="">The <span class="good">Good</span> Corner</a>
 </div>
 <div id="nav-steps">
-	<a href="#first-step">premier</a>
-	<a href="#second-step">deuxieme</a>
+	<div id="onglet_4step" class="onglet" title="#fourth-step">
+		Fourth Step
+	</div>
+	<div id="onglet_3step" class="onglet" title="#third-step">
+		Third Step
+	</div>
+	<div id="onglet_2step" class="onglet" title="#second-step">
+		Second Step
+	</div>
+	<div id="onglet_1step" class="onglet" title="#first-step">
+		First Step
+	</div>
 </div>
