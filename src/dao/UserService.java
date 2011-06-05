@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.ejb.Remote;
 
+import entities.Adresse;
 import entities.User;
 
 @Remote
@@ -31,4 +32,6 @@ public interface UserService {
 		
         // Find user by map of fields-values
 		public User findByField(Map<String,String> fieldValue) throws IllegalArgumentException; 
+		
+		public Adresse save(Adresse a);
 }

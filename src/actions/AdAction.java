@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.opensymphony.xwork2.ActionSupport;
 
 import dao.AdService;
+import entities.Annonce;
 import entities.Communaute;
 import entities.Departement;
 
@@ -12,6 +13,7 @@ public class AdAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 	@Inject AdService service;
 
+	private Annonce annonce;
 	private java.util.List<Communaute> departements;
 	private java.util.List<Departement> communautes;
 	
@@ -36,5 +38,14 @@ public class AdAction extends ActionSupport {
 	public void setCommunautes(java.util.List<Departement> communautes) {
 		this.communautes = communautes;
 	}
+	
+	public Annonce getAnnonce() {
+		return annonce;
+	}
+
+	public void setAnnonce(Annonce annonce) {
+		this.annonce = annonce;
+	}
+
 	
 }

@@ -16,6 +16,37 @@ public class Adresse {
 	private int codePostal;
 	@OneToOne
 	private Ville ville;
+	@OneToOne
+	private Departement departement;
+	@OneToOne
+	private Region region;
+	
+	@OneToOne
+	private User user;
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Departement getDepartement() {
+		return departement;
+	}
+
+	public void setDepartement(Departement departement) {
+		this.departement = departement;
+	}
+
+	public Region getRegion() {
+		return region;
+	}
+
+	public void setRegion(Region region) {
+		this.region = region;
+	}
 
 	public Adresse(){
 		super();

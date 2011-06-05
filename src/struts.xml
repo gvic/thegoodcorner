@@ -9,7 +9,7 @@
 	<!-- Use Guice as the ObjectFactory for this application -->
 	<constant name="struts.objectFactory" value="guice" />
 	<!-- When wiring actions use Guice bindings defined in the below module -->
-	<constant name="guice.module" value="core.EjbModule"/>
+	<constant name="guice.module" value="core.EjbModule" />
 	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
 	
 	<package name="default" extends="struts-default" namespace="/">
@@ -43,15 +43,12 @@
 			<result name="error" type="tiles">signup</result>
 			<result name="success" type="tiles">signup.success</result>
 		</action>
-		
-<!--		<action name="index" class="actions.AdAction">-->
-<!--			<result name="success">/index.jsp</result>-->
-<!--		</action>-->
-		
-<!--		<action name="listAdByCommunaute" class="actions.AdAction" method="getListAdByCommunaute">-->
-<!--			<result name="Communaute" type="tiles">/adList.jsp</result>-->
-<!--			<result name="Departement" type="tiles">/adList.jsp</result>-->
-<!--			<result name="Region" type="tiles">/adList.jsp</result>-->
-<!--		</action>-->
+
+		<action name="addAddresse" class="actions.AddresseAction"
+			method="addAddresse">
+			<result name="input">/adresse.jsp</result>
+			<result name="error">/adresse.jsp</result>
+			<result name="success" type="tiles" >welcome</result>
+		</action>
 	</package>
 </struts>

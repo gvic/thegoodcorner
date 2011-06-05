@@ -40,6 +40,11 @@ public class Annonce {
 	@OneToOne
 	private Adresse adresse;
 	
+	@OneToOne
+	private Departement departement;
+	@OneToOne
+	private Region region;
+	
 	@ManyToMany
 	// @JoinColumn(name = "categorie_id", nullable = false)
 	private Set<Categorie> categories;
@@ -162,6 +167,22 @@ public class Annonce {
 
 	public float getPrix() {
 		return prix;
+	}
+
+	public Departement getDepartement() {
+		return departement;
+	}
+
+	public void setDepartement(Departement departement) {
+		this.departement = departement;
+	}
+
+	public Region getRegion() {
+		return region;
+	}
+
+	public void setRegion(Region region) {
+		this.region = region;
 	}
 	
 	

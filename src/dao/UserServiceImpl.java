@@ -16,6 +16,7 @@ import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import entities.Adresse;
 import entities.User;
 
 @Stateless(mappedName="dao.UserServiceImpl")
@@ -141,6 +142,13 @@ public class UserServiceImpl implements UserService {
 			
 			
 			return res;
+		}
+
+		@Override
+		public Adresse save(Adresse a) {
+			if (em.find(Adresse.class, a.getId()) != null)
+				em.persist(a);				
+			return a;
 		}
 
 }
