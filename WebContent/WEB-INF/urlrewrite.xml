@@ -17,21 +17,30 @@
     </rule>
 
 	<rule>
-		<from>/signup/</from>
-		<to>/SignUp_input</to>
+		<from>/signup.html</from>
+		<to>%{context-path}/SignUp_input.action</to>
 	</rule>
 	<outbound-rule>
-		<from>/SignUp_input</from>
-		<to>/signup/</to>
-	</outbound-rule>	
+		<from>/SignUp_input.action</from>
+		<to>/signup.html</to>
+	</outbound-rule>
+		
+	<rule>
+		<from>/login.html</from>
+		<to>%{context-path}/Login_input.action</to>
+	</rule>
+	<outbound-rule>
+		<from>/Login_input.action</from>
+		<to>/login.html</to>
+	</outbound-rule>
 
 	<rule>
-		<from>/index</from>
-		<to>/index.html</to>
+		<from>/index.html</from>
+		<to>%{context-path}/index.action</to>
 	</rule>
 	<outbound-rule>
-		<from>/index.html</from>
-		<to>/index</to>
+		<from>/index.action</from>
+		<to>/index.html</to>
 	</outbound-rule>
 
 
