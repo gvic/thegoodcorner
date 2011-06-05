@@ -18,7 +18,7 @@
 
 	<rule>
 		<from>/signup/</from>
-		<to>/SignUp</to>
+		<to>/SignUp_input</to>
 	</rule>
 	<outbound-rule>
 		<from>/SignUp_input</from>
@@ -26,12 +26,12 @@
 	</outbound-rule>	
 
 	<rule>
-		<from>/index.html</from>
-		<to>/index</to>
-	</rule>
-	<outbound-rule>
 		<from>/index</from>
 		<to>/index.html</to>
+	</rule>
+	<outbound-rule>
+		<from>/index.html</from>
+		<to>/index</to>
 	</outbound-rule>
 
 
