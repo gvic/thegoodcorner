@@ -30,8 +30,8 @@
 
 		<action name="Login_*" class="actions.LogInAction" method="{1}">
 			<interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>
-			<result name="input" type="tiles">login</result>
-			<result name="error" type="tiles">login</result>
+			<result name="input" >/login.jsp</result>
+			<result name="error" >/login.jsp</result>
 			<result name="success" type="tiles" >welcome</result>
 		</action>
 

@@ -120,6 +120,15 @@ input:focus {
 	background-color: rgba(255, 162, 25, 0.9);
 	display: none;/* Don't display the steps onglet by default.. */
 }
+#header #login {
+	position: absolute;
+	top:50%;
+	left:50%;
+	border: 5px solid rgba(170,170,170,0.4);
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
 #page {
 	width: 980px;
 	margin: 30px auto;
@@ -155,7 +164,7 @@ input:focus {
 	background-color: rgba(0,0,0,0.1);
 	padding:2px 4px 2px 4px;
 	margin:0;
-	border-left:1px solid grey;
+	border-left:1px solid #aaa;
 }
 #footer .nav .item:hover{
 	background-color: rgba(0,0,0,0.05);
