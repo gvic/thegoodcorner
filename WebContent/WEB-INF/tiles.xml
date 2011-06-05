@@ -5,6 +5,7 @@
 <tiles-definitions>
     <definition name="baseLayout" template="/BaseLayout.jsp">
    		<put-attribute name="title" value="" />
+   		<put-attribute name="logCheck" value="" />
         <put-attribute name="header" value="/header.jsp" />
         <put-attribute name="body" value="" />
         <put-attribute name="footer" value="/footer.jsp" />   
@@ -20,7 +21,10 @@
         	<add-attribute type="string" value="js/jquery.scrollTo-1.4.2-min.js"/>
         </put-list-attribute>
     </definition>
-    <definition name="welcome" extends="baseLayoutDressedUp">
+    <definition name="baseLayoutLogged" extends="baseLayoutDressedUp">
+   		<put-attribute name="loginCheck" value="/inc/loginCheck.jsp" />
+    </definition>    
+    <definition name="welcome" extends="baseLayoutLogged">
         <put-attribute name="title" value="Welcome" />
         <put-attribute name="body" value="/index.page.jsp" />
         <put-list-attribute name="scripts">

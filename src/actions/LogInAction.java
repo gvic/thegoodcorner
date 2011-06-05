@@ -1,8 +1,10 @@
 package actions;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import com.google.inject.Inject;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import dao.UserService;
@@ -20,6 +22,8 @@ public class LogInAction extends ActionSupport {
 	public String login() throws Exception {
 		System.out.println("=== login() method called ===");
 		addActionMessage(getText("welcome")+" "+login);
+		Map session = ActionContext.getContext().getSession();
+		session.put("logged-in","true");
 		return SUCCESS;
 	}
 	
@@ -36,6 +40,12 @@ public class LogInAction extends ActionSupport {
 			}
 		}
 	}
+	
+	 public String logout() throws Exception {
+		  Map session = ActionContext.getContext().getSession();
+		  session.remove("logged-in");
+		  return SUCCESS;
+	  }
 
 	public void setLogin(String login) {
 		this.login = login;

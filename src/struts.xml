@@ -24,7 +24,7 @@
 			<result type="tiles">welcome</result>
 		</action>
 				
-		<action name="logout" class="actions.UserAction">
+		<action name="logout" class="actions.LogInAction" method="logout">
 			<result name="success" type="tiles" >welcome</result>
 		</action>
 
