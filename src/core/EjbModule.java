@@ -19,8 +19,8 @@ public class EjbModule implements Module {
     binder.bind(UserService.class)
           .toProvider(fromJndi(UserService.class, "dao.UserServiceImpl"));
     
-    binder.bind(AdService.class)
-    .toProvider(fromJndi(AdService.class, "dao.AdServiceImpl"));
+//    binder.bind(AdService.class)
+//    .toProvider(fromJndi(AdService.class, "dao.AdServiceImpl"));
     
 //    binder.bind(AdminService.class)
 //    .toProvider(fromJndi(AdminService.class, "dao.AdminServiceImpl"));
