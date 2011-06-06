@@ -1,4 +1,4 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <s:if test="%{#session.loggedin != 'true'}">
-  <jsp:forward page="/index.html" />  
+  <s:action name="index"></s:action>  
 </s:if>

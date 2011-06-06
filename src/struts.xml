@@ -29,7 +29,7 @@
 		</action>
 				
 		<action name="logout" class="actions.LogInAction" method="logout">
-			<result type="tiles" >welcome</result>
+			<result name="success" type="redirect">/index.html</result>
 		</action>
 
 		<action name="Login_*" class="actions.LogInAction" method="{1}">

@@ -4,7 +4,6 @@
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
-<tiles:insertAttribute name="loginCheck"  ignore="true"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,6 +24,8 @@
 </c:forEach>
 </head>
 <body>
+<!-- If login needed, the loginCheck.jsp will check the session for you -->
+<tiles:insertAttribute name="loginCheck"  ignore="true"/>
 	<div id="wrapper">
 		<div id="header">
 			<tiles:insertAttribute name="header" />
