@@ -34,9 +34,12 @@ public class LogInAction extends ActionSupport {
 		if (login != null && password != null) {
 			HashMap<String, String> hm = new HashMap<String, String>();
 			hm.put("login", login);
-			hm.put("md5_mdp", UserServiceImpl.md5Encryption(password));
 			if (service.findByField(hm) == null) {
 				addActionError(getText("errors.login"));
+			}
+			hm.put("md5_mdp", UserServiceImpl.md5Encryption(password));
+			if (service.findByField(hm) == null) {
+				addActionError(getText("errors.password"));
 			}
 		}
 	}

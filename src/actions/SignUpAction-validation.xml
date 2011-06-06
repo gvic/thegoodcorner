@@ -7,6 +7,10 @@
         <field-validator type="requiredstring">
             <message key="errors.required" />
         </field-validator>
+        <field-validator type="stringlength">
+        	<param name="minLength">4</param>
+            <message key="errors.login.tooshort" />
+        </field-validator>
     </field>
     <field name="userBean.md5_mdp">
         <field-validator type="stringlength">
