@@ -14,7 +14,7 @@
 		</s:a>
 		<!--AJAX Login popup!-->
 		<s:url id="ajaxTest" value="/Login_input.action"/>
-		<sj:a id="link1" href="%{ajaxTest}" targets="login" effect="scale" effectMode="show"> 
+		<sj:a id="link1" href="%{ajaxTest}" targets="login" effect="scale" effectMode="show" effectDuration="300"> 
 			<div id="onglet-login" class="onglet">
 				Log In
 			</div>
