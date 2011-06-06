@@ -9,6 +9,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import dao.UserService;
 import dao.UserServiceImpl;
+import entities.User;
 
 
 public class LogInAction extends ActionSupport {
@@ -22,8 +23,15 @@ public class LogInAction extends ActionSupport {
 	public String login() throws Exception {
 		System.out.println("=== login() method called ===");
 		addActionMessage(getText("welcome")+" "+login);
-		Map session = ActionContext.getContext().getSession();
-		session.put("logged-in","true");
+		
+		HashMap<String, String> hm = new HashMap<String, String>();
+		hm.put("login", login);
+		hm.put("md5_mdp", UserServiceImpl.md5Encryption(password));
+		User u = service.findByField(hm);
+		
+		Map<String,Object> session = ActionContext.getContext().getSession();
+		session.put("loggedin","true");
+		session.put("userId",u.getId());
 		return SUCCESS;
 	}
 	
@@ -45,8 +53,9 @@ public class LogInAction extends ActionSupport {
 	}
 	
 	 public String logout() throws Exception {
-		  Map session = ActionContext.getContext().getSession();
-		  session.remove("logged-in");
+		  Map<String,Object>  session = ActionContext.getContext().getSession();
+		  session.remove("loggedin");
+		  session.remove("userId");
 		  return SUCCESS;
 	  }
 

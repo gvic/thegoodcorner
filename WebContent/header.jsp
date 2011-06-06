@@ -7,7 +7,7 @@
 <s:actionmessage/>
 <div id="onglet-wrapper">
 	<div id="nav-login">
-		<s:if test="#session.logged-in != 'true'">
+		<s:if test="#session.loggedin = 'true'">
 			<s:a action="logout" >
 				<div id="onglet-logout" class="onglet">
 					<s:text name="menu.logout" />
