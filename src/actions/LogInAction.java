@@ -3,6 +3,8 @@ package actions;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.struts2.interceptor.validation.SkipValidation;
+
 import com.google.inject.Inject;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -52,12 +54,14 @@ public class LogInAction extends ActionSupport {
 		}
 	}
 	
-	 public String logout() throws Exception {
-		  Map<String,Object>  session = ActionContext.getContext().getSession();
-		  session.remove("loggedin");
-		  session.remove("userId");
-		  return SUCCESS;
-	  }
+	@SkipValidation
+	public String logout() throws Exception {
+		System.out.println("=== logout() method called ===");
+		Map<String,Object>  session = ActionContext.getContext().getSession();
+		session.remove("loggedin");
+		session.remove("userId");
+		return SUCCESS;
+  	}
 
 	public void setLogin(String login) {
 		this.login = login;
