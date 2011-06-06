@@ -22,9 +22,9 @@ public class EjbModule implements Module {
     binder.bind(AdService.class)
     .toProvider(fromJndi(AdService.class, "dao.AdServiceImpl"));
     
-    binder.bind(AdminService.class)
-    .toProvider(fromJndi(AdminService.class, "dao.AdminServiceImpl"));
-    
+//    binder.bind(AdminService.class)
+//    .toProvider(fromJndi(AdminService.class, "dao.AdminServiceImpl"));
+//    
     
   }
 }
