@@ -31,4 +31,6 @@ public interface AdService {
 	
 	public ArrayList<Annonce> listAnnoncesFrom(Region r);
 	
+	public void save(Annonce annonce);
+	
 }

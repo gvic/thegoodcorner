@@ -45,4 +45,9 @@
         <put-attribute name="title" value="Welcome" />
         <put-attribute name="body" value="/success.jsp" />
     </definition>
+    
+    <definition name="submitAd" extends="baseLayoutDressedUp">
+        <put-attribute name="title" value="Submit an ad" />
+        <put-attribute name="body" value="/submitAd.jsp" />
+    </definition>
 </tiles-definitions>

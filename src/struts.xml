@@ -50,5 +50,11 @@
 			<result name="error">/adresse.jsp</result>
 			<result name="success" type="tiles" >welcome</result>
 		</action>
+		
+		<action name="submitAd" class="actions.AdAction" method="submitAd">
+			<result name="input" type="tiles">submitAd</result>
+			<result name="error" type="tiles">submitAd</result>
+			<result name="success" type="tiles">welcome</result>
+		</action>
 	</package>
 </struts>

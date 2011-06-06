@@ -45,6 +45,7 @@ public class Annonce {
 	@OneToOne
 	private Region region;
 	
+	
 	@ManyToMany
 	// @JoinColumn(name = "categorie_id", nullable = false)
 	private Set<Categorie> categories;
@@ -52,9 +53,9 @@ public class Annonce {
 	@ManyToMany
 	private Set<Communaute> communautes;
 	
-	private String titre;
+	private String title;
 	private String description;
-	private float prix;
+	private float price;
 	
 	@Basic()
 	@Temporal(TemporalType.DATE)
@@ -81,12 +82,12 @@ public class Annonce {
 		this.user = user;
 	}
 
-	public String getTitre() {
-		return titre;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setTitre(String titre) {
-		this.titre = titre;
+	public void setTitle(String titre) {
+		this.title = titre;
 	}
 
 	public String getDescription() {
@@ -161,12 +162,12 @@ public class Annonce {
 		return adresse;
 	}
 
-	public void setPrix(float prix) {
-		this.prix = prix;
+	public void setPrice(float price) {
+		this.price = price;
 	}
 
-	public float getPrix() {
-		return prix;
+	public float getPrice() {
+		return price;
 	}
 
 	public Departement getDepartement() {

@@ -87,4 +87,9 @@ public class AdServiceImpl implements AdService {
 		return null;
 	}
 
+	@Override
+	public void save(Annonce annonce) {
+		em.persist(annonce);		
+	}
+
 }
