@@ -7,18 +7,28 @@
 <s:actionmessage/>
 <div id="onglet-wrapper">
 	<div id="nav-login">
-		<s:a action="SignUp_input" >
-			<div id="onglet-signup" class="onglet">
-				Sign Up !
-			</div>
-		</s:a>
-		<!--AJAX Login popup!-->
-		<s:url id="ajaxTest" value="/Login_input.action"/>
-		<sj:a id="link1" href="%{ajaxTest}" targets="login" effect="scale" effectMode="show" effectDuration="300"> 
-			<div id="onglet-login" class="onglet">
-				Log In
-			</div>
-		</sj:a>
+		<s:if test="#session.logged-in != 'true'">
+			<s:a action="logout" >
+				<div id="onglet-logout" class="onglet">
+					<s:text name="menu.logout" />
+				</div>
+			</s:a>
+		</s:if>
+		<s:else>
+			<s:a action="SignUp_input" >
+				<div id="onglet-signup" class="onglet">
+					<s:text name="menu.signup" />
+				</div>
+			</s:a>
+			<!--AJAX Login popup!-->
+			<s:url id="ajaxTest" value="/Login_input.action"/>
+			<sj:a id="link1" href="%{ajaxTest}" targets="login" effect="scale" effectMode="show" effectDuration="300"> 
+				<div id="onglet-login" class="onglet">
+					<s:text name="menu.login" />
+				</div>
+			</sj:a>
+		</s:else>
+		
 	</div>
 	<div id="nav-steps">		
 		<div id="onglet-4step" class="onglet" title="#fourth-step">
