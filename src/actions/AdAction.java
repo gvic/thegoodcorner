@@ -17,8 +17,6 @@ public class AdAction extends ActionSupport {
 	@Inject	AdService service;
 
 	private Annonce annonce;
-	// private List<Departement> departements;
-	// private List<Communaute> communautes;
 	private List<String> geographicAreas;
 	private List<Communaute> communautes;
 
@@ -41,14 +39,10 @@ public class AdAction extends ActionSupport {
 		return super.input();
 	}
 
-	public String submitAd() {
-
+	public String processDatas() {
+		System.out.println(annonce.getDescription());
 		service.save(annonce);
-
-		if (annonce != null)
-			return SUCCESS;
-		else
-			return INPUT;
+		return SUCCESS;	
 	}
 
 	public List<String> getGeographicAreas() {

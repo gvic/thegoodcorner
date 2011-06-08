@@ -3,7 +3,7 @@
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 
 <s:actionerror/>
-<s:form id="submitAdForm" theme="xhtml" action="submitAd" method="submitAd">
+<s:form id="submitAdForm" theme="xhtml" action="populateAd_processDatas">
 	<s:select list="geographicAreas"></s:select>
 	<s:select list="communautes"></s:select>
 	<s:textfield name="annonce.title" key="annonce.title" />

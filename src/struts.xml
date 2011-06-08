@@ -52,17 +52,17 @@
 			<result type="tiles">populateIndex</result>
 		</action>
 
-		<action name="addCommunaute_*" class="actions.PopulateAction"
-			method="addCommunaute_{1}">
-			<result name="input">/adresse.jsp</result>
-			<result name="error">/adresse.jsp</result>
-			<result name="success" type="tiles" >welcome</result>
+		<action name="addCommunaute" class="actions.PopulateAction"
+			method="addCommunaute">
+			<result name="input" type="tiles">addCommunaute</result>
+			<result name="error" type="tiles">addCommunaute</result>
+			<result name="success" type="tiles" >populateIndex</result>
 		</action>
 		
-		<action name="submitAd" class="actions.AdAction" method="input">
+		<action name="populateAd_*" class="actions.AdAction" method="{1}">
 			<result name="input" type="tiles">submitAd</result>
 			<result name="error" type="tiles">submitAd</result>
-			<result name="success" type="tiles">submitAd</result>
+			<result name="success" type="tiles">welcome</result>
 		</action>
 		
 		<action name="showAccount" class="actions.AccountAction" method="showAccount">

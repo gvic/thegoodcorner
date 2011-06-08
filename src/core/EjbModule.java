@@ -7,7 +7,6 @@ import com.google.inject.Binder;
 import com.google.inject.Module;
 
 import dao.AdService;
-import dao.AdminService;
 import dao.UserService;
 
 public class EjbModule implements Module {
@@ -19,12 +18,12 @@ public class EjbModule implements Module {
     binder.bind(UserService.class)
           .toProvider(fromJndi(UserService.class, "dao.UserServiceImpl"));
     
-//    binder.bind(AdService.class)
-//    .toProvider(fromJndi(AdService.class, "dao.AdServiceImpl"));
+    binder.bind(AdService.class)
+    .toProvider(fromJndi(AdService.class, "dao.AdServiceImpl"));
     
-//    binder.bind(AdminService.class)
-//    .toProvider(fromJndi(AdminService.class, "dao.AdminServiceImpl"));
-//    
+    binder.bind(dao.PopulateService.class)
+    .toProvider(fromJndi(dao.PopulateService.class, "dao.PopulateServiceImpl"));
+    
     
   }
 }
