@@ -3,11 +3,11 @@
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 
 <s:actionerror/>
-<s:form id="submitAdForm" theme="xhtml" action="populateAd_processDatas">
-	<s:select list="geographicAreas"></s:select>
-	<s:select list="communautes"></s:select>
-	<s:textfield name="annonce.title" key="annonce.title" />
-	<s:textarea cols="50" rows="10" name="annonce.description" key="annonce.description"/>
-	<s:textfield name="annonce.price" key="annonce.price"/>
+<s:form id="submitAdForm" theme="xhtml" action="populateAd_input">
+	<s:select name="geographicArea" list="geographicAreas"></s:select>
+	<s:select multiple="true" key="sCommunautes" list="communautes"></s:select>
+	<s:textfield name="title" key="title" />
+	<s:textarea cols="50" rows="10" name="description" key="description"/>
+	<s:textfield name="price" key="price"/>
 	<sj:submit button="true" value="login.submit" validate="true" indicator="indicator" cssClass="float-right"/>
 </s:form>
