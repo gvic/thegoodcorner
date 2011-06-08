@@ -4,6 +4,8 @@ import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -11,14 +13,17 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Departement")
-public class Departement {
+public class Departement implements Comparable<Departement> {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
+	// numero en string pour la corse par exemple...
+	private String numero;
 	private String nom;
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy = "departement")
+	@OneToMany(fetch=FetchType.EAGER, mappedBy = "departement")
 	private Set<Ville> villes;
 	
 	@ManyToOne
@@ -54,5 +59,10 @@ public class Departement {
 
 	public Region getRegion() {
 		return region;
+	}
+
+	@Override
+	public int compareTo(Departement o) {
+		return nom.compareTo(o.getNom());
 	}
 }

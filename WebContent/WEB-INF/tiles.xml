@@ -24,7 +24,7 @@
     <definition name="baseLayoutLogged" extends="baseLayoutDressedUp">
    		<put-attribute name="loginCheck" value="/inc/loginCheck.jsp" />
     </definition>    
-    <definition name="welcome" extends="baseLayoutDressedUp">
+    <definition name="welcome" extends="baseLayoutLogged">
         <put-attribute name="title" value="Welcome" />
         <put-attribute name="body" value="/index.page.jsp" />
         <put-list-attribute name="scripts">
@@ -51,10 +51,18 @@
         <put-attribute name="body" value="/submitAd.jsp" />
     </definition>
     
+    <definition name="populateIndex" extends="baseLayoutDressedUp">
+        <put-attribute name="title" value="Adminstration" />
+        <put-attribute name="body" value="/populateIndex.jsp" />
+    </definition>
+    
+    <definition name="addCommunaute" extends="baseLayoutDressedUp">
+        <put-attribute name="title" value="Adminstration | Ajout d'une communauté" />
+        <put-attribute name="body" value="/addCommunaute.jsp" />
+    </definition>
+    
     <definition name="testLogged" extends="baseLayoutLogged">
         <put-attribute name="title" value="Logged page" />
         <put-attribute name="body" value="/logged.jsp" />
     </definition>
-        
-    
 </tiles-definitions>

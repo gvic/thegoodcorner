@@ -10,6 +10,8 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.EntityType;
+import javax.persistence.metamodel.Metamodel;
 
 import entities.Annonce;
 import entities.Categorie;
@@ -38,7 +40,7 @@ public class AdServiceImpl implements AdService {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Departement> cq = cb.createQuery(Departement.class);
 		Root<Departement> rootDep= cq.from(Departement.class);
-		TypedQuery<Departement> query = em.createQuery(cq.select(rootDep));
+		TypedQuery<Departement> query = em.createQuery(cq.select(rootDep).distinct(true));
 		return query.getResultList();
 	}
 
@@ -46,8 +48,8 @@ public class AdServiceImpl implements AdService {
 	public List<Communaute> getCommunautes() {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Communaute> cq = cb.createQuery(Communaute.class);
-		Root<Communaute> rootDep= cq.from(Communaute.class);
-		TypedQuery<Communaute> query = em.createQuery(cq.select(rootDep));
+		Root<Communaute> rootComm= cq.from(Communaute.class);
+		TypedQuery<Communaute> query = em.createQuery(cq.select(rootComm).distinct(true));
 		return query.getResultList();
 	}
     
@@ -90,6 +92,19 @@ public class AdServiceImpl implements AdService {
 	@Override
 	public void save(Annonce annonce) {
 		em.persist(annonce);		
+	}
+
+	@Override
+	public List<Region> getRegions() {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Region> cq = cb.createQuery(Region.class);
+		Root<Region> rootReg= cq.from(Region.class);
+		cq.select(rootReg);
+		cq.distinct(true);
+		cq.orderBy(cb.asc(rootReg.get("nom")));
+		TypedQuery<Region> query = em.createQuery(cq);
+		System.out.println(query.getResultList().size());
+		return query.getResultList();
 	}
 
 }

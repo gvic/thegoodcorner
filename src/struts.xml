@@ -48,17 +48,21 @@
 			<result name="success" type="tiles">signup.success</result>
 		</action>
 
-		<action name="addAddresse" class="actions.AddresseAction"
-			method="addAddresse">
+		<action name="admin" class="actions.PopulateAction" method="adminPopulate">
+			<result type="tiles">populateIndex</result>
+		</action>
+
+		<action name="addCommunaute_*" class="actions.PopulateAction"
+			method="addCommunaute_{1}">
 			<result name="input">/adresse.jsp</result>
 			<result name="error">/adresse.jsp</result>
 			<result name="success" type="tiles" >welcome</result>
 		</action>
 		
-		<action name="submitAd" class="actions.AdAction" method="submitAd">
+		<action name="submitAd" class="actions.AdAction" method="input">
 			<result name="input" type="tiles">submitAd</result>
 			<result name="error" type="tiles">submitAd</result>
-			<result name="success" type="tiles">welcome</result>
+			<result name="success" type="tiles">submitAd</result>
 		</action>
 	</package>
 </struts>

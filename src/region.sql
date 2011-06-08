@@ -1,0 +1,25 @@
+-- Il faut commencer par cette requete avant celle des département
+-- car ils ont une relation avec la table region NOT NULL
+
+INSERT INTO region(nom) VALUES ('Alsace') 
+,('Aquitaine')
+,('Auvergne')  
+,('Basse Normandie')   
+,('Bourgogne')   
+,('Bretagne')   
+,('Centre')   
+,('Champagne Ardenne')   
+,('Corse')   
+,('Franche Comte')   
+,('Haute Normandie')   
+,('Ile de France')   
+,('Languedoc Roussillon')   
+,('Limousin')   
+,('Lorraine')   
+,('Midi-Pyrénées')   
+,('Nord Pas de Calais')   
+,('Provence Alpes Côte d''Azur')   
+,('Pays de la Loire')   
+,('Picardie')   
+,('Poitou Charente')   
+,('Rhone Alpes');  

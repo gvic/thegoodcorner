@@ -14,7 +14,7 @@ import javax.persistence.Table;
 public class Communaute {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	private String denomination;
@@ -69,4 +69,8 @@ public class Communaute {
 	public Set<Annonce> getAnnonces() {
 		return annonces;
 	}	
+	
+	public String toString(){
+		return getDenomination();
+	}
 }
