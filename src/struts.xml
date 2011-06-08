@@ -64,5 +64,18 @@
 			<result name="error" type="tiles">submitAd</result>
 			<result name="success" type="tiles">submitAd</result>
 		</action>
+		
+		<action name="showAccount" class="actions.AccountAction" method="showAccount">
+			<result name="input" type="tiles">account</result>
+			<result name="error" type="tiles">account</result>
+			<result name="success" type="tiles">welcome</result>
+		</action>
+		
+<!--		<action name="updateAccount" class="actions.AccountAction" method="updateAccount">-->
+<!--			<result name="input" type="tiles">account</result>-->
+<!--			<result name="error" type="tiles">account</result>-->
+<!--			<result name="success" type="tiles">welcome</result>-->
+<!--		</action>-->
+		
 	</package>
 </struts>

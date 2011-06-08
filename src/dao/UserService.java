@@ -34,4 +34,5 @@ public interface UserService {
 		public User findByField(Map<String,String> fieldValue) throws IllegalArgumentException; 
 		
 		public Adresse save(Adresse a);
+		
 }

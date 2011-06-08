@@ -51,6 +51,11 @@
         <put-attribute name="body" value="/submitAd.jsp" />
     </definition>
     
+    <definition name="updateAccount" extends="baseLayoutDressedUp">
+        <put-attribute name="title" value="Update an account" />
+        <put-attribute name="body" value="/account.jsp" />
+    </definition>
+    
     <definition name="populateIndex" extends="baseLayoutDressedUp">
         <put-attribute name="title" value="Adminstration" />
         <put-attribute name="body" value="/populateIndex.jsp" />
@@ -65,4 +70,5 @@
         <put-attribute name="title" value="Logged page" />
         <put-attribute name="body" value="/logged.jsp" />
     </definition>
+
 </tiles-definitions>
