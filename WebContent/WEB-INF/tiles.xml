@@ -51,8 +51,13 @@
         <put-attribute name="body" value="/submitAd.jsp" />
     </definition>
     
-    <definition name="updateAccount" extends="baseLayoutDressedUp">
-        <put-attribute name="title" value="Update an account" />
+<!--    <definition name="updateAccount" extends="baseLayoutDressedUp">-->
+<!--        <put-attribute name="title" value="Update an account" />-->
+<!--        <put-attribute name="body" value="/account.jsp" />-->
+<!--    </definition>-->
+    
+    <definition name="showAccount" extends="baseLayoutDressedUp">
+        <put-attribute name="title" value="Show an account" />
         <put-attribute name="body" value="/account.jsp" />
     </definition>
     

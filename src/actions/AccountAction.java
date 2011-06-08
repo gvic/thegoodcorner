@@ -13,13 +13,17 @@ public class AccountAction extends ActionSupport{
 	private String name, firstname, email, login;
 	
 	public String showAccount(){
-		int id = 1;
+		int id = 16;
 		entities.User u = service.getOne(id) ;
 		setName(u.getNom());
 		firstname = u.getPrenom();
 		email = u.getEmail();
 		setLogin(u.getLogin());
 		
+		return SUCCESS;
+	}
+	
+	public String updateAccount(){
 		return SUCCESS;
 	}
 
