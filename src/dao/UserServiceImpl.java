@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
         }
 
         // obtenir une u via son identifiant
-        public User getOne(Integer id) {
+        public User getOne(long id) {
         	return em.find(User.class, id);
         }
 

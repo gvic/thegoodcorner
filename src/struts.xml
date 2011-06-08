@@ -65,17 +65,23 @@
 			<result name="success" type="tiles">welcome</result>
 		</action>
 		
-		<action name="showAccount" class="actions.AccountAction" method="showAccount">
-			<result name="input" type="tiles">account</result>
-			<result name="error" type="tiles">account</result>
-			<result name="success" type="tiles">welcome</result>
+<!--		<action name="showAccount" class="actions.AccountAction" method="showAccount">-->
+<!--			<result name="input" type="tiles">showAccount</result>-->
+<!--			<result name="error" type="tiles">showAccount</result>-->
+<!--			<result name="success" type="tiles">showAccount</result>-->
+<!--		</action>-->
+		
+		<action name="updateAccount" class="actions.AccountAction" method="showAccount">
+			<result name="input" type="tiles">updateAccount</result>
+			<result name="error" type="tiles">updateAccount</result>
+			<result name="success" type="tiles">updateAccount</result>
 		</action>
 		
-<!--		<action name="updateAccount" class="actions.AccountAction" method="updateAccount">-->
-<!--			<result name="input" type="tiles">account</result>-->
-<!--			<result name="error" type="tiles">account</result>-->
-<!--			<result name="success" type="tiles">welcome</result>-->
-<!--		</action>-->
+		<action name="updateAccountResult" class="actions.AccountAction" method="updateAccount">
+			<result name="input" type="tiles">updateAccount</result>
+			<result name="error" type="tiles">updateAccount</result>
+			<result name="success" type="tiles">updateAccountSuccess</result>
+		</action>
 		
 	</package>
 </struts>

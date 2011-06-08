@@ -11,7 +11,7 @@ import entities.User;
 @Remote
 public interface UserService {
         // obtenir une personne via son identifiant
-        public User getOne(Integer id);
+        public User getOne(long id);
 
         // obtenir toutes les personnes
         public List<User> getAll();
