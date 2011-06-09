@@ -18,7 +18,7 @@ body{
 	line-height: 1.2;
 */
 }
-input.active{
+input{
 	border: 1px solid rgba(100, 100, 100, 0.5);
 	border-radius: 4px;
 	background-color: rgba(255, 255, 255, 0.5);
@@ -26,17 +26,30 @@ input.active{
 	text-shadow: 1px 1px 2px white;
 	font-family: 'Muli';
 }
-input.active:hover {
+input:hover {
 	border: 1px solid rgba(100, 100, 100, 0.7);
 	background-color: rgba(255, 255, 255, 1);
 	-moz-box-shadow: 0px 0px 4px rgba(0,0,0,0.4);
 	-webkit-box-shadow: 0px 0px 4px rgba(0,0,0,0.4);
 	box-shadow: 0px 0px 4px rgba(0,0,0,0.4);
 }
-input.active:focus {
+input:focus {
 	-moz-box-shadow: 0px 0px 4px rgba(0,0,0,0.4);
 	-webkit-box-shadow: 0px 0px 4px rgba(0,0,0,0.4);
 	box-shadow: 0px 0px 4px rgba(0,0,0,0.4);
+}
+input.disabled{
+	background-color: rgba(200, 200, 200, 0.8);
+}
+input.disabled:hover {
+	-moz-box-shadow: 0px 0px 0px rgba(0,0,0,0.4);
+	-webkit-box-shadow: 0px 0px 0px rgba(0,0,0,0.4);
+	box-shadow: 0px 0px 0px rgba(0,0,0,0.4);
+}
+input.disabled:focus {
+	-moz-box-shadow: 0px 0px 0px rgba(0,0,0,0.4);
+	-webkit-box-shadow: 0px 0px 0px rgba(0,0,0,0.4);
+	box-shadow: 0px 0px 0px rgba(0,0,0,0.4);
 }
 .float-right {
 	float:right;	
