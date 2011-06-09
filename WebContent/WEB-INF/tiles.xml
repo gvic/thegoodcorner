@@ -14,11 +14,11 @@
     </definition>
     <definition name="baseLayoutDressedUp" extends="baseLayout">
     	<put-list-attribute name="css" >
-        	<add-attribute type="string" value="css/css.css"/>
+        	<add-attribute type="string" value="/css/css.css"/>
         	<add-attribute type="string" value="http://fonts.googleapis.com/css?family=Muli:light,regular|Raleway:100"/>
         </put-list-attribute>
         <put-list-attribute name="scripts" >
-        	<add-attribute type="string" value="js/jquery.scrollTo-1.4.2-min.js"/>
+        	<add-attribute type="string" value="/js/jquery.scrollTo-1.4.2-min.js"/>
         </put-list-attribute>
     </definition>
     <definition name="baseLayoutLogged" extends="baseLayoutDressedUp">
@@ -28,9 +28,9 @@
         <put-attribute name="title" value="Welcome" />
         <put-attribute name="body" value="/index.page.jsp" />
         <put-list-attribute name="scripts">
-        	<add-attribute type="string" value="js/jquery.scrollTo-1.4.2-min.js"/>
-        	<add-attribute type="string" value="js/index.init.js"/>
-        	<add-attribute type="string" value="js/jquery.easing.1.3.js"/>
+        	<add-attribute type="string" value="/js/jquery.scrollTo-1.4.2-min.js"/>
+        	<add-attribute type="string" value="/js/index.init.js"/>
+        	<add-attribute type="string" value="/js/jquery.easing.1.3.js"/>
        	</put-list-attribute>
     </definition>
     <definition name="loginPage" extends="baseLayoutDressedUp">

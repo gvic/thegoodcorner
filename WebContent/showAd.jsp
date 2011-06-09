@@ -6,12 +6,12 @@
 
 <s:div id="ad_%{annonceBean.id}">
 <h2 class="ad-title"><s:property value="annonceBean.title"/></h2>
-<s:div cssClass="ad-description">
+<div class="ad-description">
 <s:property value="annonceBean.description"/>
-</s:div>
-<s:div cssClass="ad-price">
+</div>
+<div class="ad-price">
 <s:property value="annonceBean.price"/>
-</s:div>
+</div>
 </s:div>
 
 
