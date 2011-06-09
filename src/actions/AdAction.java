@@ -10,6 +10,7 @@ import com.google.inject.Inject;
 import com.opensymphony.xwork2.ActionSupport;
 import dao.AdService;
 import entities.Annonce;
+import entities.Categorie;
 import entities.Communaute;
 import entities.Departement;
 import entities.Region;
@@ -25,6 +26,7 @@ public class AdAction extends ActionSupport {
 	private String description;
 	private int price;
 	private List<String> geographicAreas;
+	private List<String> categories;
 	private List<Communaute> communautes;
 	private String geographicArea;
 
@@ -52,6 +54,7 @@ public class AdAction extends ActionSupport {
 
 		} else {
 			List<Region> regions = service.getRegions();
+			List<Categorie> cats = service.getCategories();
 			setCommunautes(service.getCommunautes());
 			geographicAreas = new ArrayList<String>();
 			Region reg = null;
@@ -124,6 +127,14 @@ public class AdAction extends ActionSupport {
 
 	public void setPrice(int price) {
 		this.price = price;
+	}
+
+	public List<String> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(List<String> categories) {
+		this.categories = categories;
 	}
 
 }

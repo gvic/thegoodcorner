@@ -19,6 +19,8 @@ public interface AdService {
 	public List<Departement> getDepartements();
 	public List<Communaute> getCommunautes();
 	public List<Region> getRegions();
+	public List<Categorie> getCategories();
+
 
 	public ArrayList<Annonce> listAnnoncesFrom(Categorie c);
 	

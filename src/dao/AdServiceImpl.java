@@ -104,4 +104,17 @@ public class AdServiceImpl implements AdService {
 		return query.getResultList();
 	}
 
+	@Override
+	public List<Categorie> getCategories() {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Categorie> cq = cb.createQuery(Categorie.class);
+		Root<Categorie> rootCat= cq.from(Categorie.class);
+		cq.select(rootCat);
+		cq.distinct(true);
+		cq.orderBy(cb.asc(rootCat.get("nom")));
+		TypedQuery<Categorie> query = em.createQuery(cq);
+		System.out.println(query.getResultList().size());
+		return query.getResultList();
+	}
+
 }

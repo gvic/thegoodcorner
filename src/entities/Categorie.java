@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,7 +23,9 @@ public class Categorie {
 
 	@Column(length = 30)
 	private String nom;
-
+	
+	@ManyToOne
+	private Categorie parente;
 	// relation inverse Categorie (one) -> Annonce (many) de la relation Annonce
 	// (many) -> Categorie(one)
 	// cascade insertion Categorie -> insertion Annonces
