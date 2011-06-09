@@ -1,5 +1,6 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -13,7 +14,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Categorie")
-public class Categorie {
+public class Categorie implements Serializable, Comparable<Categorie>{
+
+	private static final long serialVersionUID = -404538643185867920L;
 
 	// champs
 	@Id
@@ -83,6 +86,11 @@ public class Categorie {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	@Override
+	public int compareTo(Categorie o) {
+		return nom.compareTo(o.getNom());
 	}
 	
 	

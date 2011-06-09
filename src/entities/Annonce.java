@@ -31,19 +31,20 @@ public class Annonce {
 	private User user;
 	
 	// Preferences de l'utilisateur pour une annonce
-	@Column(nullable=true)
+//	@Column(nullable=true)
 	private int rayonGeographique;
-	@Column(nullable=true)
+//	@Column(nullable=true)
 	private boolean telephoneFixeVisible;
-	@Column(nullable=true)
+//	@Column(nullable=true)
 	private boolean telephonePortableVisible;
-	@Column(nullable=true)
+//	@Column(nullable=true)
 	private boolean envoiColis;
-	@Column(nullable=false)
+//	@Column(nullable=false)
 	private boolean validee;
 	
 	// Ou est l'objet a vendre?
 	@OneToOne
+//	@Column(nullable=true)
 	private Adresse adresse;
 	
 	@OneToOne
@@ -61,7 +62,7 @@ public class Annonce {
 	
 	private String title;
 	private String description;
-	@Column(nullable=true)
+//	@Column(nullable=true)
 	private float price;
 	
 	@Basic()

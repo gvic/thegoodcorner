@@ -1,99 +1,123 @@
 package actions;
 
+import java.awt.Graphics;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.HeadlessException;
+import java.awt.Image;
+import java.awt.Transparency;
+import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
+import java.awt.image.PixelGrabber;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
+
+import javax.imageio.ImageIO;
+import javax.imageio.stream.FileImageOutputStream;
+import javax.swing.ImageIcon;
+
+import org.apache.commons.io.FileUtils;
+
 import com.google.inject.Inject;
 import com.opensymphony.xwork2.ActionSupport;
+
 import dao.AdService;
-import entities.Annonce;
-import entities.Categorie;
 import entities.Communaute;
-import entities.Departement;
-import entities.Region;
 
 public class AdAction extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
+	private static final String OUTPUT_FORMAT = "jpeg";
+
 	@Inject
 	AdService service;
 
-	private Annonce annonce;
+	private List<String> geographicAreas;
+	private List<String> geographicAreaSubmitted;
+
+	private List<Communaute> communities;
+	private List<String> communitiesSubmitted;
+
+	private List<String> categories;
+	private String categorySubmitted;
+
 	private String title;
 	private String description;
 	private int price;
-	private List<String> geographicAreas;
-	private Set<String> categories;
-	private List<Communaute> communautes;
-	private String geographicArea;
-	private File image;// The actual file
+	private File file;// The actual file
 	private String uploadContentType; // The content type of the file
 	private String uploadFileName; // The uploaded file name
 	private String fileCaption;// The caption of the file entered by use
 
+	// Méthode d'entrée sur la page du formulaire de
+	// soumission d'annonce
 	public String input() throws Exception {
-		List<Region> regions = service.getRegions();
-		List<Categorie> master_cat = service.getMasterCategory();
-		List<Categorie> fst_level_cat = service.getFirstLevelCategories();
-		Iterator<Categorie> it_cat = fst_level_cat.iterator();
-		categories = new HashSet<String>();
-		categories.add(master_cat.get(0).getNom());
-		while (it_cat.hasNext()) {
-			Categorie p = it_cat.next();
-			categories.add(p.getNom());
-			for(Categorie son : service.getSonsCategories(p.getId())){
-				categories.add(son.getNom());
-			}
-		}
-
-		setCommunautes(service.getCommunautes());
+		// Dans le cas ou l'user a un compte
 		geographicAreas = new ArrayList<String>();
-		Region reg = null;
-		Iterator<Region> it_reg = regions.iterator();
-		while (it_reg.hasNext()) {
-			reg = it_reg.next();
-			List<Departement> matched_dep = reg.getDepartements();
-			geographicAreas.add(reg.getNom());
-			Iterator<Departement> it = matched_dep.iterator();
-			while (it.hasNext()) {
-				geographicAreas.add("- " + it.next().getNom());
-			}
-		}
+		geographicAreas = service.getAreas();
 
-		/***
-		 * FAIRE ENVOI DE MAIL ET REDIMENSIONNEMENT DE L'IMAGE.... .....
-		 */
+		categories = new ArrayList<String>();
+		categories = service.getOrderedCategories();
+
+		setCommunities(service.getCommunautes());
+
+		// Dans le cas ou l'user n'a pas de compte
 
 		return super.input();
-		// if (communautes != null)
-		// System.out.println("==== communaute:" + communautes.toString() +
-		// " ====");
-		// System.out.println("==== area:" + geographicArea + " ====");
-		// System.out.println("==== title:" + title + " ====");
-		// System.out.println("==== desc:" + description + " ====");
-		// System.out.println("==== price:" + price + " ====");
-		//
-		// if (communautes != null && geographicArea != null
-		// && title != null
-		// && description != null) {
-		//
-		// Set<Communaute> sc = new HashSet<Communaute>();
-		// Iterator<Communaute> it = communautes.iterator();
-		// while (it.hasNext()) {
-		// sc.add(it.next());
-		// }
-		// annonce.setCommunautes(sc);
-		// service.save(annonce);
-		// System.out.println("=== ad saved ===");
-		// return SUCCESS;
-		//
-		// } else {
-		//
-		//
-		// }
+
+	}
+
+	@Override
+	public void validate() {
+		System.out.println("=== validate() method called ===");
+		if (title != null && description != null && geographicAreas != null
+				&& categorySubmitted != null) {
+
+			if (service.findAd(title, description,
+					geographicAreaSubmitted.get(0), categorySubmitted) != null) {
+				addActionError(getText("errors.ad.exists"));
+			}
+
+		}
+	}
+
+	/***
+	 * FAIRE ENVOI DE MAIL ET REDIMENSIONNEMENT DE L'IMAGE.... .....
+	 */
+	public String processDatas() {
+		if (geographicAreas == null)
+			System.out.println("==========nulllllll========");
+		else
+			System.out.println(geographicAreaSubmitted);
+
+		try {
+
+			String fullFileName = "/home/victorinox/lib/jboss-6.0.0.Final/server/default/deploy/uploads/";
+			fullFileName += "_" + title + "_" + fileCaption;
+
+			File theFile = new File(fullFileName);
+
+			FileUtils.copyFile(file, theFile);
+
+			BufferedImage img = ImageIO.read(theFile);
+			int scaleX = (int) (img.getWidth() * 0.5);
+			int scaleY = (int) (img.getHeight() * 0.5);
+
+			Image newImg = img.getScaledInstance(scaleX, scaleY, Image.SCALE_SMOOTH);
+			FileImageOutputStream fios = new FileImageOutputStream(new File(fullFileName + "_thumb"));
+			ImageIO.write(toBufferedImage(newImg), OUTPUT_FORMAT, fios);
+
+		} catch (Exception e) {
+
+			addActionError(e.getMessage());
+
+			return INPUT;
+
+		}
+
+		return SUCCESS;
 	}
 
 	public List<String> getGeographicAreas() {
@@ -104,28 +128,12 @@ public class AdAction extends ActionSupport {
 		this.geographicAreas = geographicAreas;
 	}
 
-	public Annonce getAnnonce() {
-		return annonce;
+	public void setCommunities(List<Communaute> communautes) {
+		this.communities = communautes;
 	}
 
-	public void setAnnonce(Annonce annonce) {
-		this.annonce = annonce;
-	}
-
-	public void setCommunautes(List<Communaute> communautes) {
-		this.communautes = communautes;
-	}
-
-	public List<Communaute> getCommunautes() {
-		return communautes;
-	}
-
-	public String getGeographicArea() {
-		return geographicArea;
-	}
-
-	public void setGeographicArea(String geographicArea) {
-		this.geographicArea = geographicArea;
+	public List<Communaute> getCommunities() {
+		return communities;
 	}
 
 	public String getTitle() {
@@ -152,20 +160,20 @@ public class AdAction extends ActionSupport {
 		this.price = price;
 	}
 
-	public Set<String> getCategories() {
+	public List<String> getCategories() {
 		return categories;
 	}
 
-	public void setCategories(Set<String> categories) {
+	public void setCategories(List<String> categories) {
 		this.categories = categories;
 	}
 
-	public File getImage() {
-		return image;
+	public File getFile() {
+		return file;
 	}
 
-	public void setImage(File image) {
-		this.image = image;
+	public void setFile(File file) {
+		this.file = file;
 	}
 
 	public String getUploadContentType() {
@@ -192,4 +200,99 @@ public class AdAction extends ActionSupport {
 		this.fileCaption = fileCaption;
 	}
 
+	public List<String> getGeographicAreaSubmitted() {
+		return geographicAreaSubmitted;
+	}
+
+	public void setGeographicAreaSubmitted(List<String> geographicAreaSubmitted) {
+		this.geographicAreaSubmitted = geographicAreaSubmitted;
+	}
+
+	public List<String> getCommunitiesSubmitted() {
+		return communitiesSubmitted;
+	}
+
+	public void setCommunitiesSubmitted(List<String> communautesSubmitted) {
+		this.communitiesSubmitted = communautesSubmitted;
+	}
+
+	public String getCategorySubmitted() {
+		return categorySubmitted;
+	}
+
+	public void setCategorySubmitted(String categorySubmitted) {
+		this.categorySubmitted = categorySubmitted;
+	}
+
+	// This method returns a buffered image with the contents of an image
+	public static BufferedImage toBufferedImage(Image image) {
+	    if (image instanceof BufferedImage) {
+	        return (BufferedImage)image;
+	    }
+
+	    // This code ensures that all the pixels in the image are loaded
+	    image = new ImageIcon(image).getImage();
+
+	    // Determine if the image has transparent pixels; for this method's
+	    // implementation, see Determining If an Image Has Transparent Pixels
+	    boolean hasAlpha = hasAlpha(image);
+
+	    // Create a buffered image with a format that's compatible with the screen
+	    BufferedImage bimage = null;
+	    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	    try {
+	        // Determine the type of transparency of the new buffered image
+	        int transparency = Transparency.OPAQUE;
+	        if (hasAlpha) {
+	            transparency = Transparency.BITMASK;
+	        }
+
+	        // Create the buffered image
+	        GraphicsDevice gs = ge.getDefaultScreenDevice();
+	        GraphicsConfiguration gc = gs.getDefaultConfiguration();
+	        bimage = gc.createCompatibleImage(
+	            image.getWidth(null), image.getHeight(null), transparency);
+	    } catch (HeadlessException e) {
+	        // The system does not have a screen
+	    }
+
+	    if (bimage == null) {
+	        // Create a buffered image using the default color model
+	        int type = BufferedImage.TYPE_INT_RGB;
+	        if (hasAlpha) {
+	            type = BufferedImage.TYPE_INT_ARGB;
+	        }
+	        bimage = new BufferedImage(image.getWidth(null), image.getHeight(null), type);
+	    }
+
+	    // Copy image to buffered image
+	    Graphics g = bimage.createGraphics();
+
+	    // Paint the image onto the buffered image
+	    g.drawImage(image, 0, 0, null);
+	    g.dispose();
+
+	    return bimage;
+	}
+	
+	// This method returns true if the specified image has transparent pixels
+	public static boolean hasAlpha(Image image) {
+	    // If buffered image, the color model is readily available
+	    if (image instanceof BufferedImage) {
+	        BufferedImage bimage = (BufferedImage)image;
+	        return bimage.getColorModel().hasAlpha();
+	    }
+
+	    // Use a pixel grabber to retrieve the image's color model;
+	    // grabbing a single pixel is usually sufficient
+	     PixelGrabber pg = new PixelGrabber(image, 0, 0, 1, 1, false);
+	    try {
+	        pg.grabPixels();
+	    } catch (InterruptedException e) {
+	    }
+
+	    // Get the image's color model
+	    ColorModel cm = pg.getColorModel();
+	    return cm.hasAlpha();
+	}
 }
