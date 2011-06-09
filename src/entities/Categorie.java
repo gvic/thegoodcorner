@@ -2,7 +2,6 @@ package entities;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,6 +25,7 @@ public class Categorie {
 	
 	@ManyToOne
 	private Categorie parente;
+	
 	// relation inverse Categorie (one) -> Annonce (many) de la relation Annonce
 	// (many) -> Categorie(one)
 	// cascade insertion Categorie -> insertion Annonces
@@ -60,4 +60,30 @@ public class Categorie {
 	public Set<Annonce> getAnnonces() {
 		return annonces;
 	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public Categorie getParente() {
+		return parente;
+	}
+
+	public void setParente(Categorie parente) {
+		this.parente = parente;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	
 }

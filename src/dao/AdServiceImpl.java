@@ -100,7 +100,6 @@ public class AdServiceImpl implements AdService {
 		cq.distinct(true);
 		cq.orderBy(cb.asc(rootReg.get("nom")));
 		TypedQuery<Region> query = em.createQuery(cq);
-		System.out.println(query.getResultList().size());
 		return query.getResultList();
 	}
 
@@ -113,7 +112,56 @@ public class AdServiceImpl implements AdService {
 		cq.distinct(true);
 		cq.orderBy(cb.asc(rootCat.get("nom")));
 		TypedQuery<Categorie> query = em.createQuery(cq);
-		System.out.println(query.getResultList().size());
+		return query.getResultList();
+	}
+
+	@Override
+	public List<Categorie> getMasterCategory() {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Categorie> cq = cb.createQuery(Categorie.class);
+		Root<Categorie> rootCat= cq.from(Categorie.class);
+		cq.select(rootCat);
+		cq.where(cb.equal(rootCat.get("id"),"1"));
+		cq.distinct(true);
+		TypedQuery<Categorie> query = em.createQuery(cq);
+		return query.getResultList();
+	}
+	
+	@Override
+	public List<Categorie> getFirstLevelCategories() {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Categorie> cq = cb.createQuery(Categorie.class);
+		Root<Categorie> rootCat= cq.from(Categorie.class);
+		cq.select(rootCat);
+		//cq.where(cb.equal(rootCat.get("parente_id"),"1"));
+		cq.where(cb.equal(rootCat.get("parente_id"),new Integer(1)));
+		cq.distinct(true);
+		cq.orderBy(cb.asc(rootCat.get("nom")));
+		TypedQuery<Categorie> query = em.createQuery(cq);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<Categorie> getSecondLevelCategories() {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Categorie> cq = cb.createQuery(Categorie.class);
+		Root<Categorie> rootCat= cq.from(Categorie.class);
+		cq.select(rootCat);//.where(cb.greaterThan(rootCat.get("parente_id").as(Integer.class),1));
+		cq.orderBy(cb.asc(rootCat.get("nom")));
+		TypedQuery<Categorie> query = em.createQuery(cq);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<Categorie> getSonsCategories(long id) {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Categorie> cq = cb.createQuery(Categorie.class);
+		Root<Categorie> rootCat= cq.from(Categorie.class);
+		cq.select(rootCat);
+		cq.where(cb.equal(rootCat.get("parente_id"),id));
+		cq.distinct(true);
+		cq.orderBy(cb.asc(rootCat.get("nom")));
+		TypedQuery<Categorie> query = em.createQuery(cq);
 		return query.getResultList();
 	}
 

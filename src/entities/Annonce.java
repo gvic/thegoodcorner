@@ -31,13 +31,20 @@ public class Annonce {
 	private User user;
 	
 	// Preferences de l'utilisateur pour une annonce
+	@Column(nullable=true)
 	private int rayonGeographique;
+	@Column(nullable=true)
 	private boolean telephoneFixeVisible;
+	@Column(nullable=true)
 	private boolean telephonePortableVisible;
+	@Column(nullable=true)
 	private boolean envoiColis;
+	@Column(nullable=false)
+	private boolean validee;
 	
 	// Ou est l'objet a vendre?
 	@OneToOne
+	@Column(nullable=true)
 	private Adresse adresse;
 	
 	@OneToOne
@@ -55,6 +62,7 @@ public class Annonce {
 	
 	private String title;
 	private String description;
+	@Column(nullable=true)
 	private float price;
 	
 	@Basic()
@@ -184,6 +192,14 @@ public class Annonce {
 
 	public void setRegion(Region region) {
 		this.region = region;
+	}
+
+	public boolean isValidee() {
+		return validee;
+	}
+
+	public void setValidee(boolean validee) {
+		this.validee = validee;
 	}
 	
 	

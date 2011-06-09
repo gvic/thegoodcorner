@@ -20,6 +20,12 @@ public interface AdService {
 	public List<Communaute> getCommunautes();
 	public List<Region> getRegions();
 	public List<Categorie> getCategories();
+	public List<Categorie> getFirstLevelCategories();
+	public List<Categorie> getSecondLevelCategories();
+	public List<Categorie> getMasterCategory();
+	public List<Categorie> getSonsCategories(long id);
+
+
 
 
 	public ArrayList<Annonce> listAnnoncesFrom(Categorie c);
