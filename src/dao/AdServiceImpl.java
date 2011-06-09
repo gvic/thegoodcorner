@@ -165,4 +165,9 @@ public class AdServiceImpl implements AdService {
 		return query.getResultList();
 	}
 
+    // obtenir une annonce via son identifiant
+    public Annonce getOne(long id) {
+    	return em.find(Annonce.class, id);
+    }
+	
 }

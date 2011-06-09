@@ -1,16 +1,28 @@
 package actions;
 
+import com.google.inject.Inject;
 import com.opensymphony.xwork2.ActionSupport;
+
+import dao.AdService;
+import entities.Annonce;
 
 public class ShowAdAction extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
 	
-	private long adId;
+	@Inject	AdService service;
 	
-	@Override
+	private long adId;
+	private Annonce annonceBean;
+	
+	public void validate() {
+		setAnnonceBean(service.getOne(adId));
+		if (annonceBean == null) {
+			addActionError(getText("ad.id.not.found"));
+		}
+	}
+	
 	public String execute() throws Exception {
-		// TODO Auto-generated method stub
 		return super.execute();
 	}
 
@@ -20,6 +32,14 @@ public class ShowAdAction extends ActionSupport {
 
 	public long getAdId() {
 		return adId;
+	}
+
+	public void setAnnonceBean(Annonce annonceBean) {
+		this.annonceBean = annonceBean;
+	}
+
+	public Annonce getAnnonceBean() {
+		return annonceBean;
 	}
 
 }

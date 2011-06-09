@@ -86,4 +86,10 @@
         <put-attribute name="body" value="/logged.jsp" />
     </definition>
 
+    <definition name="showAd" extends="baseLayoutDressedUp">
+        <put-attribute name="title" value="" /> <!-- Dynamic title-->
+        <put-attribute name="body" value="/showAd.jsp" />
+    </definition>    
+    
+
 </tiles-definitions>

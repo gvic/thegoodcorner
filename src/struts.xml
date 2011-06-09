@@ -87,5 +87,9 @@
 			<result name="success" type="tiles">welcome</result>
 		</action>
 				
+		<action name="showAd" class="actions.ShowAdAction" >
+			<result type="tiles">showAd</result>
+		</action>				
+				
 	</package>
 </struts>

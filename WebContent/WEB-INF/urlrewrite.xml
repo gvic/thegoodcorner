@@ -43,6 +43,14 @@
 		<to>/index.html</to>
 	</outbound-rule>
 
+	<rule>
+		<from>/([0-9]+)/show.html</from>
+		<to>%{context-path}/showAd.action?adId=$1</to>
+	</rule>
+	<outbound-rule>
+		<from>/index.action</from>
+		<to>/index.html</to>
+	</outbound-rule>
 
     <outbound-rule>
         <note>

@@ -16,6 +16,9 @@ import entities.Ville;
 @Remote
 public interface AdService {
 
+    // obtenir une annonce via son identifiant
+    public Annonce getOne(long id);
+	
 	public List<Departement> getDepartements();
 	public List<Communaute> getCommunautes();
 	public List<Region> getRegions();
@@ -24,7 +27,6 @@ public interface AdService {
 	public List<Categorie> getSecondLevelCategories();
 	public List<Categorie> getMasterCategory();
 	public List<Categorie> getSonsCategories(long id);
-
 
 
 
