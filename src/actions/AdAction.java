@@ -35,7 +35,7 @@ public class AdAction extends ActionSupport {
 	AdService service;
 
 	private List<String> geographicAreas;
-	private List<String> geographicAreaSubmitted;
+	private String geographicAreaSubmitted;
 
 	private List<Communaute> communities;
 	private List<String> communitiesSubmitted;
@@ -76,7 +76,7 @@ public class AdAction extends ActionSupport {
 				&& categorySubmitted != null) {
 
 			if (service.findAd(title, description,
-					geographicAreaSubmitted.get(0), categorySubmitted) != null) {
+					geographicAreaSubmitted, categorySubmitted) != null) {
 				addActionError(getText("errors.ad.exists"));
 			}
 
@@ -200,11 +200,11 @@ public class AdAction extends ActionSupport {
 		this.fileCaption = fileCaption;
 	}
 
-	public List<String> getGeographicAreaSubmitted() {
+	public String getGeographicAreaSubmitted() {
 		return geographicAreaSubmitted;
 	}
 
-	public void setGeographicAreaSubmitted(List<String> geographicAreaSubmitted) {
+	public void setGeographicAreaSubmitted(String geographicAreaSubmitted) {
 		this.geographicAreaSubmitted = geographicAreaSubmitted;
 	}
 

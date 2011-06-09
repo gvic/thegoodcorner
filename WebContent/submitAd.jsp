@@ -10,7 +10,7 @@
 	<%-- 	<s:select key="Place" name="geographicAreaSubmitted" --%>
 	<%-- 		list="geographicAreas"></s:select> --%>
 
-	<s:select list="geographicAreas">
+	<s:select list="geographicAreas" key="geographicAreaSubmitted">
 		<s:iterator value="geographicAreas">
 			<option value="<s:property value="value"/>"
 				style="background-color:<s:property value="key"/>"></option>
