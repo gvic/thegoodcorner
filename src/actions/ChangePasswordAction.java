@@ -15,7 +15,7 @@ public class ChangePasswordAction extends ActionSupport{
 	private static final long serialVersionUID = 1L;
 	@Inject UserService service;
 	
-	private String login;
+	private String login, oldPassword, newPassword;
 	
 	public void validate() {
 	
@@ -43,7 +43,7 @@ public class ChangePasswordAction extends ActionSupport{
 			
 			User userBean = service.getOne(userId);
 			
-			//userBean.setNom(name);
+			userBean.setMd5_mdp(newPassword);
 			
 			service.updateOne(userBean);
 			addActionMessage(getText("account.update.success"));
