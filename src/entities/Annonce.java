@@ -44,7 +44,6 @@ public class Annonce {
 	
 	// Ou est l'objet a vendre?
 	@OneToOne
-	@Column(nullable=true)
 	private Adresse adresse;
 	
 	@OneToOne
