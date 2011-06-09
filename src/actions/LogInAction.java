@@ -1,5 +1,6 @@
 package actions;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,15 +26,19 @@ public class LogInAction extends ActionSupport {
 	public String login() throws Exception {
 		System.out.println("=== login() method called ===");
 		addActionMessage(getText("welcome")+" "+login);
-		
+		// Find User
 		HashMap<String, String> hm = new HashMap<String, String>();
 		hm.put("login", login);
 		hm.put("md5_mdp", UserServiceImpl.md5Encryption(password));
 		User u = service.findByField(hm);
-		
+		// Add session infos
 		Map<String,Object> session = ActionContext.getContext().getSession();
 		session.put("loggedin","true");
 		session.put("userId",u.getId());
+		// Update some stuff on user..
+		u.setDerniereConnexion(new Date(new java.util.Date().getTime()));
+		service.updateOne(u);
+		
 		return SUCCESS;
 	}
 	

@@ -8,6 +8,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- If login needed, the loginCheck.jsp will check the session for you -->
+<tiles:insertAttribute name="loginCheck"  ignore="true"/>
 <title><tiles:insertAttribute name="title" ignore="true" /></title>
 <!-- This file is needed for AJAX Validation of XHTML Forms -->
 <script src="${pageContext.request.contextPath}/struts/xhtml/validation.js" type="text/javascript"></script>
@@ -24,8 +26,6 @@
 </c:forEach>
 </head>
 <body>
-<!-- If login needed, the loginCheck.jsp will check the session for you -->
-<tiles:insertAttribute name="loginCheck"  ignore="true"/>
 	<div id="wrapper">
 		<div id="header">
 			<tiles:insertAttribute name="header" />

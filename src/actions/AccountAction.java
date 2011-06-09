@@ -35,6 +35,8 @@ public class AccountAction extends ActionSupport{
 		if (userId != null) {
 			long id = (Long) userId;
 			userBean = service.getOne(id) ;
+			System.out.println("=== input() method called ===");
+			System.out.println("UserId : "+userBean.getId());
 			return INPUT;
 		} else {
 			addActionError(getText("error.notloggedin"));
