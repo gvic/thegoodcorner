@@ -12,7 +12,11 @@
 				<div id="onglet-logout" class="onglet">
 					<s:text name="menu.logout" />
 				</div>
-				<s:property value="#session.userId"/>
+			</s:a>
+			<s:a action="updateAccount_input" >
+				<div id="onglet-account" class="onglet">
+					<s:text name="menu.myaccount" />
+				</div>
 			</s:a>
 		</s:if>
 		<s:else>

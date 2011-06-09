@@ -71,17 +71,11 @@
 <!--			<result name="success" type="tiles">showAccount</result>-->
 <!--		</action>-->
 		
-		<action name="updateAccount" class="actions.AccountAction" method="showAccount">
+		<action name="updateAccount_*" class="actions.AccountAction" method="{1}">
 			<result name="input" type="tiles">updateAccount</result>
 			<result name="error" type="tiles">updateAccount</result>
 			<result name="success" type="tiles">updateAccount</result>
 		</action>
-		
-		<action name="updateAccountResult" class="actions.AccountAction" method="updateAccount">
-			<result name="input" type="tiles">updateAccount</result>
-			<result name="error" type="tiles">updateAccount</result>
-			<result name="success" type="tiles">updateAccountSuccess</result>
-		</action>
-		
+				
 	</package>
 </struts>
