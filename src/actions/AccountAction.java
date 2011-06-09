@@ -50,6 +50,8 @@ public class AccountAction extends ActionSupport{
 			
 			service.updateOne(userBean);
 			addActionMessage(getText("account.update.success"));
+			// Because the field is disabled it is not processed...
+			login = userBean.getLogin();
 			return SUCCESS;
 		} else {
 			addActionError(getText("error.notloggedin"));

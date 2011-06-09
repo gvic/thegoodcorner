@@ -23,7 +23,7 @@ public class User implements Serializable {
 
 	@Id
 	@Column(name = "ID", nullable = false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
 	@OneToMany(fetch=FetchType.LAZY, mappedBy = "user")
