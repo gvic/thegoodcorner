@@ -29,7 +29,7 @@ public class ChangePasswordAction extends ActionSupport{
 			}
 			hm.put("md5_mdp", UserServiceImpl.md5Encryption(oldPassword));
 			if (service.findByField(hm) == null) {
-				addActionError(getText("errors.password"));
+				addActionError(getText("errors.oldPassword"));
 			}
 		}
 	}
