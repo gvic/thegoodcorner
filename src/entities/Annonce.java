@@ -24,7 +24,7 @@ public class Annonce {
 	@Id
 	@Column(name = "ID", nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+	private long id;
 	
 	@ManyToOne
 	//@JoinColumn(name = "user_id", nullable = false)
