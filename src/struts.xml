@@ -79,7 +79,7 @@
 			<result name="success" type="tiles">welcome</result>
 		</action>
 		
-		<action name="changePassword_" class="actions.ChangePassword" method="{1}">
+		<action name="changePassword_*" class="actions.ChangePasswordAction" method="{1}">
 			<!-- Compulsary for AJAX validation callbacks -->
 			<interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>
 			<result name="input" type="tiles">changePassword</result>
