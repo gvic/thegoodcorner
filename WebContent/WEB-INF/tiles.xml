@@ -24,7 +24,7 @@
     <definition name="baseLayoutLogged" extends="baseLayoutDressedUp">
    		<put-attribute name="loginCheck" value="/inc/loginCheck.jsp" />
     </definition>    
-    <definition name="welcome" extends="baseLayoutLogged">
+    <definition name="welcome" extends="baseLayoutDressedUp">
         <put-attribute name="title" value="Welcome" />
         <put-attribute name="body" value="/index.page.jsp" />
         <put-list-attribute name="scripts">
