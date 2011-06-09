@@ -72,6 +72,8 @@
 <!--		</action>-->
 		
 		<action name="updateAccount_*" class="actions.AccountAction" method="{1}">
+			<!-- Compulsary for AJAX validation callbacks -->
+			<interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>
 			<result name="input" type="tiles">updateAccount</result>
 			<result name="error" type="tiles">updateAccount</result>
 			<result name="success" type="tiles">updateAccount</result>

@@ -42,7 +42,15 @@ public class AccountAction extends ActionSupport{
 		}
 	}
 	
+	public void validate() {
+		System.out.println("=== validate() method called ===");
+		System.out.println("UserId : "+userBean.getId());
+		addActionError("test error");
+	}
+	
 	public String updateAccount(){
+		System.out.println("=== updateAccount() method called ===");
+		System.out.println("UserId : "+userBean.getId());
 		service.updateOne(userBean);
 		addActionMessage(getText("account.update.success"));
 		return SUCCESS;
