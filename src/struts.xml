@@ -78,6 +78,14 @@
 			<result name="error" type="tiles">updateAccount</result>
 			<result name="success" type="tiles">updateAccount</result>
 		</action>
+		
+		<action name="changePassword_" class="actions.ChangePassword" method="{1}">
+			<!-- Compulsary for AJAX validation callbacks -->
+			<interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>
+			<result name="input" type="tiles">changePassword</result>
+			<result name="error" type="tiles">changePassword</result>
+			<result name="success" type="tiles">changePassword</result>
+		</action>
 				
 	</package>
 </struts>

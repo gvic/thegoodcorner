@@ -52,13 +52,18 @@
     </definition>
     
     <definition name="updateAccount" extends="baseLayoutLogged">
-        <put-attribute name="title" value="Update an account" />
+        <put-attribute name="title" value="Update your account" />
         <put-attribute name="body" value="/account.jsp" />
     </definition>
     
-        <definition name="updateAccountSuccess" extends="baseLayoutDressedUp">
+    <definition name="updateAccountSuccess" extends="baseLayoutDressedUp">
         <put-attribute name="title" value="Welcome" />
         <put-attribute name="body" value="/updateAccountSuccess.jsp" />
+    </definition>
+    
+    <definition name="changePassword" extends="baseLayoutDressedUp">
+        <put-attribute name="title" value="Change your password" />
+        <put-attribute name="body" value="/changePassword.jsp" />
     </definition>
     
 <!--    <definition name="showAccount" extends="baseLayoutDressedUp">-->
