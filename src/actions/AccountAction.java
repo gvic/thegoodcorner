@@ -17,28 +17,27 @@ public class AccountAction extends ActionSupport{
 	
 	private String name, firstname, email, login, phone, mobile;
 	
-	private User userBean;
-	
 	// Server-side validation
 	public void validate() {
-		System.out.println("=== validate() method called ===");
-		// Validate SignUp form
-		if (userBean != null) {
-			System.out.println(userBean.toString());
+		
+		Map<String,Object>  session = ActionContext.getContext().getSession();
+		Object userIdO = session.get("userId");
+		if (userIdO != null) {
+			System.out.println("=== validate() method called ===");
+			
+			String oldEmail = service.getOne((Long) userIdO).getEmail();
+			
 			HashMap<String,String> mhm = new HashMap<String,String>();
-			mhm.put("login", userBean.getLogin());
-			if (!userBean.getLogin().equals("") && service.findByField(mhm)!=null) {
-				addFieldError("userBean.login", getText("username.used"));
-			}
-			mhm.clear();
-			mhm.put("email", userBean.getEmail());
-			if (!userBean.getEmail().equals("") && service.findByField(mhm)!=null) {
-				addFieldError("userBean.email", getText("email.used"));
+			mhm.put("email", email);
+			if ( !email.equals("") && service.findByField(mhm)!=null && !email.equals(oldEmail) ) {
+				addFieldError("email", getText("email.used"));
 			}
 		}
+		else{
+			addActionError(getText("error.notloggedin"));
+		}
+			
 	}
-	
-	
 	
 	public String input() throws Exception {
 		Map<String,Object>  session = ActionContext.getContext().getSession();
