@@ -65,4 +65,13 @@ public class Departement implements Comparable<Departement> {
 	public int compareTo(Departement o) {
 		return nom.compareTo(o.getNom());
 	}
+
+	public String getNumero() {
+		return numero;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+	
 }
