@@ -76,7 +76,7 @@
 			<interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>
 			<result name="input" type="tiles">updateAccount</result>
 			<result name="error" type="tiles">updateAccount</result>
-			<result name="success" type="tiles">updateAccount</result>
+			<result name="success" type="tiles">welcome</result>
 		</action>
 		
 		<action name="changePassword_" class="actions.ChangePassword" method="{1}">
@@ -84,7 +84,7 @@
 			<interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>
 			<result name="input" type="tiles">changePassword</result>
 			<result name="error" type="tiles">changePassword</result>
-			<result name="success" type="tiles">changePassword</result>
+			<result name="success" type="tiles">welcome</result>
 		</action>
 				
 	</package>
