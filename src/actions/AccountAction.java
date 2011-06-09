@@ -1,5 +1,6 @@
 package actions;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import com.google.inject.Inject;
@@ -15,6 +16,29 @@ public class AccountAction extends ActionSupport{
 	@Inject UserService service;
 	
 	private String name, firstname, email, login, phone, mobile;
+	
+	private User userBean;
+	
+	// Server-side validation
+	public void validate() {
+		System.out.println("=== validate() method called ===");
+		// Validate SignUp form
+		if (userBean != null) {
+			System.out.println(userBean.toString());
+			HashMap<String,String> mhm = new HashMap<String,String>();
+			mhm.put("login", userBean.getLogin());
+			if (!userBean.getLogin().equals("") && service.findByField(mhm)!=null) {
+				addFieldError("userBean.login", getText("username.used"));
+			}
+			mhm.clear();
+			mhm.put("email", userBean.getEmail());
+			if (!userBean.getEmail().equals("") && service.findByField(mhm)!=null) {
+				addFieldError("userBean.email", getText("email.used"));
+			}
+		}
+	}
+	
+	
 	
 	public String input() throws Exception {
 		Map<String,Object>  session = ActionContext.getContext().getSession();
