@@ -24,7 +24,7 @@
 
 <div style="float: right">
 	<p>
-		<s:a action="addCommunaute">
+		<s:a action="addCommunaute_input">
 			<s:text name="account.add.communaute" />
 		</s:a>
 	</p>
