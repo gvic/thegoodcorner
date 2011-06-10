@@ -14,7 +14,7 @@
     </definition>
     <definition name="baseLayoutDressedUp" extends="baseLayout">
     	<put-list-attribute name="css" >
-        	<add-attribute type="string" value="%{context-path}/css/css.css"/>
+        	<add-attribute type="string" value="css/css.css"/>
         	<add-attribute type="string" value="http://fonts.googleapis.com/css?family=Muli:light,regular|Raleway:100"/>
         </put-list-attribute>
         <put-list-attribute name="scripts" >
