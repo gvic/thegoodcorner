@@ -137,11 +137,19 @@ public class AdServiceImpl implements AdService {
 		return query.getResultList();
 	}
 
-    // obtenir une annonce via son identifiant
-    public Annonce getOne(long id) {
-    	return em.find(Annonce.class, id);
+    // Get one entity bean thanks to its ID
+    public <T> T getOne(Class<T> arg, long id) {
+    	return em.find(arg, id);
     }
 
+    // Get list entity bean thanks to their IDs
+    public <T> Set<T> get(Class<T> arg, Set<Long> ids) {
+    	Set<T> res = new HashSet<T>();
+    	for (Long long1 : ids) {
+			res.add(getOne(arg, long1));
+		}
+    	return res;
+    }
 	
 	public List<String> getOrderedCategories() {
 		List<String> categories = new ArrayList<String>(); 
@@ -256,7 +264,6 @@ public class AdServiceImpl implements AdService {
     	}
     	return res;
 	}
-	
 	/**
 	 * Searches and returns a list of Annonce 
 	 * which contain in their title one of the key words in the text entered in parameter.
@@ -281,4 +288,15 @@ public class AdServiceImpl implements AdService {
 		}
 		return results;
 	}
+	
+    // sauvegarder une annonce
+    public Annonce saveOne(Annonce a) {
+    	Annonce res = a;
+		a.setDate_de_publication(new java.util.Date());
+		a.setValidee(false);
+		if (res != null) {
+			em.persist(a);
+		}
+        return res;
+    }
 }

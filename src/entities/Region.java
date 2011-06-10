@@ -1,5 +1,6 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
@@ -13,7 +14,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Region")
-public class Region {
+public class Region implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

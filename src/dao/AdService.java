@@ -2,6 +2,7 @@ package dao;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.ejb.Remote;
 
@@ -14,8 +15,9 @@ import entities.Region;
 @Remote
 public interface AdService {
 
-    // obtenir une annonce via son identifiant
-    public Annonce getOne(long id);
+	public <T> T getOne(Class<T> arg, long id);
+	
+    public <T> Set<T> get(Class<T> arg, Set<Long> ids);
 	
 	public List<Departement> getDepartements();
 	public List<Communaute> getCommunautes();
@@ -35,6 +37,8 @@ public interface AdService {
 			String geographicAreaSubmitted, String categorySubmitted);
 	
 	public List<Annonce> findByJointure(Map<String,Map<String,Object>> joins);
+	
+	public Annonce saveOne(Annonce a);
 	
 	public List<Annonce> search(String text);
 }

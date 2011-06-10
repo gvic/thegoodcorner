@@ -1,5 +1,6 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -13,8 +14,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Departement")
-public class Departement implements Comparable<Departement>{
+public class Departement implements Comparable<Departement>, Serializable{
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;

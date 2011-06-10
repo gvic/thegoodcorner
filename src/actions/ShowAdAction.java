@@ -16,7 +16,7 @@ public class ShowAdAction extends ActionSupport {
 	private Annonce annonceBean;
 	
 	public void validate() {
-		setAnnonceBean(service.getOne(adId));
+		setAnnonceBean(service.getOne(Annonce.class,adId));
 		if (annonceBean == null) {
 			addActionError(getText("ad.id.not.found"));
 		}

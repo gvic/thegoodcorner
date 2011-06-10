@@ -13,6 +13,7 @@ import java.awt.image.PixelGrabber;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
 import javax.imageio.stream.FileImageOutputStream;
@@ -25,6 +26,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import dao.AdService;
 import entities.Annonce;
+import entities.Categorie;
 import entities.Communaute;
 import entities.Departement;
 import entities.Region;
@@ -38,166 +40,179 @@ public class AdAction extends ActionSupport {
 	AdService service;
 	
 	private Annonce adBean;
+	
+	private long regionId;
+	private long categorieId;
+	private Set<Long> communitiesId;
 
-	private List<String> geographicAreas;
+//	private List<String> geographicAreas;
 	
 	private List<Region> regions;
-	private String region;
-	private List<Departement> departements;
+//	private String region;
+//	private List<Departement> departements;
 
 	private List<Communaute> communities;
 
-	private List<String> categories;
+	private List<Categorie> categories;
 
-	private String title;
-	private String description;
-	private int price;
-	private File file;// The actual file
-	private String uploadContentType; // The content type of the file
-	private String uploadFileName; // The uploaded file name
-	private String fileCaption;// The caption of the file entered by use
-
+//	private String title;
+//	private String description;
+//	private int price;
+//	private File file;// The actual file
+//	private String uploadContentType; // The content type of the file
+//	private String uploadFileName; // The uploaded file name
+//	private String fileCaption;// The caption of the file entered by use
+	
 	// Méthode d'entrée sur la page du formulaire de
 	// soumission d'annonce
-	public String input() throws Exception {
-		// Dans le cas ou l'user a un compte
-		geographicAreas = new ArrayList<String>();
-		geographicAreas = service.getAreas();
-		
-		regions = service.getRegions();
-		departements = service.getDepartements();
-
-		categories = new ArrayList<String>();
-		categories = service.getOrderedCategories();
-
-		setCommunities(service.getCommunautes());
-
-		// Dans le cas ou l'user n'a pas de compte
-
-		return super.input();
-
-	}
-
-	@Override
-	public void validate() {
-		
-	}
+//	public String input() throws Exception {
+//		// Dans le cas ou l'user a un compte
+//		geographicAreas = new ArrayList<String>();
+//		geographicAreas = service.getAreas();
+//		
+//		regions = service.getRegions();
+//		departements = service.getDepartements();
+//
+//		categories = new ArrayList<String>();
+//		categories = service.getOrderedCategories();
+//
+//		communities = service.getCommunautes();
+//
+//		// Dans le cas ou l'user n'a pas de compte
+//
+//		return super.input();
+//
+//	}
 
 	/***
 	 * FAIRE ENVOI DE MAIL ET REDIMENSIONNEMENT DE L'IMAGE.... .....
 	 */
-	public String processDatas() {
-		if (geographicAreas == null)
-			System.out.println("==========nulllllll========");
-		
+//	public String processDatas() {
+//		if (geographicAreas == null)
+//			System.out.println("==========nulllllll========");
+//		
+//
+//		try {
+//
+//			String fullFileName = "/home/victorinox/lib/jboss-6.0.0.Final/server/default/deploy/uploads/";
+//			fullFileName += "_" + title + "_" + fileCaption;
+//
+//			File theFile = new File(fullFileName);
+//
+//			FileUtils.copyFile(file, theFile);
+//
+//			BufferedImage img = ImageIO.read(theFile);
+//			int scaleX = (int) (img.getWidth() * 0.5);
+//			int scaleY = (int) (img.getHeight() * 0.5);
+//
+//			Image newImg = img.getScaledInstance(scaleX, scaleY, Image.SCALE_SMOOTH);
+//			FileImageOutputStream fios = new FileImageOutputStream(new File(fullFileName + "_thumb"));
+//			ImageIO.write(toBufferedImage(newImg), OUTPUT_FORMAT, fios);
+//
+//		} catch (Exception e) {
+//
+//			addActionError(e.getMessage());
+//
+//			return INPUT;
+//
+//		}
+//
+//		return SUCCESS;
+//	}
 
-		try {
-
-			String fullFileName = "/home/victorinox/lib/jboss-6.0.0.Final/server/default/deploy/uploads/";
-			fullFileName += "_" + title + "_" + fileCaption;
-
-			File theFile = new File(fullFileName);
-
-			FileUtils.copyFile(file, theFile);
-
-			BufferedImage img = ImageIO.read(theFile);
-			int scaleX = (int) (img.getWidth() * 0.5);
-			int scaleY = (int) (img.getHeight() * 0.5);
-
-			Image newImg = img.getScaledInstance(scaleX, scaleY, Image.SCALE_SMOOTH);
-			FileImageOutputStream fios = new FileImageOutputStream(new File(fullFileName + "_thumb"));
-			ImageIO.write(toBufferedImage(newImg), OUTPUT_FORMAT, fios);
-
-		} catch (Exception e) {
-
-			addActionError(e.getMessage());
-
-			return INPUT;
-
-		}
-
-		return SUCCESS;
+	public String submit() throws Exception {
+		System.out.println("=== submit() method called ===");
+		adBean.setRegion(service.getOne(Region.class, regionId));
+		adBean.setCategorie(service.getOne(Categorie.class, categorieId));
+		adBean.setCommunautes(service.get(Communaute.class, communitiesId));
+		if (service.saveOne(adBean) != null) {
+			addActionMessage(getText("ad.sent"));
+			return SUCCESS;
+		} else {
+			addActionError(getText("add.ad.impossible"));
+			return ERROR;
+		}	
 	}
-
-	public List<String> getGeographicAreas() {
-		return geographicAreas;
-	}
-
-	public void setGeographicAreas(List<String> geographicAreas) {
-		this.geographicAreas = geographicAreas;
-	}
+	
+//	public List<String> getGeographicAreas() {
+//		return geographicAreas;
+//	}
+//
+//	public void setGeographicAreas(List<String> geographicAreas) {
+//		this.geographicAreas = geographicAreas;
+//	}
 
 	public void setCommunities(List<Communaute> communautes) {
 		this.communities = communautes;
 	}
 
 	public List<Communaute> getCommunities() {
-		return communities;
+		return service.getCommunautes();
+	}
+//
+//	public String getTitle() {
+//		return title;
+//	}
+//
+//	public void setTitle(String titre) {
+//		this.title = titre;
+//	}
+//
+//	public String getDescription() {
+//		return description;
+//	}
+//
+//	public void setDescription(String description) {
+//		this.description = description;
+//	}
+//
+//	public int getPrice() {
+//		return price;
+//	}
+//
+//	public void setPrice(int price) {
+//		this.price = price;
+//	}
+//
+	public List<Categorie> getCategories() {
+		return service.getCategories();
 	}
 
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String titre) {
-		this.title = titre;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public int getPrice() {
-		return price;
-	}
-
-	public void setPrice(int price) {
-		this.price = price;
-	}
-
-	public List<String> getCategories() {
-		return categories;
-	}
-
-	public void setCategories(List<String> categories) {
+	public void setCategories(List<Categorie> categories) {
 		this.categories = categories;
 	}
-
-	public File getFile() {
-		return file;
-	}
-
-	public void setFile(File file) {
-		this.file = file;
-	}
-
-	public String getUploadContentType() {
-		return uploadContentType;
-	}
-
-	public void setUploadContentType(String uploadContentType) {
-		this.uploadContentType = uploadContentType;
-	}
-
-	public String getUploadFileName() {
-		return uploadFileName;
-	}
-
-	public void setUploadFileName(String uploadFileName) {
-		this.uploadFileName = uploadFileName;
-	}
-
-	public String getFileCaption() {
-		return fileCaption;
-	}
-
-	public void setFileCaption(String fileCaption) {
-		this.fileCaption = fileCaption;
-	}
+//
+//	public File getFile() {
+//		return file;
+//	}
+//
+//	public void setFile(File file) {
+//		this.file = file;
+//	}
+//
+//	public String getUploadContentType() {
+//		return uploadContentType;
+//	}
+//
+//	public void setUploadContentType(String uploadContentType) {
+//		this.uploadContentType = uploadContentType;
+//	}
+//
+//	public String getUploadFileName() {
+//		return uploadFileName;
+//	}
+//
+//	public void setUploadFileName(String uploadFileName) {
+//		this.uploadFileName = uploadFileName;
+//	}
+//
+//	public String getFileCaption() {
+//		return fileCaption;
+//	}
+//
+//	public void setFileCaption(String fileCaption) {
+//		this.fileCaption = fileCaption;
+//	}
 
 	// This method returns a buffered image with the contents of an image
 	public static BufferedImage toBufferedImage(Image image) {
@@ -271,16 +286,15 @@ public class AdAction extends ActionSupport {
 	    return cm.hasAlpha();
 	}
 
+//	public String getRegion() {
+//		return region;
+//	}
+//
+//	public void setRegion(String region) {
+//		this.region = region;
+//	}
 	public Annonce getAdBean() {
 		return adBean;
-	}
-
-	public String getRegion() {
-		return region;
-	}
-
-	public void setRegion(String region) {
-		this.region = region;
 	}
 
 	public void setAdBean(Annonce adBean) {
@@ -288,19 +302,43 @@ public class AdAction extends ActionSupport {
 	}
 
 	public List<Region> getRegions() {
-		return regions;
+		return service.getRegions();
 	}
 
 	public void setRegions(List<Region> regions) {
 		this.regions = regions;
 	}
+//
+//	public List<Departement> getDepartements() {
+//		return departements;
+//	}
+//
+//	public void setDepartements(List<Departement> departements) {
+//		this.departements = departements;
+//	}
 
-	public List<Departement> getDepartements() {
-		return departements;
+	public void setRegionId(long regionId) {
+		this.regionId = regionId;
 	}
 
-	public void setDepartements(List<Departement> departements) {
-		this.departements = departements;
+	public long getRegionId() {
+		return regionId;
+	}
+
+	public void setCategorieId(long categorieId) {
+		this.categorieId = categorieId;
+	}
+
+	public long getCategorieId() {
+		return categorieId;
+	}
+
+	public void setCommunitiesId(Set<Long> communitiesId) {
+		this.communitiesId = communitiesId;
+	}
+
+	public Set<Long> getCommunitiesId() {
+		return communitiesId;
 	}
 	
 }

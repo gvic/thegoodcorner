@@ -1,5 +1,6 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -19,8 +20,10 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="Annonce")
-public class Annonce {
-	
+public class Annonce implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@Column(name = "ID", nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
