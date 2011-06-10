@@ -46,5 +46,9 @@ public class Region {
 		Collections.sort(departements);
 		return departements;
 	}
+	
+	public String toString(){
+		return getNom();
+	}
 
 }

@@ -24,7 +24,10 @@ import com.google.inject.Inject;
 import com.opensymphony.xwork2.ActionSupport;
 
 import dao.AdService;
+import entities.Annonce;
 import entities.Communaute;
+import entities.Departement;
+import entities.Region;
 
 public class AdAction extends ActionSupport {
 
@@ -33,15 +36,17 @@ public class AdAction extends ActionSupport {
 
 	@Inject
 	AdService service;
+	
+	private Annonce adBean;
 
 	private List<String> geographicAreas;
-	private String geographicAreaSubmitted;
+	
+	private List<Region> regions;
+	private List<Departement> departements;
 
 	private List<Communaute> communities;
-	private List<String> communitiesSubmitted;
 
 	private List<String> categories;
-	private String categorySubmitted;
 
 	private String title;
 	private String description;
@@ -57,6 +62,9 @@ public class AdAction extends ActionSupport {
 		// Dans le cas ou l'user a un compte
 		geographicAreas = new ArrayList<String>();
 		geographicAreas = service.getAreas();
+		
+		regions = service.getRegions();
+		departements = service.getDepartements();
 
 		categories = new ArrayList<String>();
 		categories = service.getOrderedCategories();
@@ -71,16 +79,7 @@ public class AdAction extends ActionSupport {
 
 	@Override
 	public void validate() {
-		System.out.println("=== validate() method called ===");
-		if (title != null && description != null && geographicAreas != null
-				&& categorySubmitted != null) {
-
-			if (service.findAd(title, description,
-					geographicAreaSubmitted, categorySubmitted) != null) {
-				addActionError(getText("errors.ad.exists"));
-			}
-
-		}
+		
 	}
 
 	/***
@@ -89,8 +88,7 @@ public class AdAction extends ActionSupport {
 	public String processDatas() {
 		if (geographicAreas == null)
 			System.out.println("==========nulllllll========");
-		else
-			System.out.println(geographicAreaSubmitted);
+		
 
 		try {
 
@@ -200,30 +198,6 @@ public class AdAction extends ActionSupport {
 		this.fileCaption = fileCaption;
 	}
 
-	public String getGeographicAreaSubmitted() {
-		return geographicAreaSubmitted;
-	}
-
-	public void setGeographicAreaSubmitted(String geographicAreaSubmitted) {
-		this.geographicAreaSubmitted = geographicAreaSubmitted;
-	}
-
-	public List<String> getCommunitiesSubmitted() {
-		return communitiesSubmitted;
-	}
-
-	public void setCommunitiesSubmitted(List<String> communautesSubmitted) {
-		this.communitiesSubmitted = communautesSubmitted;
-	}
-
-	public String getCategorySubmitted() {
-		return categorySubmitted;
-	}
-
-	public void setCategorySubmitted(String categorySubmitted) {
-		this.categorySubmitted = categorySubmitted;
-	}
-
 	// This method returns a buffered image with the contents of an image
 	public static BufferedImage toBufferedImage(Image image) {
 	    if (image instanceof BufferedImage) {
@@ -295,4 +269,29 @@ public class AdAction extends ActionSupport {
 	    ColorModel cm = pg.getColorModel();
 	    return cm.hasAlpha();
 	}
+
+	public Annonce getAdBean() {
+		return adBean;
+	}
+
+	public void setAdBean(Annonce adBean) {
+		this.adBean = adBean;
+	}
+
+	public List<Region> getRegions() {
+		return regions;
+	}
+
+	public void setRegions(List<Region> regions) {
+		this.regions = regions;
+	}
+
+	public List<Departement> getDepartements() {
+		return departements;
+	}
+
+	public void setDepartements(List<Departement> departements) {
+		this.departements = departements;
+	}
+	
 }

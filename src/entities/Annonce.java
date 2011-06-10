@@ -53,9 +53,9 @@ public class Annonce {
 	private Region region;
 	
 	
-	@ManyToMany
+	@ManyToOne
 	// @JoinColumn(name = "categorie_id", nullable = false)
-	private Set<Categorie> categories;
+	private Categorie categorie;
 	
 	@ManyToMany
 	private Set<Communaute> communautes;
@@ -154,12 +154,12 @@ public class Annonce {
 		this.envoiColis = envoiColis;
 	}
 
-	public Set<Categorie> getCategories() {
-		return categories;
+	public Categorie getCategorie() {
+		return categorie;
 	}
 
-	public void setCategories(Set<Categorie> categories) {
-		this.categories = categories;
+	public void setCategorie(Categorie categorie) {
+		this.categorie = categorie;
 	}
 
 	public void setAdresse(Adresse adresse) {
@@ -200,6 +200,10 @@ public class Annonce {
 
 	public void setValidee(boolean validee) {
 		this.validee = validee;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 	
 	

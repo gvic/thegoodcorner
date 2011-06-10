@@ -34,7 +34,7 @@ public class Categorie implements Serializable, Comparable<Categorie>{
 	// cascade insertion Categorie -> insertion Annonces
 	// cascade maj Categorie -> maj Annonces
 	// cascade suppression Categorie -> suppression Annonces
-	@ManyToMany(mappedBy = "categories")
+	@ManyToMany(mappedBy = "categorie")
 	private Set<Annonce> annonces = new HashSet<Annonce>();
 	
 	// Arbres des categories
