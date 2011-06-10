@@ -11,8 +11,8 @@ public interface PopulateService {
 
 	List<Communaute> getCommunautes();
 	
-	boolean exists(String nom);
-
+	public boolean exists(String nom, String desc);
+	
 	void save(Communaute c);
 	
 }

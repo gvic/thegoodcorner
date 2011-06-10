@@ -10,41 +10,38 @@ import entities.Communaute;
 public class PopulateAction extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
-	@Inject private PopulateService service;
+	@Inject
+	private PopulateService service;
 	private List<Communaute> communautes;
 	private String communaute;
 	private String communauteDesc;
-	
-	public String adminPopulate(){
-		
+
+	public String adminPopulate() {
+
 		return SUCCESS;
 	}
-	
-	public String addCommunaute() throws Exception{
+
+	public String communaute_input() throws Exception {
 		String ret = super.input();
 		System.out.println("===== addCommunaute method called =====");
-		System.out.println("===== communaute: "+communaute+", desc:"+communauteDesc+"=====");
-		if(communaute != null && communauteDesc != null){
-			System.out.println("==== validation OK =====");
-			if(service.exists(communaute)){
+		System.out.println("===== communaute: " + communaute + ", desc:"
+				+ communauteDesc + "=====");
+		if (communaute != null && communauteDesc != null) {
+			if (service.exists(communaute,communauteDesc)) {
 				System.out.println("the comunity exists");
 				addActionError(getText("errors.populate.communaute_exists"));
 				ret = ERROR;
-			} else{
+			} else {
 				Communaute c = new Communaute();
 				c.setDenomination(communaute);
 				c.setDescription(communauteDesc);
-				try{
-					service.save(c);
-				} catch (Exception e) {
-					System.out.println("exception lors de l'enregistrement");
-				}
-				
+				service.save(c);
+
 				System.out.println("the comunity has been created");
 				ret = SUCCESS;
 			}
 		}
-		System.out.println("===== returned value : "+ ret +" =====");
+		System.out.println("===== returned value : " + ret + " =====");
 		return ret;
 	}
 
@@ -71,7 +68,5 @@ public class PopulateAction extends ActionSupport {
 	public void setCommunaute(String communaute) {
 		this.communaute = communaute;
 	}
-	
 
-	
 }

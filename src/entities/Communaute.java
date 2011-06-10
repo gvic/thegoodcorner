@@ -1,5 +1,6 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -11,8 +12,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="Communaute")
-public class Communaute {
+public class Communaute implements Serializable{
 	
+	private static final long serialVersionUID = 1748423381899940742L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
