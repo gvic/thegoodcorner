@@ -10,8 +10,9 @@ import entities.Communaute;
 public class PopulateAction extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
-	@Inject
-	private PopulateService service;
+	@Inject	private PopulateService service;
+	
+	private Communaute comBean;
 	private List<Communaute> communautes;
 	private String communaute;
 	private String communauteDesc;
@@ -27,8 +28,7 @@ public class PopulateAction extends ActionSupport {
 		System.out.println("===== communaute: " + communaute + ", desc:"
 				+ communauteDesc + "=====");
 		if (communaute != null && communauteDesc != null) {
-			if (service.exists(communaute,communauteDesc)) {
-				System.out.println("the comunity exists");
+			if (service.exists(communaute)) {
 				addActionError(getText("errors.populate.communaute_exists"));
 				ret = ERROR;
 			} else {
@@ -67,6 +67,14 @@ public class PopulateAction extends ActionSupport {
 
 	public void setCommunaute(String communaute) {
 		this.communaute = communaute;
+	}
+
+	public Communaute getComBean() {
+		return comBean;
+	}
+
+	public void setComBean(Communaute comBean) {
+		this.comBean = comBean;
 	}
 
 }
