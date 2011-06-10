@@ -42,6 +42,7 @@ public class AdAction extends ActionSupport {
 	private List<String> geographicAreas;
 	
 	private List<Region> regions;
+	private String region;
 	private List<Departement> departements;
 
 	private List<Communaute> communities;
@@ -272,6 +273,14 @@ public class AdAction extends ActionSupport {
 
 	public Annonce getAdBean() {
 		return adBean;
+	}
+
+	public String getRegion() {
+		return region;
+	}
+
+	public void setRegion(String region) {
+		this.region = region;
 	}
 
 	public void setAdBean(Annonce adBean) {
