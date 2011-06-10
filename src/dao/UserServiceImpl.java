@@ -14,7 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import entities.Adresse;
 import entities.User;
@@ -88,13 +88,13 @@ public class UserServiceImpl implements UserService {
         
         // Check if a field is already used?
         // throws Exception in case of bad field parameter
-        public User findByField(Map<String,String> fieldValue) throws IllegalArgumentException {
+        public User findByField(Map<String,Object> fieldValue) throws IllegalArgumentException {
         	User res = null;
         	try{
         		Set<String> keys = fieldValue.keySet();
         		Iterator<String> iteKeys = keys.iterator();
-        		Collection<String> values = fieldValue.values();
-        		Iterator<String> iteValues = values.iterator();
+        		Collection<Object> values = fieldValue.values();
+        		Iterator<Object> iteValues = values.iterator();
         		String query = "SELECT p FROM User p WHERE";
         		// Iterator on keys
         		int i = 0;
@@ -105,14 +105,14 @@ public class UserServiceImpl implements UserService {
         			query += " p."+iteKeys.next()+"=:value"+i;
         			i++;
         		}
-        		Query q = em.createQuery(query);
+        		TypedQuery<User> q = em.createQuery(query,User.class);
         		// Iterator on values
         		i = 0;
         		while(iteValues.hasNext()) {
         			q.setParameter("value"+i, iteValues.next());
         			i++;
         		}
-        		User u = (User) q.getSingleResult();
+        		User u = q.getSingleResult();
         		if (u != null) {
         			res = u;
         		}

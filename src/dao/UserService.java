@@ -31,7 +31,7 @@ public interface UserService {
         public boolean isUser(String username, String password);
 		
         // Find user by map of fields-values
-		public User findByField(Map<String,String> fieldValue) throws IllegalArgumentException; 
+		public User findByField(Map<String,Object> fieldValue) throws IllegalArgumentException; 
 		
 		public Adresse save(Adresse a);
 		

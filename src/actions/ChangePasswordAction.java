@@ -22,7 +22,7 @@ public class ChangePasswordAction extends ActionSupport{
 	public void validate() {
 		System.out.println("=== validate() method called ===");
 		if (login != null && oldPassword != null) {
-			HashMap<String, String> hm = new HashMap<String, String>();
+			HashMap<String, Object> hm = new HashMap<String, Object>();
 			hm.put("login", login);
 			if (service.findByField(hm) == null) {
 				addActionError(getText("errors.login"));

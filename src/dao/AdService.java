@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.Remote;
 
@@ -33,4 +34,5 @@ public interface AdService {
 	public Object findAd(String title, String description,
 			String geographicAreaSubmitted, String categorySubmitted);
 	
+	public List<Annonce> findByJointure(Map<String,Map<String,Object>> joins);
 }

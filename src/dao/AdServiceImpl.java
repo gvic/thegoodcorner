@@ -1,11 +1,18 @@
 package dao;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -19,6 +26,7 @@ import entities.Categorie;
 import entities.Communaute;
 import entities.Departement;
 import entities.Region;
+import entities.User;
 
 @Stateless(mappedName="dao.AdServiceImpl")
 public class AdServiceImpl implements AdService {
@@ -34,7 +42,7 @@ public class AdServiceImpl implements AdService {
     	return em;
     }
     
-    @Override
+    
 	public List<Departement> getDepartements() {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Departement> cq = cb.createQuery(Departement.class);
@@ -43,7 +51,7 @@ public class AdServiceImpl implements AdService {
 		return query.getResultList();
 	}
 
-	@Override
+	
 	public List<Communaute> getCommunautes() {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Communaute> cq = cb.createQuery(Communaute.class);
@@ -52,12 +60,12 @@ public class AdServiceImpl implements AdService {
 		return query.getResultList();
 	}
 
-	@Override
+	
 	public void save(Annonce annonce) {
 		em.persist(annonce);		
 	}
 
-	@Override
+	
 	public List<Region> getRegions() {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Region> cq = cb.createQuery(Region.class);
@@ -69,7 +77,7 @@ public class AdServiceImpl implements AdService {
 		return query.getResultList();
 	}
 
-	@Override
+	
 	public List<Categorie> getCategories() {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Categorie> cq = cb.createQuery(Categorie.class);
@@ -81,7 +89,7 @@ public class AdServiceImpl implements AdService {
 		return query.getResultList();
 	}
 
-	@Override
+	
 	public List<Categorie> getMasterCategory() {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Categorie> cq = cb.createQuery(Categorie.class);
@@ -94,7 +102,7 @@ public class AdServiceImpl implements AdService {
 		return query.getResultList();
 	}
 	
-	@Override
+	
 	public List<Categorie> getCategoriesLevel(long id) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Categorie> cq = cb.createQuery(Categorie.class);
@@ -109,7 +117,7 @@ public class AdServiceImpl implements AdService {
 		return query.getResultList();
 	}
 
-	@Override
+	
 	public List<Categorie> getSecondLevelCategories() {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Categorie> cq = cb.createQuery(Categorie.class);
@@ -120,7 +128,7 @@ public class AdServiceImpl implements AdService {
 		return query.getResultList();
 	}
 
-	@Override
+	
 	public List<Categorie> getSonsCategories(Categorie p) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Categorie> cq = cb.createQuery(Categorie.class);
@@ -137,7 +145,7 @@ public class AdServiceImpl implements AdService {
     	return em.find(Annonce.class, id);
     }
 
-	@Override
+	
 	public List<String> getOrderedCategories() {
 		List<String> categories = new ArrayList<String>(); 
 		List<Categorie> highest_cat = getCategoriesLevel(1L);
@@ -156,7 +164,7 @@ public class AdServiceImpl implements AdService {
 		return categories;
 	}
 
-	@Override
+	
 	public List<String> getAreas() {
 		List<String> areas = new ArrayList<String>();
 		List<Region> regions = getRegions();
@@ -174,7 +182,7 @@ public class AdServiceImpl implements AdService {
 		return areas;
 	}
 
-	@Override
+	
 	public List<Annonce> findAd(String title, String description,
 			String geographicAreaSubmitted, String categorySubmitted) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -187,4 +195,68 @@ public class AdServiceImpl implements AdService {
 		return query.getResultList();
 	}
 	
+	/**
+	 * Find ads by joins with other entities.
+	 * 
+	 * I.E:
+	 * parameter : [ "departement" -> ["nom" -> "Ain"]]
+	 * 
+	 * Dirty method.. No comments!
+	 * 
+	 * @return
+	 */
+	public List<Annonce> findByJointure(Map<String,Map<String,Object>> joins) {
+		
+//		SELECT DISTINCT a FROM Annonce a JOIN a.departement d WHERE d.nom=:value
+		List<Annonce> res = null;
+    	try{
+    		Set<String> keys = joins.keySet();
+    		Iterator<String> iteKeys = keys.iterator();
+    		Collection<Map<String,Object>> values = joins.values();
+    		Iterator<Map<String,Object>> iteValues = values.iterator();
+    		String query = "SELECT DISTINCT a FROM Annonce a";
+    		// Iterator on keys
+    		int i = 0;
+    		while(iteKeys.hasNext()) {
+				query += " JOIN";
+    			query += " a."+iteKeys.next() + " v"+i;
+    			i++;
+    		}
+    		
+    		i = 0;
+    		int j = 0;
+    		Set<Object> oValues = new HashSet<Object>();
+    		while(iteValues.hasNext()) {
+    			Map<String,Object> map = iteValues.next();
+    			Iterator<String> iteEntry = map.keySet().iterator();
+    			oValues.addAll(map.values());
+    			while (iteEntry.hasNext()) {
+    				String key = iteEntry.next();
+    				if (i==0){
+        	    		query += " WHERE";
+        			}
+    				query += " v"+i+"."+key+"=:value"+j;
+    				j++;
+    			}
+    			i++;
+    		}
+    		
+    		TypedQuery<Annonce> q = em.createQuery(query,Annonce.class);
+    		j = 0;
+    		Iterator<Object> iteoValues = oValues.iterator();
+    		while(iteoValues.hasNext()) {
+    			q.setParameter("value"+j, iteoValues.next());
+    			j++;
+    		}
+    		List<Annonce> u = q.getResultList();
+    		if (u != null) {
+    			res = u;
+    		}
+    	} catch(NoResultException e) {
+    		e.printStackTrace();
+    	} catch(NullPointerException e) {
+    		e.printStackTrace();
+    	}
+    	return res;
+	}
 }

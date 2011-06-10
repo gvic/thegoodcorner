@@ -27,7 +27,7 @@ public class LogInAction extends ActionSupport {
 		System.out.println("=== login() method called ===");
 		addActionMessage(getText("welcome")+" "+login);
 		// Find User
-		HashMap<String, String> hm = new HashMap<String, String>();
+		HashMap<String, Object> hm = new HashMap<String, Object>();
 		hm.put("login", login);
 		hm.put("md5_mdp", UserServiceImpl.md5Encryption(password));
 		User u = service.findByField(hm);
@@ -47,7 +47,7 @@ public class LogInAction extends ActionSupport {
 		System.out.println("=== validate() method called ===");
 		// Validate LogIn form
 		if (login != null && password != null) {
-			HashMap<String, String> hm = new HashMap<String, String>();
+			HashMap<String, Object> hm = new HashMap<String, Object>();
 			hm.put("login", login);
 			if (service.findByField(hm) == null) {
 				addFieldError("login", getText("errors.login"));

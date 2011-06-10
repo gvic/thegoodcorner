@@ -23,7 +23,7 @@ public class SignUpAction extends ActionSupport {
 		// Validate SignUp form
 		if (userBean != null) {
 			System.out.println(userBean.toString());
-			HashMap<String,String> mhm = new HashMap<String,String>();
+			HashMap<String,Object> mhm = new HashMap<String,Object>();
 			mhm.put("login", userBean.getLogin());
 			if (!userBean.getLogin().equals("") && service.findByField(mhm)!=null) {
 				addFieldError("userBean.login", getText("username.used"));

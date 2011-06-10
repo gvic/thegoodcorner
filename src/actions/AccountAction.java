@@ -27,7 +27,7 @@ public class AccountAction extends ActionSupport{
 			
 			String oldEmail = service.getOne((Long) userIdO).getEmail();
 			
-			HashMap<String,String> mhm = new HashMap<String,String>();
+			HashMap<String,Object> mhm = new HashMap<String,Object>();
 			mhm.put("email", email);
 			if ( !email.equals("") && service.findByField(mhm)!=null && !email.equals(oldEmail) ) {
 				addFieldError("email", getText("email.used"));
