@@ -65,12 +65,6 @@
 			<result name="success" type="tiles">welcome</result>
 		</action>
 		
-<!--		<action name="showAccount" class="actions.AccountAction" method="showAccount">-->
-<!--			<result name="input" type="tiles">showAccount</result>-->
-<!--			<result name="error" type="tiles">showAccount</result>-->
-<!--			<result name="success" type="tiles">showAccount</result>-->
-<!--		</action>-->
-		
 		<action name="updateAccount_*" class="actions.AccountAction" method="{1}">
 			<!-- Compulsary for AJAX validation callbacks -->
 			<interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>
@@ -84,6 +78,12 @@
 			<interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>
 			<result name="input" type="tiles">changePassword</result>
 			<result name="error" type="tiles">changePassword</result>
+			<result name="success" type="tiles">welcome</result>
+		</action>
+		
+		<action name="search_*" class="actions.SearchAction" method="{1}">
+			<result name="input" type="tiles">searchForm</result>
+			<result name="error" type="tiles">searchForm</result>
 			<result name="success" type="tiles">welcome</result>
 		</action>
 				

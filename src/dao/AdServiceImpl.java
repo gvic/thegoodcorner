@@ -256,4 +256,29 @@ public class AdServiceImpl implements AdService {
     	}
     	return res;
 	}
+	
+	/**
+	 * Searches and returns a list of Annonce 
+	 * which contain in their title one of the key words in the text entered in parameter.
+	 * -------------(Method not tested yet)--------------------
+	 */
+	public List<Annonce> search(String text){
+		List<Annonce> results = new ArrayList<Annonce>();
+		
+		if(text !=null && !text.isEmpty()){
+			String[] keyWords= text.split(" ");	
+			String query = "SELECT DISTINCT * FROM Annonce ";
+			int i=0;
+			for(String key : keyWords){
+				if(i==0)
+					query+= "WHERE title LIKE '%"+key+"%' ";
+				else
+					query+= "OR title LIKE '%"+key+"%' ";
+				i++;
+			}
+			query+=	";";
+		
+		}
+		return results;
+	}
 }

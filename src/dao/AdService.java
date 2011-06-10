@@ -35,4 +35,6 @@ public interface AdService {
 			String geographicAreaSubmitted, String categorySubmitted);
 	
 	public List<Annonce> findByJointure(Map<String,Map<String,Object>> joins);
+	
+	public List<Annonce> search(String text);
 }

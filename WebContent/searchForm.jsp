@@ -1,14 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-
-
-
-</body>
-</html>
+<%@ page language="java"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
+<s:actionerror/>
+<s:actionmessage/>
+<s:form id="searchForm" theme="xhtml" action="search_search" >
+	<s:textfield name="text" key="search.text"  />
+	<sj:submit button="true" key="login.submit" validate="true" indicator="indicator" cssClass="float-right" />
+</s:form>
+<img id="indicator"  src="/template/new_xhtml/css/images/indicator.gif" alt="Loading..." style="display:none"/>

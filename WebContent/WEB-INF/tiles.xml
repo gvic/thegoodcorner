@@ -64,12 +64,12 @@
     <definition name="changePassword" extends="baseLayoutDressedUp">
         <put-attribute name="title" value="Change your password" />
         <put-attribute name="body" value="/changePassword.jsp" />
-    </definition>
+    </definition> 
     
-<!--    <definition name="showAccount" extends="baseLayoutDressedUp">-->
-<!--        <put-attribute name="title" value="Show an account" />-->
-<!--        <put-attribute name="body" value="/account.jsp" />-->
-<!--    </definition>-->
+    <definition name="searchForm" extends="baseLayoutDressedUp">
+        <put-attribute name="title" value="Search an ad" />
+        <put-attribute name="body" value="/searchForm.jsp" />
+    </definition>
     
     <definition name="populateIndex" extends="baseLayoutDressedUp">
         <put-attribute name="title" value="Adminstration" />
