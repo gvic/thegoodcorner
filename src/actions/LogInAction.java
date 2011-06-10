@@ -50,11 +50,11 @@ public class LogInAction extends ActionSupport {
 			HashMap<String, String> hm = new HashMap<String, String>();
 			hm.put("login", login);
 			if (service.findByField(hm) == null) {
-				addActionError(getText("errors.login"));
+				addFieldError("login", getText("errors.login"));
 			}
 			hm.put("md5_mdp", UserServiceImpl.md5Encryption(password));
 			if (service.findByField(hm) == null) {
-				addActionError(getText("errors.password"));
+				addFieldError("password", getText("errors.password"));
 			}
 		}
 	}

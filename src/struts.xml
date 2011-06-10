@@ -45,7 +45,7 @@
 			<interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>
 			<result name="input" type="tiles">signup</result>
 			<result name="error" type="tiles">signup</result>
-			<result name="success" type="tiles">signup.success</result>
+			<result name="success" type="tiles">welcome</result>
 		</action>
 
 		<action name="admin" class="actions.PopulateAction" method="adminPopulate">

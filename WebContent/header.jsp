@@ -4,7 +4,6 @@
 <div id="title">
 	<a href="">The <span class="good">Good</span> Corner</a>
 </div>
-<s:actionmessage/>
 <div id="onglet-wrapper">
 	<div id="nav-login">
 		<s:if test="%{#session.loggedin == 'true'}">

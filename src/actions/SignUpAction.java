@@ -39,6 +39,7 @@ public class SignUpAction extends ActionSupport {
 	public String signUp() throws Exception {
 		System.out.println("=== signUp() method called ===");
 		if (service.saveOne(userBean) != null) {
+			addActionMessage(userBean.getPrenom()+" "+getText("now.signup"));
 			return SUCCESS;
 		} else {
 			addActionError(getText("signup.impossible"));
