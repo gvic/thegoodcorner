@@ -10,3 +10,5 @@
 <script src="<@s.url value='/template/new_xhtml/js/jquery.scrollTo-1.4.2-min.js' includeParams='none' encode='false' />" type="text/javascript"></script>
 <script src="<@s.url value='/template/new_xhtml/js/index.init.js' includeParams='none' encode='false' />" type="text/javascript"></script>
 <script src="<@s.url value='/template/new_xhtml/js/jquery.easing.1.3.js' includeParams='none' encode='false' />" type="text/javascript"></script>
+
+<#include "/${parameters.templateDir}/simple/head.ftl" />
