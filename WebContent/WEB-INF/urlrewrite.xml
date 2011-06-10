@@ -57,7 +57,7 @@
 		<to>%{context-path}/updateAccount_input.action</to>
 	</rule>
 	<outbound-rule>
-		<from>/updateAccount_(.*).action</from>
+		<from>/updateAccount_input.action</from>
 		<to>/account.html</to>
 	</outbound-rule>
 	<rule>
@@ -65,7 +65,7 @@
 		<to>%{context-path}/changePassword_input.action</to>
 	</rule>
 	<outbound-rule>
-		<from>/changePassword_(.*).action</from>
+		<from>/changePassword_input.action</from>
 		<to>/password.html</to>
 	</outbound-rule>
 
