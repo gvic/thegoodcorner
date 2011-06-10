@@ -44,8 +44,6 @@ public class AdAction extends ActionSupport {
 	private long regionId;
 	private long categorieId;
 	private Set<Long> communitiesId;
-
-//	private List<String> geographicAreas;
 	
 	private List<Region> regions;
 //	private String region;
@@ -55,34 +53,49 @@ public class AdAction extends ActionSupport {
 
 	private List<Categorie> categories;
 
-//	private String title;
-//	private String description;
-//	private int price;
-//	private File file;// The actual file
-//	private String uploadContentType; // The content type of the file
-//	private String uploadFileName; // The uploaded file name
-//	private String fileCaption;// The caption of the file entered by use
-	
-	// Méthode d'entrée sur la page du formulaire de
-	// soumission d'annonce
-//	public String input() throws Exception {
-//		// Dans le cas ou l'user a un compte
-//		geographicAreas = new ArrayList<String>();
-//		geographicAreas = service.getAreas();
-//		
-//		regions = service.getRegions();
-//		departements = service.getDepartements();
-//
-//		categories = new ArrayList<String>();
-//		categories = service.getOrderedCategories();
-//
-//		communities = service.getCommunautes();
-//
-//		// Dans le cas ou l'user n'a pas de compte
-//
-//		return super.input();
-//
-//	}
+    private List<File> uploads = new ArrayList<File>();
+    private List<String> uploadFileNames = new ArrayList<String>();
+    private List<String> uploadContentTypes = new ArrayList<String>();
+
+
+    public List<File> getUpload() {
+        return this.uploads;
+    }
+    public void setUpload(List<File> uploads) {
+        this.uploads = uploads;
+    }
+
+    public List<String> getUploadFileName() {
+        return this.uploadFileNames;
+    }
+    public void setUploadFileName(List<String> uploadFileNames) {
+        this.uploadFileNames = uploadFileNames;
+    }
+
+    public List<String> getUploadContentType() {
+        return this.uploadContentTypes;
+    }
+    public void setUploadContentType(List<String> contentTypes) {
+        this.uploadContentTypes = contentTypes;
+    }
+
+    public String upload() throws Exception {
+        System.out.println("\n\n upload1");
+        System.out.println("files:");
+        for (File u: uploads) {
+            System.out.println("*** "+u+"\t"+u.length());
+        }
+        System.out.println("filenames:");
+        for (String n: uploadFileNames) {
+            System.out.println("*** "+n);
+        }
+        System.out.println("content types:");
+        for (String c: uploadContentTypes) {
+            System.out.println("*** "+c);
+        }
+        System.out.println("\n\n");
+        return SUCCESS;
+    }
 
 	/***
 	 * FAIRE ENVOI DE MAIL ET REDIMENSIONNEMENT DE L'IMAGE.... .....
@@ -122,6 +135,22 @@ public class AdAction extends ActionSupport {
 
 	public String submit() throws Exception {
 		System.out.println("=== submit() method called ===");
+		
+        System.out.println("\n\n upload1");
+        System.out.println("files:");
+        for (File u: uploads) {
+            System.out.println("*** "+u+"\t"+u.length());
+        }
+        System.out.println("filenames:");
+        for (String n: uploadFileNames) {
+            System.out.println("*** "+n);
+        }
+        System.out.println("content types:");
+        for (String c: uploadContentTypes) {
+            System.out.println("*** "+c);
+        }
+        System.out.println("\n\n");
+		
 		adBean.setRegion(service.getOne(Region.class, regionId));
 		adBean.setCategorie(service.getOne(Categorie.class, categorieId));
 		adBean.setCommunautes(service.get(Communaute.class, communitiesId));

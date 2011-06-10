@@ -60,6 +60,14 @@
 		</action>
 		
 		<action name="populateAd_*" class="actions.AdAction" method="{1}">
+			<!-- interceptors for FileUpload validations-->
+		    <interceptor-ref name="basicStack"/>
+		    <interceptor-ref name="fileUpload">
+		    	<param name="maximumSize">500000</param>
+		        <param name="allowedTypes">image/jpeg,image/gif,image/png,image/bmp</param>
+		    </interceptor-ref> 
+		    <interceptor-ref name="validation"/>
+		    <interceptor-ref name="workflow"/>
 			<result name="input" type="tiles">submitAd</result>
 			<result name="error" type="tiles">submitAd</result>
 			<result name="success" type="tiles">welcome</result>
