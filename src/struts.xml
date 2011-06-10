@@ -52,8 +52,8 @@
 			<result type="tiles">populateIndex</result>
 		</action>
 
-		<action name="addCommunaute" class="actions.PopulateAction"
-			method="communaute_input">
+		<action name="addCommunaute_*" class="actions.PopulateAction"
+			method="{1}">
 			<result name="input" type="tiles">addCommunaute</result>
 			<result name="error" type="tiles">addCommunaute</result>
 			<result name="success" type="tiles" >populateIndex</result>

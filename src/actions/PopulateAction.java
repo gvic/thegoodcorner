@@ -1,80 +1,61 @@
 package actions;
 
-import java.util.List;
-
 import com.google.inject.Inject;
 import com.opensymphony.xwork2.ActionSupport;
+
 import dao.PopulateService;
 import entities.Communaute;
 
 public class PopulateAction extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
-	@Inject	private PopulateService service;
-	
-	private Communaute comBean;
-	private List<Communaute> communautes;
-	private String communaute;
-	private String communauteDesc;
+	@Inject
+	private PopulateService service;
 
-	public String adminPopulate() {
+	private Communaute communaute;
 
-		return SUCCESS;
-	}
-
-	public String communaute_input() throws Exception {
-		String ret = super.input();
-		System.out.println("===== addCommunaute method called =====");
-		System.out.println("===== communaute: " + communaute + ", desc:"
-				+ communauteDesc + "=====");
-		if (communaute != null && communauteDesc != null) {
-			if (service.exists(communaute)) {
-				addActionError(getText("errors.populate.communaute_exists"));
-				ret = ERROR;
-			} else {
-				Communaute c = new Communaute();
-				c.setDenomination(communaute);
-				c.setDescription(communauteDesc);
-				service.save(c);
-
-				System.out.println("the comunity has been created");
-				ret = SUCCESS;
+	@Override
+	public void validate() {
+		super.validate();
+		if (communaute != null) {
+			if (communaute.getDenomination() == null) {
+				addActionError(getText("errors.populate.communaute.denomination"));
+			}
+			if (communaute.getDescription() == null) {
+				addActionError(getText("errors.populate.communaute.description"));
 			}
 		}
-		System.out.println("===== returned value : " + ret + " =====");
-		return ret;
 	}
 
-	public String getCommunauteDesc() {
-		return communauteDesc;
+	public String input() throws Exception {
+
+		return super.input();
 	}
 
-	public void setCommunauteDesc(String communauteDesc) {
-		this.communauteDesc = communauteDesc;
+	public String processDatas() {
+
+		if (service.exists(communaute.getDenomination())) {
+			return ERROR;
+		} else {
+			service.save(communaute);
+			return SUCCESS;
+		}
 	}
 
-	public List<Communaute> getCommunautes() {
-		return communautes;
-	}
-
-	public void setCommunautes(List<Communaute> communautes) {
-		this.communautes = communautes;
-	}
-
-	public String getCommunaute() {
+	public Communaute getCommunaute() {
 		return communaute;
 	}
 
-	public void setCommunaute(String communaute) {
+	public void setCommunaute(Communaute communaute) {
 		this.communaute = communaute;
 	}
 
 	public Communaute getComBean() {
-		return comBean;
+		return communaute;
 	}
 
 	public void setComBean(Communaute comBean) {
-		this.comBean = comBean;
+		this.communaute = comBean;
 	}
 
 }

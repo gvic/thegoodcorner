@@ -7,12 +7,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Map.Entry;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -26,7 +24,6 @@ import entities.Categorie;
 import entities.Communaute;
 import entities.Departement;
 import entities.Region;
-import entities.User;
 
 @Stateless(mappedName="dao.AdServiceImpl")
 public class AdServiceImpl implements AdService {

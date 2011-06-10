@@ -1,6 +1,5 @@
 package actions;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import com.google.inject.Inject;

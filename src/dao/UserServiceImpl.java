@@ -80,7 +80,6 @@ public class UserServiceImpl implements UserService {
 				mdEnc.update(toEnc.getBytes(), 0, toEnc.length());
 	    		res = new java.math.BigInteger(1, mdEnc.digest()).toString(16); // Encrypted string
 			} catch (NoSuchAlgorithmException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			return res;
