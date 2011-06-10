@@ -1,0 +1,14 @@
+
+
+Formulaire de soumission d'annonce qui ne marche pas :
+   -> attente de la réponse de broto
+
+Formulaire pour ajouter une communaute
+  -> erreur lors de la validation, savoir pourquoi...
+  
+  
+Formulaire de recherche d'annonce, maxime a commencé,
+je prend la suite ce week end.
+
+
+...
