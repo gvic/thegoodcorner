@@ -3,13 +3,14 @@ package entities;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -34,7 +35,7 @@ public class Categorie implements Serializable, Comparable<Categorie>{
 	// cascade insertion Categorie -> insertion Annonces
 	// cascade maj Categorie -> maj Annonces
 	// cascade suppression Categorie -> suppression Annonces
-	@ManyToMany(mappedBy = "categorie")
+	@OneToMany(mappedBy = "categorie")
 	private Set<Annonce> annonces = new HashSet<Annonce>();
 	
 	// Arbres des categories
