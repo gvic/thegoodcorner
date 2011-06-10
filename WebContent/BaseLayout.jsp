@@ -11,24 +11,8 @@
 <!-- If login needed, the loginCheck.jsp will check the session for you -->
 <tiles:insertAttribute name="loginCheck"  ignore="true"/>
 <title><tiles:insertAttribute name="title" ignore="true" /></title>
-<!-- This file is needed for AJAX Validation of XHTML Forms -->
-<script src="${pageContext.request.contextPath}/struts/xhtml/validation.js" type="text/javascript"></script>
 <sj:head jqueryui="true"/>
-<s:head theme="xhtml"/>
-<!-- Add CSS and JS files configured in tiles.xml -->
-<!--<tiles:useAttribute id="list" name="css" classname="java.util.List" />-->
-<tiles:useAttribute id="list2" name="scripts" classname="java.util.List" />
-<c:forEach var="item" items="${list2}">
-  <script type="text/javascript" src="${item}"></script>
-</c:forEach>
-<s:iterator value="<tiles:insertAttribute id="list" name="css" classname="java.util.List" />">
-	<s:url var="url" value="[0]"></s:url>
-	<link href="%{url}" rel="stylesheet" type="text/css" />
-</s:iterator>
-<!--<c:forEach var="item" items="${list}">-->
-<!--  <s:url var="url" value="${item}"></s:url>-->
-<!--  <link href="${item}" rel="stylesheet" type="text/css" />-->
-<!--</c:forEach>-->
+<s:head theme="new_xhtml"/>
 </head>
 <body>
 	<div id="wrapper">
