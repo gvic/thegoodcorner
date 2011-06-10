@@ -26,4 +26,7 @@
 	<s:a action="addCommunaute">
 			<s:text name="account.add.communaute" />
 	</s:a>
+	<s:a action="changePassword_input">
+			<s:text name="account.changePassword" />
+	</s:a>
 </div>

@@ -17,7 +17,7 @@ public class ChangePasswordAction extends ActionSupport{
 	private static final long serialVersionUID = 1L;
 	@Inject UserService service;
 	
-	private String login, oldPassword, newPassword;
+	private String login, oldPassword, newPassword, confirmPassword;
 	
 	public void validate() {
 		System.out.println("=== validate() method called ===");
@@ -29,7 +29,7 @@ public class ChangePasswordAction extends ActionSupport{
 			}
 			hm.put("md5_mdp", UserServiceImpl.md5Encryption(oldPassword));
 			if (service.findByField(hm) == null) {
-				addActionError(getText("errors.oldPassword"));
+				addActionError(getText("errors.oldPassword"));	// DONT WORK!!!!!!!!!
 			}
 		}
 	}
@@ -90,6 +90,14 @@ public class ChangePasswordAction extends ActionSupport{
 
 	public void setNewPassword(String newPassword) {
 		this.newPassword = newPassword;
+	}
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
 	}
 
 }
