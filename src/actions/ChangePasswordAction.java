@@ -12,6 +12,11 @@ import dao.UserServiceImpl;
 
 import entities.User;
 
+/**
+ * 
+ * Actions for an user to change his password
+ *
+ */
 public class ChangePasswordAction extends ActionSupport{
 
 	private static final long serialVersionUID = 1L;
@@ -19,21 +24,29 @@ public class ChangePasswordAction extends ActionSupport{
 	
 	private String login, oldPassword, newPassword, confirmPassword;
 	
+	/**
+	 *  Method launched at the start of the form in order to valide the form coherency
+	 *  It also validates the criteria in the ChangePasswordAction.xml file
+	 */
 	public void validate() {
 		System.out.println("=== validate() method called ===");
-		if (login != null && oldPassword != null) {
-			HashMap<String, Object> hm = new HashMap<String, Object>();
-			hm.put("login", login);
-			if (service.findByField(hm) == null) {
-				addActionError(getText("errors.login"));
-			}
-			hm.put("md5_mdp", UserServiceImpl.md5Encryption(oldPassword));
-			if (service.findByField(hm) == null) {
-				addActionError(getText("errors.oldPassword"));	// DONT WORK!!!!!!!!!
-			}
+		Map<String,Object>  session = ActionContext.getContext().getSession();
+		Object userIdO = session.get("userId");
+		if (userIdO != null) {
+			long userId = (Long) userIdO;
+			User userBean = service.getOne(userId);
+			if (!userBean.getMd5_mdp().equals(UserServiceImpl.md5Encryption(oldPassword))) {
+				addActionError(getText("errors.oldPassword"));	
+			}		
 		}
+		else {
+			addActionError(getText("error.notloggedin"));
+		}		
 	}
 	
+	/**
+	 * Method used to instanciate the form
+	 */
 	public String input() throws Exception {
 		Map<String,Object>  session = ActionContext.getContext().getSession();
 		Object userIdO = session.get("userId");
@@ -48,6 +61,10 @@ public class ChangePasswordAction extends ActionSupport{
 		}
 	}	
 	
+	/**
+	 * Method used when submitting the form. It changes the password.
+	 * @return Action result
+	 */
 	public String changePassword(){
 		Map<String,Object>  session = ActionContext.getContext().getSession();
 		Object userIdO = session.get("userId");

@@ -10,6 +10,10 @@ import com.opensymphony.xwork2.ActionSupport;
 import dao.UserService;
 import entities.User;
 
+/**
+ * Actions for an user to update his account data (except his password).
+ *
+ */
 public class AccountAction extends ActionSupport{
 
 	private static final long serialVersionUID = 1L;
@@ -17,7 +21,10 @@ public class AccountAction extends ActionSupport{
 	
 	private String name, firstname, email, login, phone, mobile;
 	
-	// Server-side validation
+	/**
+	 * 	Method launched at the start of the form in order to valide the form coherency
+	 *  It also validates the criteria in the AccountAction.xml file
+	 */
 	public void validate() {
 		
 		Map<String,Object>  session = ActionContext.getContext().getSession();
@@ -39,6 +46,9 @@ public class AccountAction extends ActionSupport{
 			
 	}
 	
+	/**
+	 * Method used to instanciate the form
+	 */
 	public String input() throws Exception {
 		Map<String,Object>  session = ActionContext.getContext().getSession();
 		Object userIdO = session.get("userId");
@@ -57,6 +67,11 @@ public class AccountAction extends ActionSupport{
 			return ERROR;
 		}
 	}	
+	/**
+	 * Method used when submitting the form. It updates the account.
+	 * @return Action result
+	 */
+
 	public String updateAccount(){
 		Map<String,Object>  session = ActionContext.getContext().getSession();
 		Object userIdO = session.get("userId");
