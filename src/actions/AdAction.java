@@ -162,14 +162,6 @@ public class AdAction extends ActionSupport {
 			return ERROR;
 		}	
 	}
-	
-//	public List<String> getGeographicAreas() {
-//		return geographicAreas;
-//	}
-//
-//	public void setGeographicAreas(List<String> geographicAreas) {
-//		this.geographicAreas = geographicAreas;
-//	}
 
 	public void setCommunities(List<Communaute> communautes) {
 		this.communities = communautes;
@@ -178,31 +170,7 @@ public class AdAction extends ActionSupport {
 	public List<Communaute> getCommunities() {
 		return service.getCommunautes();
 	}
-//
-//	public String getTitle() {
-//		return title;
-//	}
-//
-//	public void setTitle(String titre) {
-//		this.title = titre;
-//	}
-//
-//	public String getDescription() {
-//		return description;
-//	}
-//
-//	public void setDescription(String description) {
-//		this.description = description;
-//	}
-//
-//	public int getPrice() {
-//		return price;
-//	}
-//
-//	public void setPrice(int price) {
-//		this.price = price;
-//	}
-//
+
 	public List<Categorie> getCategories() {
 		return service.getCategories();
 	}
@@ -210,38 +178,6 @@ public class AdAction extends ActionSupport {
 	public void setCategories(List<Categorie> categories) {
 		this.categories = categories;
 	}
-//
-//	public File getFile() {
-//		return file;
-//	}
-//
-//	public void setFile(File file) {
-//		this.file = file;
-//	}
-//
-//	public String getUploadContentType() {
-//		return uploadContentType;
-//	}
-//
-//	public void setUploadContentType(String uploadContentType) {
-//		this.uploadContentType = uploadContentType;
-//	}
-//
-//	public String getUploadFileName() {
-//		return uploadFileName;
-//	}
-//
-//	public void setUploadFileName(String uploadFileName) {
-//		this.uploadFileName = uploadFileName;
-//	}
-//
-//	public String getFileCaption() {
-//		return fileCaption;
-//	}
-//
-//	public void setFileCaption(String fileCaption) {
-//		this.fileCaption = fileCaption;
-//	}
 
 	// This method returns a buffered image with the contents of an image
 	public static BufferedImage toBufferedImage(Image image) {
@@ -315,13 +251,6 @@ public class AdAction extends ActionSupport {
 	    return cm.hasAlpha();
 	}
 
-//	public String getRegion() {
-//		return region;
-//	}
-//
-//	public void setRegion(String region) {
-//		this.region = region;
-//	}
 	public Annonce getAdBean() {
 		return adBean;
 	}
