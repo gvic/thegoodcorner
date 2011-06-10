@@ -16,14 +16,19 @@
 <sj:head jqueryui="true"/>
 <s:head theme="xhtml"/>
 <!-- Add CSS and JS files configured in tiles.xml -->
-<tiles:useAttribute id="list" name="css" classname="java.util.List" />
+<!--<tiles:useAttribute id="list" name="css" classname="java.util.List" />-->
 <tiles:useAttribute id="list2" name="scripts" classname="java.util.List" />
 <c:forEach var="item" items="${list2}">
   <script type="text/javascript" src="${item}"></script>
 </c:forEach>
-<c:forEach var="item" items="${list}">
-  <link href="${item}" rel="stylesheet" type="text/css" />
-</c:forEach>
+<s:iterator value="<tiles:insertAttribute id="list" name="css" classname="java.util.List" />">
+	<s:url var="url" value="[0]"></s:url>
+	<link href="%{url}" rel="stylesheet" type="text/css" />
+</s:iterator>
+<!--<c:forEach var="item" items="${list}">-->
+<!--  <s:url var="url" value="${item}"></s:url>-->
+<!--  <link href="${item}" rel="stylesheet" type="text/css" />-->
+<!--</c:forEach>-->
 </head>
 <body>
 	<div id="wrapper">
