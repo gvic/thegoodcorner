@@ -7,4 +7,8 @@
 	<s:textfield name="text" key="search.text"  />
 	<sj:submit button="true" key="login.submit" validate="true" indicator="indicator" cssClass="float-right" />
 </s:form>
+
 <img id="indicator"  src="/template/new_xhtml/css/images/indicator.gif" alt="Loading..." style="display:none"/>
+<s:iterator value="results">
+<p><s:property/></p>
+</s:iterator>

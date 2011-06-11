@@ -22,8 +22,8 @@ public class SearchAction extends ActionSupport {
 	 */
 	public String search(){
 		results = service.search(text);
+		System.out.println(results.toString());
 		return SUCCESS;
-
 	}
 	
 	public String input(){
@@ -36,6 +36,14 @@ public class SearchAction extends ActionSupport {
 
 	public void setText(String text) {
 		this.text = text;
+	}
+
+	public List<Annonce> getResults() {
+		return results;
+	}
+
+	public void setResults(List<Annonce> results) {
+		this.results = results;
 	}
 
 }

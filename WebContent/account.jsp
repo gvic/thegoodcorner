@@ -24,6 +24,11 @@
 
 <div style="float: right">
 	<p>
+		<s:a action="showAd">
+			<s:text name="account.show.ads" />
+		</s:a>
+	</p>
+	<p>
 		<s:a action="addCommunaute_input">
 			<s:text name="account.add.communaute" />
 		</s:a>

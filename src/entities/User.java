@@ -161,4 +161,8 @@ public class User implements Serializable {
 		return inscritDepuis;
 	}
 	
+	public boolean isFullUser(){
+		return (prenom != null);
+	}
+	
 }

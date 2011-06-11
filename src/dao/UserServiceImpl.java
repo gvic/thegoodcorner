@@ -19,135 +19,137 @@ import javax.persistence.TypedQuery;
 import entities.Adresse;
 import entities.User;
 
-@Stateless(mappedName="dao.UserServiceImpl")
+@Stateless(mappedName = "dao.UserServiceImpl")
 public class UserServiceImpl implements UserService {
-	 	@PersistenceContext
-		private EntityManager em;
-       
-        public void setEntityManager(EntityManager em) {
-        	this.em = em;
-        }
-        
-        public EntityManager getEntityManager() {
-        	return em;
-        }
-        
-        // supprimer une u via son identifiant
-        public void deleteOne(Integer id) {
-        	User u = em.find(User.class, id);
-        	if (u == null) {
-        		throw new DaoException(String.format("User n°[%d] inconnue", id), 2);
-        	}
-        	em.remove(u);
-        }
-        
-        @SuppressWarnings("unchecked")
-        // obtenir toutes les users
-        public List<User> getAll() {
-        	return em.createQuery("select p from User p").getResultList();
-        }
+	@PersistenceContext
+	private EntityManager em;
 
-        @SuppressWarnings("unchecked")
-        // obtenir les users dont le nom correspond à un modèle
-        public List<User> getAllLike(String modele) {
-            return em.createQuery("select p from User p where p.nom like :modele")
-                            .setParameter("modele", modele).getResultList();
-        }
+	public void setEntityManager(EntityManager em) {
+		this.em = em;
+	}
 
-        // obtenir une u via son identifiant
-        public User getOne(long id) {
-        	return em.find(User.class, id);
-        }
+	public EntityManager getEntityManager() {
+		return em;
+	}
 
-        // sauvegarder un user
-        // (Signup a user)
-        public User saveOne(User u) {
-        	User res = u;
-    		u.setInscritDepuis(new Date(new java.util.Date().getTime())); // Subscribed today!
-    		u.setMd5_mdp(md5Encryption(u.getMd5_mdp()));
-			if (res != null) {
-				em.persist(u);
-			}
-            return res;
-        }
-        
-        static public String md5Encryption(String text) {
-    		String toEnc = text;
-    		String res = "";
-    		MessageDigest mdEnc;
-			try {
-				mdEnc = MessageDigest.getInstance("MD5");// Encryption algorithm
-				mdEnc.update(toEnc.getBytes(), 0, toEnc.length());
-	    		res = new java.math.BigInteger(1, mdEnc.digest()).toString(16); // Encrypted string
-			} catch (NoSuchAlgorithmException e) {
-				e.printStackTrace();
-			}
-			return res;
-        }
-        
-        // Check if a field is already used?
-        // throws Exception in case of bad field parameter
-        public User findByField(Map<String,Object> fieldValue) throws IllegalArgumentException {
-        	User res = null;
-        	try{
-        		Set<String> keys = fieldValue.keySet();
-        		Iterator<String> iteKeys = keys.iterator();
-        		Collection<Object> values = fieldValue.values();
-        		Iterator<Object> iteValues = values.iterator();
-        		String query = "SELECT p FROM User p WHERE";
-        		// Iterator on keys
-        		int i = 0;
-        		while(iteKeys.hasNext()) {
-        			if (i!=0) {
-        				query += " AND";
-        			}
-        			query += " p."+iteKeys.next()+"=:value"+i;
-        			i++;
-        		}
-        		TypedQuery<User> q = em.createQuery(query,User.class);
-        		// Iterator on values
-        		i = 0;
-        		while(iteValues.hasNext()) {
-        			q.setParameter("value"+i, iteValues.next());
-        			i++;
-        		}
-        		User u = q.getSingleResult();
-        		if (u != null) {
-        			res = u;
-        		}
-        	} catch(NoResultException e) {
-        		e.printStackTrace();
-        	} catch(NonUniqueResultException e) {
-        		e.printStackTrace();
-        		// Very Strange if it happens!
-        	} catch(NullPointerException e) {
-        		e.printStackTrace();
-        	}
-        	return res;
-        }
-
-        // mettre à jour une u
-        public User updateOne(User u) {
-        	User p = em.find(User.class, u.getId());
-        	if (p == null) {
-                    throw new DaoException(String.format("User n°[%d] inconnue", u.getId()), 2);
-            }
-        	return em.merge(u);
-        }
-
-		public boolean isUser(String username, String password) {
-			boolean res = false;
-			
-			
-			
-			return res;
+	// supprimer une u via son identifiant
+	public void deleteOne(Integer id) {
+		User u = em.find(User.class, id);
+		if (u == null) {
+			throw new DaoException(String.format("User n°[%d] inconnue", id), 2);
 		}
+		em.remove(u);
+	}
 
-		@Override
-		public Adresse save(Adresse a) {
-			if (em.find(Adresse.class, a.getId()) != null)
-				em.persist(a);				
-			return a;
+	@SuppressWarnings("unchecked")
+	// obtenir toutes les users
+	public List<User> getAll() {
+		return em.createQuery("select p from User p").getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	// obtenir les users dont le nom correspond à un modèle
+	public List<User> getAllLike(String modele) {
+		return em.createQuery("select p from User p where p.nom like :modele")
+				.setParameter("modele", modele).getResultList();
+	}
+
+	// obtenir une u via son identifiant
+	public User getOne(long id) {
+		return em.find(User.class, id);
+	}
+
+	// sauvegarder un user
+	// (Signup a user)
+	public User saveOne(User u) {
+		User res = u;
+		u.setInscritDepuis(new Date(new java.util.Date().getTime())); // Subscribed
+																		// today!
+		u.setMd5_mdp(md5Encryption(u.getMd5_mdp()));
+		if (res != null) {
+			em.persist(u);
 		}
+		return res;
+	}
+
+	static public String md5Encryption(String text) {
+		String toEnc = text;
+		String res = "";
+		MessageDigest mdEnc;
+		try {
+			mdEnc = MessageDigest.getInstance("MD5");// Encryption algorithm
+			mdEnc.update(toEnc.getBytes(), 0, toEnc.length());
+			res = new java.math.BigInteger(1, mdEnc.digest()).toString(16); // Encrypted
+																			// string
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		return res;
+	}
+
+	// Check if a field is already used?
+	// throws Exception in case of bad field parameter
+	public User findByField(Map<String, Object> fieldValue)
+			throws IllegalArgumentException {
+		User res = null;
+		try {
+			Set<String> keys = fieldValue.keySet();
+			Iterator<String> iteKeys = keys.iterator();
+			Collection<Object> values = fieldValue.values();
+			Iterator<Object> iteValues = values.iterator();
+			String query = "SELECT p FROM User p WHERE";
+			// Iterator on keys
+			int i = 0;
+			while (iteKeys.hasNext()) {
+				if (i != 0) {
+					query += " AND";
+				}
+				query += " p." + iteKeys.next() + "=:value" + i;
+				i++;
+			}
+			TypedQuery<User> q = em.createQuery(query, User.class);
+			// Iterator on values
+			i = 0;
+			while (iteValues.hasNext()) {
+				q.setParameter("value" + i, iteValues.next());
+				i++;
+			}
+			User u = q.getSingleResult();
+			if (u != null) {
+				res = u;
+			}
+		} catch (NoResultException e) {
+			e.printStackTrace();
+		} catch (NonUniqueResultException e) {
+			e.printStackTrace();
+			// Very Strange if it happens!
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
+		return res;
+	}
+
+	// mettre à jour une u
+	public User updateOne(User u) {
+		User p = em.find(User.class, u.getId());
+		if (p == null) {
+			throw new DaoException(String.format("User n°[%d] inconnue",
+					u.getId()), 2);
+		}
+		return em.merge(u);
+	}
+
+	public boolean isUser(String username, String password) {
+		boolean res = false;
+
+		return res;
+	}
+
+	@Override
+	public Adresse save(Adresse a) {
+		if (em.find(Adresse.class, a.getId()) != null)
+			em.persist(a);
+		return a;
+	}
 
 }

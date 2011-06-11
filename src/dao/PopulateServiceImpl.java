@@ -36,13 +36,13 @@ public class PopulateServiceImpl implements PopulateService {
 	}
 
 	@Override
-	public boolean exists(String nom) {
+	public List<Communaute> exists(String nom) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Communaute> cq = cb.createQuery(Communaute.class);
 		Root<Communaute> rootCom = cq.from(Communaute.class);
 		cq.select(rootCom).where(cb.equal(rootCom.get("denomination"),nom));
 		TypedQuery<Communaute> query = em.createQuery(cq);
-		return (query.getResultList() != null);
+		return query.getResultList();
 	}
 
 	@Override

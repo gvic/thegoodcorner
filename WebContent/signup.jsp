@@ -9,6 +9,8 @@
 	<s:textfield name="userBean.nom" key="login.nom" cssClass="active"/>
 	<s:textfield name="userBean.prenom" key="login.prenom" cssClass="active"/>
 	<s:textfield name="userBean.email" key="login.email" cssClass="active"/>
+	<s:textfield name="userBean.telephoneFixe" key="login.telfixe" cssClass="active"/>
+	<s:textfield name="userBean.telephonePortable" key="login.telephonePortable" cssClass="active"/>
 	<sj:submit button="true" key="login.submit" validate="true"  indicator="indicator" cssClass="float-right" />
 </s:form>
 <img id="indicator"  src="/template/new_xhtml/css/images/indicator.gif" alt="Loading..." style="display:none"/>

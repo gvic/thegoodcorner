@@ -56,14 +56,14 @@
 			method="{1}">
 			<result name="input" type="tiles">addCommunaute</result>
 			<result name="error" type="tiles">addCommunaute</result>
-			<result name="success" type="tiles" >populateIndex</result>
+			<result name="success" type="tiles" >welcome</result>
 		</action>
 		
 		<action name="populateAd_*" class="actions.AdAction" method="{1}">
 			<!-- interceptors for FileUpload validations-->
 		    <interceptor-ref name="basicStack"/>
 		    <interceptor-ref name="fileUpload">
-		    	<param name="maximumSize">500000</param>
+		    	<param name="maximumSize">200000000</param>
 		        <param name="allowedTypes">image/jpeg,image/gif,image/png,image/bmp</param>
 		    </interceptor-ref> 
 		    <interceptor-ref name="validation"/>
@@ -92,7 +92,7 @@
 		<action name="search_*" class="actions.SearchAction" method="{1}">
 			<result name="input" type="tiles">searchForm</result>
 			<result name="error" type="tiles">searchForm</result>
-			<result name="success" type="tiles">welcome</result>
+			<result name="success" type="tiles">searchForm</result>
 		</action>
 				
 		<action name="showAd" class="actions.ShowAdAction" >

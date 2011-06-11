@@ -1,5 +1,7 @@
 package actions;
 
+import java.util.List;
+
 import com.google.inject.Inject;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -12,17 +14,20 @@ public class PopulateAction extends ActionSupport {
 	@Inject
 	private PopulateService service;
 
-	private Communaute communaute;
+	private Communaute comBean;
 
 	@Override
 	public void validate() {
 		super.validate();
-		if (communaute != null) {
-			if (communaute.getDenomination() == null) {
-				addActionError(getText("errors.populate.communaute.denomination"));
+		if (comBean != null) {
+			if (comBean.getDenomination() == null) {
+				addActionError(getText("errors.required"));
+			}else{
+				if(service.exists(comBean.getDenomination()).size() > 0)
+					addActionError(getText("errors.populate.communaute.exists"));
 			}
-			if (communaute.getDescription() == null) {
-				addActionError(getText("errors.populate.communaute.description"));
+			if (comBean.getDescription() == null) {
+				addActionError(getText("errors.required"));
 			}
 		}
 	}
@@ -33,29 +38,26 @@ public class PopulateAction extends ActionSupport {
 	}
 
 	public String processDatas() {
+		System.out.println(service.exists(comBean.getDenomination()).toString());
+		System.out.println((service.exists(comBean.getDenomination()).size()));
 
-		if (service.exists(communaute.getDenomination())) {
-			return ERROR;
-		} else {
-			service.save(communaute);
+//		if (service.exists(comBean.getDenomination()).size() > 0) {
+//			addActionError(getText("errors.populate.communaute.exists"));
+//			return ERROR;
+//		} else {
+			service.save(comBean);
 			return SUCCESS;
-		}
-	}
-
-	public Communaute getCommunaute() {
-		return communaute;
-	}
-
-	public void setCommunaute(Communaute communaute) {
-		this.communaute = communaute;
+//		}
 	}
 
 	public Communaute getComBean() {
-		return communaute;
+		return comBean;
 	}
 
 	public void setComBean(Communaute comBean) {
-		this.communaute = comBean;
+		this.comBean = comBean;
 	}
+
+	
 
 }
