@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	// supprimer une u via son identifiant
-	public void deleteOne(Integer id) {
+	public void deleteOne(Long id) {
 		User u = em.find(User.class, id);
 		if (u == null) {
 			throw new DaoException(String.format("User n°[%d] inconnue", id), 2);

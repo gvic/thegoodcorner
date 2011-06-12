@@ -25,7 +25,7 @@ public interface UserService {
         public User updateOne(User u);
 
         // supprimer une personne via son identifiant
-        public void deleteOne(Integer id);
+        public void deleteOne(Long id);
 
         // obtenir les personnes dont le nom correspond àun modèle
         public List<User> getAllLike(String modele);

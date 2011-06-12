@@ -74,30 +74,39 @@ public class AdUnloggedAction extends ActionSupport {
 	
 	public String execute() throws Exception {
 		if (userBean != null) {
-			adBean.setUser(userBean);
-			adBean.setRegion(service.getOne(Region.class, regionId));
-			adBean.setCategorie(service
-					.getOne(Categorie.class, categorieId));
-			adBean.setCommunautes(service.getByIds(Communaute.class,
-					communitiesId));
-			MultiPartRequestWrapper multipartRequest = ((MultiPartRequestWrapper) ServletActionContext
-					.getRequest());
-			if (multipartRequest != null) {
-				// =========================================================
-				// NullPointerException sur l'array fs dans la methode store
-				//store(multipartRequest);
-				// =========================================================
-				if (service.saveOne(adBean) != null && uService.saveOne(userBean) != null) {
-					addActionMessage(userBean.getLogin() + " "
-							+ getText("now.signup"));
-					addActionMessage(getText("ad.sent"));
-					return SUCCESS;
+			if (uService.saveOne(userBean) != null) {
+				addActionMessage(userBean.getLogin() + " "
+						+ getText("now.signup"));
+				adBean.setUser(userBean);
+				adBean.setRegion(service.getOne(Region.class, regionId));
+				adBean.setCategorie(service
+						.getOne(Categorie.class, categorieId));
+				adBean.setCommunautes(service.getByIds(Communaute.class,
+						communitiesId));
+				MultiPartRequestWrapper multipartRequest = ((MultiPartRequestWrapper) ServletActionContext
+						.getRequest());
+				if (multipartRequest != null) {
+					// =========================================================
+					// NullPointerException sur l'array fs dans la methode store
+					//store(multipartRequest);
+					// =========================================================
+					if (service.saveOne(adBean) != null) {
+						addActionMessage(getText("ad.sent"));
+						return SUCCESS;
+					} else {
+						// Don't forget to remove the user ..
+						uService.deleteOne(userBean.getId());
+						addActionMessage(getText("ad.save.impossible"));
+						return ERROR;
+					}
 				} else {
-					addActionMessage(getText("ad.save.impossible"));
+					// Don't forget to remove the user ..
+					uService.deleteOne(userBean.getId());
+					addActionError(getText("add.ad.impossible"));
 					return ERROR;
 				}
 			} else {
-				addActionError(getText("add.ad.impossible"));
+				addActionError(getText("signup.impossible"));
 				return ERROR;
 			}
 		} else {
