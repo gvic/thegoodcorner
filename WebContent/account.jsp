@@ -30,7 +30,7 @@
 </div>
 
 <div id="account-menu">
-	<h2><s:text name="account.menu" /></h2>
+	<div class="thead"><s:text name="account.menu" /></div>
 	<ul>
 		<li>
 		<s:a action="showAd">

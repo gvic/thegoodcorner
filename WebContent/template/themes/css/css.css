@@ -137,9 +137,14 @@ input.disabled:hover, input.disabled:focus  {
 	font-weight: 900;
 }
 
-#header #onglet-wrapper {
+#header #onglet-wrapper, #header #add-ad {
 	width: 980px;
 	margin: 0 auto;
+}
+#header #onglet-wrapper {
+	clear: both;
+	position: relative;
+	top:36px;
 }
 #header #nav-steps {
 	float:right;
@@ -153,8 +158,6 @@ input.disabled:hover, input.disabled:focus  {
 	float: right;
 	padding: 10px;
 	margin-right:3px;
-	position: relative;
-	top:76px;
 	background: #ffa219 url(images/onglet_rendering.png) repeat-x 0 100%;
 	border: 1px outset #444;
 	border-bottom: 0;
@@ -215,6 +218,7 @@ input.disabled:hover, input.disabled:focus  {
 	float: left;
 }
 #page #account-menu {
+	width: 250px;
 	border: 1px solid grey;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
@@ -222,10 +226,18 @@ input.disabled:hover, input.disabled:focus  {
 	background-color : rgba(240,240,240,0.9);
 	float: right;
 }
-#page #account-menu h2 {
+#page #account-menu .thead {
 	padding:10px;
-	background: #ffa219 url(images/onglet_rendering.png) repeat-x 0 100%;
+	background: #002fa7 url(images/onglet_rendering.png) repeat-x 0 100%;
 	border-bottom: 1px solid grey;
+	text-shadow: 1px 1px 1px #555;
+	text-align: center;
+	color: white;
+}
+#page #account-menu ul {
+	list-style: none;	
+	padding: 0;
+	margin: 10px;
 }
 
 #footer {
