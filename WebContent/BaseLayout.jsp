@@ -19,8 +19,12 @@
 		<div id="header">
 			<tiles:insertAttribute name="header" />
 		</div>
-		<div id="page">
-			<tiles:insertAttribute name="body" />
+		<div id="page_l">
+			<div id="page_r">
+				<div id="page">
+					<tiles:insertAttribute name="body" />
+				</div>
+			</div>
 		</div>
 		<div id="footer">
 			<tiles:insertAttribute name="footer" />

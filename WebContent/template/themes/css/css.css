@@ -210,13 +210,20 @@ a:hover {
 	color: black;
 	z-index: 11;
 }
+#page_l {
+	background: transparent url(images/lionel.png) no-repeat left 0px;
+}
+#page_r {
+	background: transparent url(images/jesus.png) no-repeat right 0px;
+}
 #page {
 	width: 980px;
 	margin: 30px auto;
+	min-height: 400px;
 }
-#page #steps {
+#page_l #steps {
 }
-#page #steps h1 {
+#page_l #steps h1 {
 	font-weight: 600;
 	border-bottom: 3px solid #002fa7;
 	text-align: right;
@@ -224,10 +231,10 @@ a:hover {
 	color: #002fa7;
 	text-shadow: 1px 1px white;
 }
-#page #account-ajax {
+#page_l #account-ajax {
 	float: left;
 }
-#page #account-menu {
+#page_l #account-menu {
 	width: 250px;
 	border: 1px solid grey;
 	-webkit-border-radius: 3px;
@@ -236,7 +243,7 @@ a:hover {
 	background-color : rgba(240,240,240,0.9);
 	float: right;
 }
-#page #account-menu .thead {
+#page_l #account-menu .thead {
 	padding:10px;
 	background: #002fa7 url(images/onglet_rendering.png) repeat-x 0 100%;
 	border-bottom: 1px solid grey;
@@ -244,7 +251,7 @@ a:hover {
 	text-align: center;
 	color: white;
 }
-#page #account-menu ul {	
+#page_l #account-menu ul {	
 	padding: 0;
 	padding-left: 20px;
 	list-style-type: square;
