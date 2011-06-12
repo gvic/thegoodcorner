@@ -47,9 +47,9 @@
 		<action name="addCommunaute_*" class="actions.PopulateAction"
 			method="{1}">
 			<interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>
-			<result name="input" type="tiles">addCommunaute</result>
-			<result name="error" type="tiles">addCommunaute</result>
-			<result name="success" type="tiles" >welcome</result>
+			<result name="input" >/addCommunaute.jsp</result>
+			<result name="error" >/addCommunaute.jsp</result>
+			<result name="success" type="tiles" >account</result>
 		</action>
 		
 		<action name="populateAdLogged_*" class="actions.AdLoggedAction" method="{1}">
@@ -80,17 +80,17 @@
 		<action name="updateAccount_*" class="actions.AccountAction" method="{1}">
 			<!-- Compulsary for AJAX validation callbacks -->
 			<interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>
-			<result name="input" type="tiles">updateAccount</result>
-			<result name="error" type="tiles">updateAccount</result>
-			<result name="success" type="tiles">welcome</result>
+			<result name="input" >/account-infos.jsp</result>
+			<result name="error" >/account-infos.jsp</result>
+			<result name="success" type="tiles">account</result>
 		</action>
 		
 		<action name="changePassword_*" class="actions.ChangePasswordAction" method="{1}">
 			<!-- Compulsary for AJAX validation callbacks -->
 			<interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>
-			<result name="input" type="tiles">changePassword</result>
-			<result name="error" type="tiles">changePassword</result>
-			<result name="success" type="tiles">welcome</result>
+			<result name="input" >/changePassword.jsp</result>
+			<result name="error" >/changePassword.jsp</result>
+			<result name="success" type="tiles">account</result>
 		</action>
 		
 		<action name="search_*" class="actions.SearchAction" method="{1}">
@@ -108,7 +108,11 @@
 		</action>
 
 		<action name="list">
-			<result type="tiles">listAd</result>
+			<result >/list.jsp</result>
+		</action>
+		
+		<action name="account">
+			<result type="tiles">account</result>
 		</action>
 
 	</package>

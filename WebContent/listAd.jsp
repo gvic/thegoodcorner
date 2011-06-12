@@ -3,7 +3,7 @@
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 <%@ taglib prefix="sjg" uri="/struts-jquery-grid-tags"%>
 
-<s:a href="javascript:history.go(-1)"><s:text name="history.back"></s:text></s:a>
+<!--<s:a href="javascript:history.go(-1)"><s:text name="history.back"></s:text></s:a>-->
 
 <s:url id="remoteurl" action="listAdJson" />
 <sjg:grid

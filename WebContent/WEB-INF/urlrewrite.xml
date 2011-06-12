@@ -54,10 +54,10 @@
 	
 	<rule>
 		<from>/account.html</from>
-		<to>%{context-path}/updateAccount_input.action</to>
+		<to>%{context-path}/account.action</to>
 	</rule>
 	<outbound-rule>
-		<from>/updateAccount_input.action</from>
+		<from>/account.action</from>
 		<to>/account.html</to>
 	</outbound-rule>
 	<rule>

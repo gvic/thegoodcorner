@@ -24,7 +24,7 @@
 					<s:text name="menu.logout" />
 				</div>
 			</s:a>
-			<s:a action="updateAccount_input" >
+			<s:a action="account" >
 				<div id="onglet-account" class="onglet">
 					<s:text name="menu.myaccount" />
 				</div>
@@ -37,8 +37,15 @@
 				</div>
 			</s:a>
 			<!--AJAX Login popup!-->
-			<s:url id="ajaxTest" value="/Login_input.action"/>
-			<sj:a id="link1" href="%{ajaxTest}" targets="login" effect="scale" effectMode="show" effectDuration="300"> 
+			<script type="text/javascript">
+		       $.subscribe('show-overlay', function(event,data) {
+		           $('#overlay-popup').fadeIn('fast');
+		       });
+			</script>
+
+			<s:url id="ajaxTest" action="Login_input"/>
+			<sj:a id="link1" href="%{ajaxTest}" targets="login" effect="scale"
+				onCompleteTopics="show-overlay" effectMode="show" effectDuration="300" > 
 				<div id="onglet-login" class="onglet">
 					<s:text name="menu.login" />
 				</div>

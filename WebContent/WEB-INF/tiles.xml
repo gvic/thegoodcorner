@@ -63,7 +63,7 @@
 		<put-attribute name="body" value="/submitAd_logged.jsp" />
 	</definition>
 
-	<definition name="updateAccount" extends="baseLayoutLogged">
+	<definition name="account" extends="baseLayoutLogged">
 		<put-attribute name="title" value="Update your account" />
 		<put-attribute name="body" value="/account.jsp" />
 	</definition>
