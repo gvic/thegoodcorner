@@ -1,7 +1,7 @@
 package entities;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -14,6 +14,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "Utilisateur")
@@ -49,7 +51,9 @@ public class User implements Serializable {
 
 	// Pour savoir quels utilisateurs sont
 	// connectés
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date derniereConnexion;
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date inscritDepuis;
 
 	public User() {

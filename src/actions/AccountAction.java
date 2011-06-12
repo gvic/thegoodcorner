@@ -105,11 +105,10 @@ public class AccountAction extends ActionSupport{
 			long userId = (Long) userIdO;
 			
 			User userBean = service.getOne(userId);
-			
-			userBean.setDepartement(service.getDepartement(departementId));
-			userBean.setRegion(service.getRegion(regionId));
-			System.out.println(service.getRegion(regionId));
-			System.out.println(service.getDepartement(departementId));
+			if (departementIdKey != -1)
+				userBean.setDepartement(service.getDepartement(departementId));
+			if (regionIdKey != -1)
+				userBean.setRegion(service.getRegion(regionId));
 			userBean.setCodePostal(codePostal);
 			userBean.setNom(name);
 			userBean.setPrenom(firstname);

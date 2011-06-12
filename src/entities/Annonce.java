@@ -72,7 +72,7 @@ public class Annonce implements Serializable {
 
 	
 	@Basic()
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date date_de_publication;
 	
 	
