@@ -3,7 +3,7 @@
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 <s:actionmessage />
 <s:actionerror />
-<s:form id="submitAdForm" theme="xhtml" action="populateAd_submitUnLogged"
+<s:form id="submitAdForm" theme="xhtml" action="populateAdUnlogged_execute"
 	enctype="multipart/form-data" method="POST">
 
 	<!-- 	En cas de probleme celle ci marche mais pas de couleur pour diff?rencier regions/departs -->

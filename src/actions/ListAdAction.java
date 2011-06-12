@@ -212,7 +212,11 @@ public class ListAdAction extends ActionSupport {
 			joins.put("communautes", value);
 		}
 		
-		return service.findByJointure(joins);
+		if (joins.isEmpty()) {
+			return service.getAll(Annonce.class);
+		} else {		
+			return service.findByJointure(joins);
+		}
 	}
 
 	public void setMyAnnonces(List<Annonce> myAnnonces) {

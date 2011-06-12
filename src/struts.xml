@@ -59,18 +59,28 @@
 			<result name="success" type="tiles" >welcome</result>
 		</action>
 		
-		<action name="populateAd_*" class="actions.AdAction" method="{1}">
+		<action name="populateAdLogged_*" class="actions.AdLoggedAction" method="{1}">
 			<!-- interceptors for FileUpload validations-->
-		    <interceptor-ref name="basicStack"/>
-		    <interceptor-ref name="fileUpload">
-		    	<param name="maximumSize">200000000</param>
-		        <param name="allowedTypes">image/jpeg,image/gif,image/png,image/bmp</param>
-		    </interceptor-ref> 
-		    <interceptor-ref name="validation"/>
-		    <interceptor-ref name="workflow"/>
-			<result name="input_unlogged" type="tiles">submitAd_unlogged</result>
-			<result name="input_logged" type="tiles">submitAd_logged</result>
-			<result name="error" type="tiles">submitAd</result>
+		    <interceptor-ref name="defaultStack">
+		    	<param name="fileUpload.maximumSize">200000000</param>
+		    	<param name="fileUpload.allowedTypes">image/jpeg,image/gif,image/png,image/bmp</param>
+		    </interceptor-ref>
+		    <interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>
+			<result name="input" type="tiles">submitAd_logged</result>
+			
+			<result name="error" type="tiles">submitAd_logged</result>
+			<result name="success" type="tiles">welcome</result>
+		</action>
+
+		<action name="populateAdUnlogged_*" class="actions.AdUnloggedAction" method="{1}">
+			<!-- interceptors for FileUpload validations-->
+		    <interceptor-ref name="defaultStack">
+		    	<param name="fileUpload.maximumSize">200000000</param>
+		    	<param name="fileUpload.allowedTypes">image/jpeg,image/gif,image/png,image/bmp</param>
+		    </interceptor-ref>
+		    <interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>
+			<result name="input" type="tiles">submitAd_unlogged</result>
+			<result name="error" type="tiles">submitAd_unlogged</result>
 			<result name="success" type="tiles">welcome</result>
 		</action>
 		

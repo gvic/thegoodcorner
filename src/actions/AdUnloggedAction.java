@@ -1,31 +1,17 @@
 package actions;
 
-import java.awt.Graphics;
-import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.HeadlessException;
-import java.awt.Image;
-import java.awt.Transparency;
-import java.awt.image.BufferedImage;
-import java.awt.image.ColorModel;
-import java.awt.image.PixelGrabber;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-
-import javax.swing.ImageIcon;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.dispatcher.multipart.MultiPartRequestWrapper;
 
 import com.google.inject.Inject;
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import core.ThumbNail2;
@@ -39,7 +25,7 @@ import entities.ImagePath;
 import entities.Region;
 import entities.User;
 
-public class AdAction extends ActionSupport {
+public class AdUnloggedAction extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
 	private static final String UL_DIR = "uploads/";
@@ -67,51 +53,8 @@ public class AdAction extends ActionSupport {
 	private List<String> uploadFileNames = new ArrayList<String>();
 	private List<String> uploadContentTypes = new ArrayList<String>();
 
-	// Server-side validation
+	
 	public void validate() {
-		System.out.println("=== validate() method called ===");
-	}
-
-	@Override
-	public String input() throws Exception {
-		Map<String, Object> session = ActionContext.getContext().getSession();
-		Object userIdO = session.get("userId");
-		if (userIdO != null) {
-			long userId = (Long) userIdO;
-			User userBean = uService.getOne(userId);
-			return "input_logged";
-		} else {
-			return "input_unlogged";
-		}
-	}
-
-	public String submitLogged() throws Exception {
-
-		System.out.println("=== submitLogged() method called ===");
-
-		adBean.setRegion(service.getOne(Region.class, regionId));
-		adBean.setCategorie(service.getOne(Categorie.class, categorieId));
-		adBean.setCommunautes(service.getByIds(Communaute.class, communitiesId));
-		MultiPartRequestWrapper multipartRequest = ((MultiPartRequestWrapper) ServletActionContext
-				.getRequest());
-		if (multipartRequest != null) {
-			store(multipartRequest);
-			if (service.saveOne(adBean) != null) {
-				addActionMessage(getText("ad.sent"));
-				return SUCCESS;
-			} else {
-				addActionMessage(getText("ad.save.impossible"));
-				return ERROR;
-			}
-		} else {
-			addActionError(getText("add.ad.impossible"));
-			return ERROR;
-		}
-
-	}
-
-	public String submitUnLogged() throws Exception {
-		// Validate SignUp form
 		if (userBean != null) {
 			System.out.println(userBean.toString());
 			HashMap<String, Object> mhm = new HashMap<String, Object>();
@@ -119,21 +62,22 @@ public class AdAction extends ActionSupport {
 			if (!userBean.getLogin().equals("")
 					&& uService.findByField(mhm) != null) {
 				addFieldError("userBean.login", getText("username.used"));
-				return ERROR;
 			}
 			mhm.clear();
 			mhm.put("email", userBean.getEmail());
 			if (!userBean.getEmail().equals("")
 					&& uService.findByField(mhm) != null) {
 				addFieldError("userBean.email", getText("email.used"));
-				return ERROR;
 			}
-
+		}
+	}
+	
+	public String execute() throws Exception {
+		if (userBean != null) {
 			if (uService.saveOne(userBean) != null) {
 				addActionMessage(userBean.getLogin() + " "
 						+ getText("now.signup"));
-				System.out.println("=== submitUnLogged() method called ===");
-
+				adBean.setUser(userBean);
 				adBean.setRegion(service.getOne(Region.class, regionId));
 				adBean.setCategorie(service
 						.getOne(Categorie.class, categorieId));
@@ -159,6 +103,7 @@ public class AdAction extends ActionSupport {
 				return ERROR;
 			}
 		} else {
+			addActionError(getText("signup.impossible"));
 			return ERROR;
 		}
 
@@ -266,81 +211,6 @@ public class AdAction extends ActionSupport {
 
 	public void setUploadContentType(List<String> contentTypes) {
 		this.uploadContentTypes = contentTypes;
-	}
-
-	// This method returns a buffered image with the contents of an image
-	public static BufferedImage toBufferedImage(Image image) {
-		if (image instanceof BufferedImage) {
-			return (BufferedImage) image;
-		}
-
-		// This code ensures that all the pixels in the image are loaded
-		image = new ImageIcon(image).getImage();
-
-		// Determine if the image has transparent pixels; for this method's
-		// implementation, see Determining If an Image Has Transparent Pixels
-		boolean hasAlpha = hasAlpha(image);
-
-		// Create a buffered image with a format that's compatible with the
-		// screen
-		BufferedImage bimage = null;
-		GraphicsEnvironment ge = GraphicsEnvironment
-				.getLocalGraphicsEnvironment();
-		try {
-			// Determine the type of transparency of the new buffered image
-			int transparency = Transparency.OPAQUE;
-			if (hasAlpha) {
-				transparency = Transparency.BITMASK;
-			}
-
-			// Create the buffered image
-			GraphicsDevice gs = ge.getDefaultScreenDevice();
-			GraphicsConfiguration gc = gs.getDefaultConfiguration();
-			bimage = gc.createCompatibleImage(image.getWidth(null),
-					image.getHeight(null), transparency);
-		} catch (HeadlessException e) {
-			// The system does not have a screen
-		}
-
-		if (bimage == null) {
-			// Create a buffered image using the default color model
-			int type = BufferedImage.TYPE_INT_RGB;
-			if (hasAlpha) {
-				type = BufferedImage.TYPE_INT_ARGB;
-			}
-			bimage = new BufferedImage(image.getWidth(null),
-					image.getHeight(null), type);
-		}
-
-		// Copy image to buffered image
-		Graphics g = bimage.createGraphics();
-
-		// Paint the image onto the buffered image
-		g.drawImage(image, 0, 0, null);
-		g.dispose();
-
-		return bimage;
-	}
-
-	// This method returns true if the specified image has transparent pixels
-	public static boolean hasAlpha(Image image) {
-		// If buffered image, the color model is readily available
-		if (image instanceof BufferedImage) {
-			BufferedImage bimage = (BufferedImage) image;
-			return bimage.getColorModel().hasAlpha();
-		}
-
-		// Use a pixel grabber to retrieve the image's color model;
-		// grabbing a single pixel is usually sufficient
-		PixelGrabber pg = new PixelGrabber(image, 0, 0, 1, 1, false);
-		try {
-			pg.grabPixels();
-		} catch (InterruptedException e) {
-		}
-
-		// Get the image's color model
-		ColorModel cm = pg.getColorModel();
-		return cm.hasAlpha();
 	}
 
 	public void setDepartementId(long departementId) {

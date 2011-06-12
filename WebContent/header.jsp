@@ -4,6 +4,18 @@
 <div id="title">
 	<a href="">The <span class="good">Good</span> Corner</a>
 </div>
+<div id="add-ad">
+	<s:if test="%{#session.loggedin == 'true'}">
+		<s:a action="populateAdLogged_input">
+			<div class="button"><s:text name="menu.add.ad" /></div>
+		</s:a>
+	</s:if>
+	<s:else>
+		<s:a action="populateAdUnlogged_input">
+			<div class="button"><s:text name="menu.add.ad" /></div>
+		</s:a>
+	</s:else>
+</div>
 <div id="onglet-wrapper">
 	<div id="nav-login">
 		<s:if test="%{#session.loggedin == 'true'}">

@@ -39,6 +39,7 @@ public class User implements Serializable {
 
 	@OneToOne
 	private Departement departement;
+	@OneToOne
 	private Region region;
 	private int codePostal;
 

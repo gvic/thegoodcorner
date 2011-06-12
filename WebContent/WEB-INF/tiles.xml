@@ -58,7 +58,7 @@
 		<put-attribute name="body" value="/submitAd_unlogged.jsp" />
 	</definition>
 	
-	<definition name="submitAd_logged" extends="baseLayoutDressedUp">
+	<definition name="submitAd_logged" extends="baseLayoutLogged">
 		<put-attribute name="title" value="Submit an ad" />
 		<put-attribute name="body" value="/submitAd_logged.jsp" />
 	</definition>

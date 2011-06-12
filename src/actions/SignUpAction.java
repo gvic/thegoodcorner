@@ -35,6 +35,12 @@ public class SignUpAction extends ActionSupport {
 			}
 		}
 	}
+	
+	
+	public String input() throws Exception {
+		System.out.println("=== input() method called ===");
+		return INPUT;
+	}
 
 	public String signUp() throws Exception {
 		System.out.println("=== signUp() method called ===");

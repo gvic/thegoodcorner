@@ -80,6 +80,29 @@ input.disabled:hover, input.disabled:focus  {
 .errorLabel {
 	font-style: italic;
 }
+.button {
+	padding: 10px;
+	margin-right:3px;
+	width: 150px;
+	float:right;
+	background: rgba(220, 0, 0, 0.9) url(images/onglet_rendering.png) repeat-x 0 100%;
+	border: 1px outset #444;
+	border-bottom: 0;
+	text-shadow: 1px 1px 1px #444;
+	font-weight: bold;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	opacity:0.8;
+	-moz-box-shadow: 1px -1px 5px rgba(0,0,0,0.4);
+	-webkit-box-shadow: 1px -1px 5px rgba(0,0,0,0.4);
+	box-shadow: 1px -1px 5px rgba(0,0,0,0.4);
+	cursor: pointer;
+}
+.button:hover {
+	opacity:1;
+}
+
 #header{
 	background: #002fa7 url(images/header_rendering.png) repeat-x 0 -100px;
 	height: 155px;
