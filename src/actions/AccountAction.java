@@ -27,9 +27,9 @@ public class AccountAction extends ActionSupport{
 	private String name, firstname, email, login, phone, mobile;
 	private int codePostal; //XML Validation fails...
 	private long regionId;
-	private long regionIdKey;
+	private long regionIdKey = -1;
 	private long departementId;
-	private long departementIdKey;
+	private long departementIdKey = -1;
 	private List<Region> regions;
 	private Region region;
 	private List<Departement> departements;
@@ -70,13 +70,16 @@ public class AccountAction extends ActionSupport{
 			long userId = (Long) userIdO;
 			User userBean = service.getOne(userId);
 			regions = adService.getRegions();
-			regionIdKey = userBean.getRegion().getId();
 			region = userBean.getRegion();
-			System.out.println(region);
+			if(region != null)
+				regionIdKey = userBean.getRegion().getId();
+			
 			departements = adService.getDepartements();
-			departementIdKey = userBean.getDepartement().getId();
 			departement = userBean.getDepartement();
-			System.out.println(departement);
+			if (departement != null)
+				departementIdKey = userBean.getDepartement().getId();
+			
+			
 			codePostal = userBean.getCodePostal();
 			name = userBean.getNom();
 			firstname = userBean.getPrenom();
