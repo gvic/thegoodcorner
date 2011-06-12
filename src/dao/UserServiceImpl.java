@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -84,7 +85,7 @@ public class UserServiceImpl implements UserService {
 	// Check if a field is already used?
 	// throws Exception in case of bad field parameter
 	public User getByField(Map<String, Object> fieldValue) {
-		
+		User u = null;
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<User> cq = cb.createQuery(User.class);
 		Root<User> rootReg = cq.from(User.class);
@@ -93,7 +94,12 @@ public class UserServiceImpl implements UserService {
 				.distinct(true);
 		}
 		TypedQuery<User> query = em.createQuery(cq);
-		return query.getSingleResult();		
+		try {
+			u = query.getSingleResult();
+		} catch (NoResultException e) {
+			e.printStackTrace();
+		}
+		return u;		
 	}
 
 	// mettre à jour une u
