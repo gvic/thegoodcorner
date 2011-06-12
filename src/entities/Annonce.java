@@ -67,7 +67,7 @@ public class Annonce implements Serializable {
 	private String description;
 	private float price;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "annonce")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "annonce")
 	private Set<ImagePath> imgPaths;
 
 	
