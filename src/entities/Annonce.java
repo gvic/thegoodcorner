@@ -2,7 +2,6 @@ package entities;
 
 import java.io.Serializable;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Set;
 
@@ -15,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -30,7 +30,7 @@ public class Annonce implements Serializable, Comparable<Annonce>{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "ID", nullable = false)
+	@Column(nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
@@ -50,11 +50,6 @@ public class Annonce implements Serializable, Comparable<Annonce>{
 //	@Column(nullable=false)
 	private boolean validee;
 	
-	// Ou est l'objet a vendre?
-	@OneToOne
-//	@Column(nullable=true)
-	private Adresse adresse;
-	
 	@OneToOne
 	private Departement departement;
 	@OneToOne
@@ -70,10 +65,11 @@ public class Annonce implements Serializable, Comparable<Annonce>{
 	
 	private String title;
 	private String description;
-//	@Column(nullable=true)
 	private float price;
 	
-	private ArrayList<String> pathsToImg;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "annonce")
+	private Set<ImagePath> imgPaths;
+
 	
 	@Basic()
 	@Temporal(TemporalType.DATE)
@@ -172,14 +168,6 @@ public class Annonce implements Serializable, Comparable<Annonce>{
 		this.categorie = categorie;
 	}
 
-	public void setAdresse(Adresse adresse) {
-		this.adresse = adresse;
-	}
-
-	public Adresse getAdresse() {
-		return adresse;
-	}
-
 	public void setPrice(float price) {
 		this.price = price;
 	}
@@ -226,27 +214,19 @@ public class Annonce implements Serializable, Comparable<Annonce>{
 		}
 		return 0;
 	}
-
-	public ArrayList<String> getPathsToImg() {
-		return pathsToImg;
-	}
-
-	public void setPathsToImg(ArrayList<String> pathsToImg) {
-		this.pathsToImg = pathsToImg;
-	}
-	
-	public void addImgPath(String p){
-		this.pathsToImg.add(p);
-	}
-	
-	public void removeImgPath(String p ){
-		this.pathsToImg.remove(p);
-	}
 	
 	@Override
 	public String toString() {
 		String ret = "<div><p><b>"+title+"</b></p><p>"+description+"</p></div>";
 		return ret;
+	}
+
+	public void setImgPaths(Set<ImagePath> imgPaths) {
+		this.imgPaths = imgPaths;
+	}
+
+	public Set<ImagePath> getImgPaths() {
+		return imgPaths;
 	}
 	
 }

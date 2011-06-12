@@ -8,7 +8,7 @@
 <!--                		                		-->
                 <provider>org.hibernate.ejb.HibernatePersistence</provider>
 	            <jta-data-source>java:/PostgreSQLDS</jta-data-source>
-				<class>entities.Adresse</class>
+				<class>entities.ImagePath</class>
  	            <class>entities.Annonce</class>
  	            <class>entities.Categorie</class>
  	            <class>entities.Communaute</class>

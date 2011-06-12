@@ -15,8 +15,13 @@ import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import entities.Adresse;
+import entities.Departement;
+import entities.Region;
 import entities.User;
 
 @Stateless(mappedName = "dao.UserServiceImpl")
@@ -151,5 +156,26 @@ public class UserServiceImpl implements UserService {
 			em.persist(a);
 		return a;
 	}
+
+	@Override
+	public Departement getDepartement(long departementId) {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Departement> cq = cb.createQuery(Departement.class);
+		Root<Departement> rootDep = cq.from(Departement.class);
+		cq.select(rootDep).where(cb.equal(rootDep.get("id"), departementId)).distinct(true);
+		TypedQuery<Departement> query = em.createQuery(cq);
+		return query.getSingleResult();
+	}
+
+	@Override
+	public Region getRegion(long regionId) {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Region> cq = cb.createQuery(Region.class);
+		Root<Region> rootReg = cq.from(Region.class);
+		cq.select(rootReg).where(cb.equal(rootReg.get("id"), regionId)).distinct(true);
+		TypedQuery<Region> query = em.createQuery(cq);
+		return query.getSingleResult();
+	}
+
 
 }

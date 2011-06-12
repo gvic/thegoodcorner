@@ -3,7 +3,7 @@
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 <s:actionmessage />
 <s:actionerror />
-<s:form id="submitAdForm" theme="xhtml" action="populateAd_submit"
+<s:form id="submitAdForm" theme="xhtml" action="populateAd_submitLogged"
 	enctype="multipart/form-data" method="POST">
 
 	<!-- 	En cas de probleme celle ci marche mais pas de couleur pour diff?rencier regions/departs -->
@@ -34,14 +34,6 @@
 	<!-- 	<s:file name="upload" label="File (4)" key="ad.photo" cssClass="disabled cache"/>-->
 	<!-- 	<s:file name="upload" label="File (5)" key="ad.photo" cssClass="disabled cache"/>-->
 
-	<s:textfield name="userBean.login" key="login.username"
-		cssClass="active" />
-	<s:textfield name="userBean.email" key="login.email" cssClass="active" />
-
- 		<s:password name="userBean.md5_mdp" key="login.password"
-		cssClass="active" />
-	<s:password name="confirmPassword" key="login.password.again"
-		cssClass="active" />
 	<sj:submit button="true" key="generic.submit" validate="true"
 		cssClass="float-right" />
 </s:form>

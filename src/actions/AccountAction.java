@@ -1,13 +1,17 @@
 package actions;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.google.inject.Inject;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
+import dao.AdService;
 import dao.UserService;
+import entities.Departement;
+import entities.Region;
 import entities.User;
 
 /**
@@ -18,8 +22,18 @@ public class AccountAction extends ActionSupport{
 
 	private static final long serialVersionUID = 1L;
 	@Inject UserService service;
+	@Inject AdService adService;
 	
 	private String name, firstname, email, login, phone, mobile;
+	private int codePostal; //XML Validation fails...
+	private long regionId;
+	private long regionIdKey;
+	private long departementId;
+	private long departementIdKey;
+	private List<Region> regions;
+	private Region region;
+	private List<Departement> departements;
+	private Departement departement;
 	
 	/**
 	 * 	Method launched at the start of the form in order to valide the form coherency
@@ -55,6 +69,15 @@ public class AccountAction extends ActionSupport{
 		if (userIdO != null) {
 			long userId = (Long) userIdO;
 			User userBean = service.getOne(userId);
+			regions = adService.getRegions();
+			regionIdKey = userBean.getRegion().getId();
+			region = userBean.getRegion();
+			System.out.println(region);
+			departements = adService.getDepartements();
+			departementIdKey = userBean.getDepartement().getId();
+			departement = userBean.getDepartement();
+			System.out.println(departement);
+			codePostal = userBean.getCodePostal();
 			name = userBean.getNom();
 			firstname = userBean.getPrenom();
 			email = userBean.getEmail();
@@ -80,6 +103,11 @@ public class AccountAction extends ActionSupport{
 			
 			User userBean = service.getOne(userId);
 			
+			userBean.setDepartement(service.getDepartement(departementId));
+			userBean.setRegion(service.getRegion(regionId));
+			System.out.println(service.getRegion(regionId));
+			System.out.println(service.getDepartement(departementId));
+			userBean.setCodePostal(codePostal);
 			userBean.setNom(name);
 			userBean.setPrenom(firstname);
 			userBean.setEmail(email);
@@ -133,4 +161,77 @@ public class AccountAction extends ActionSupport{
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
+
+	public long getRegionId() {
+		return regionId;
+	}
+
+	public void setRegionId(long regionId) {
+		this.regionId = regionId;
+	}
+
+	public long getDepartementId() {
+		return departementId;
+	}
+
+	public void setDepartementId(long departementId) {
+		this.departementId = departementId;
+	}
+
+	public List<Region> getRegions() {
+		return regions;
+	}
+
+	public void setRegions(List<Region> regions) {
+		this.regions = regions;
+	}
+
+	public List<Departement> getDepartements() {
+		return departements;
+	}
+
+	public void setDepartements(List<Departement> departements) {
+		this.departements = departements;
+	}
+
+	public int getCodePostal() {
+		return codePostal;
+	}
+
+	public void setCodePostal(int codePostal) {
+		this.codePostal = codePostal;
+	}
+
+	public Region getRegion() {
+		return region;
+	}
+
+	public void setRegion(Region region) {
+		this.region = region;
+	}
+
+	public Departement getDepartement() {
+		return departement;
+	}
+
+	public void setDepartement(Departement departement) {
+		this.departement = departement;
+	}
+
+	public void setRegionIdKey(long regionIdKey) {
+		this.regionIdKey = regionIdKey;
+	}
+
+	public long getRegionIdKey() {
+		return regionIdKey;
+	}
+
+	public void setDepartementIdKey(long departementIdKey) {
+		this.departementIdKey = departementIdKey;
+	}
+
+	public long getDepartementIdKey() {
+		return departementIdKey;
+	}
+	
 }

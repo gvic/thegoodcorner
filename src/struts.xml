@@ -68,7 +68,8 @@
 		    </interceptor-ref> 
 		    <interceptor-ref name="validation"/>
 		    <interceptor-ref name="workflow"/>
-			<result name="input" type="tiles">submitAd</result>
+			<result name="input_unlogged" type="tiles">submitAd_unlogged</result>
+			<result name="input_logged" type="tiles">submitAd_logged</result>
 			<result name="error" type="tiles">submitAd</result>
 			<result name="success" type="tiles">welcome</result>
 		</action>

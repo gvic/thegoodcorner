@@ -9,13 +9,23 @@
 		action="updateAccount_updateAccount">
 		<s:textfield name="login" key="login.username" value="%{login}"
 			disabled="true" cssClass="disabled" />
+
+		<s:select name="regionId" key="region.select" headerKey="%{regionIdKey}"
+			headerValue="%{region}" list="regions" listValue="nom"
+			listKey="id"></s:select>
+		<s:select name="departementId" key="departement.select" headerKey="%{departementIdKey}"
+			headerValue="%{departement}" list="departements" listValue="nom"
+			listKey="id"></s:select>
+
+		<s:textfield name="codePostal" key="login.codePostal" value="%{codePostal}" />
 		<s:textfield name="name" key="login.nom" value="%{name}" />
 		<s:textfield name="firstname" key="login.prenom" value="%{firstname}" />
 		<s:textfield name="email" key="login.email" value="%{email}" />
 		<s:textfield name="phone" key="login.telfixe" value="%{phone}" />
 		<s:textfield name="mobile" key="login.telephonePortable"
 			value="%{mobile}" />
-		<sj:submit button="true" key="account.update" validate="true" cssClass="float-right" />
+		<sj:submit button="true" key="account.update" validate="true"
+			cssClass="float-right" />
 	</s:form>
 </div>
 

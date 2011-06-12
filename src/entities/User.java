@@ -16,9 +16,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Utilisateur")
+@Table(name = "Utilisateur")
 public class User implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -26,9 +26,9 @@ public class User implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	@OneToMany(fetch=FetchType.LAZY, mappedBy = "user")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<Annonce> annonces;
-	
+
 	@ManyToMany
 	private Set<Communaute> communautes;
 
@@ -36,20 +36,22 @@ public class User implements Serializable {
 	private String nom;
 	private String login;
 	private String md5_mdp;
-	
+
 	@OneToOne
-	private Adresse adresse;
-	
+	private Departement departement;
+	private Region region;
+	private int codePostal;
+
 	private String email;
 	private String telephoneFixe;
 	private String telephonePortable;
-	
-	// Pour savoir quels utilisateurs sont 
+
+	// Pour savoir quels utilisateurs sont
 	// connectés
 	private Date derniereConnexion;
 	private Date inscritDepuis;
 
-	public User(){
+	public User() {
 		super();
 	}
 
@@ -83,14 +85,6 @@ public class User implements Serializable {
 
 	public void setLogin(String nickName) {
 		this.login = nickName;
-	}
-
-	public Adresse getAdresse() {
-		return adresse;
-	}
-
-	public void setAdresse(Adresse adresse) {
-		this.adresse = adresse;
 	}
 
 	public String getTelephoneFixe() {
@@ -131,10 +125,10 @@ public class User implements Serializable {
 
 	public void setCommunautes(Set<Communaute> communautes) {
 		this.communautes = communautes;
-	}	
-	
+	}
+
 	public String toString() {
-		return "User : "+getLogin()+", "+getNom()+" "+getPrenom();
+		return "User : " + getLogin() + ", " + getNom() + " " + getPrenom();
 	}
 
 	public void setMd5_mdp(String md5_mdp) {
@@ -160,9 +154,33 @@ public class User implements Serializable {
 	public Date getInscritDepuis() {
 		return inscritDepuis;
 	}
-	
-	public boolean isFullUser(){
+
+	public boolean isFullUser() {
 		return (prenom != null);
 	}
-	
+
+	public Departement getDepartement() {
+		return departement;
+	}
+
+	public void setDepartement(Departement departement) {
+		this.departement = departement;
+	}
+
+	public Region getRegion() {
+		return region;
+	}
+
+	public void setRegion(Region region) {
+		this.region = region;
+	}
+
+	public int getCodePostal() {
+		return codePostal;
+	}
+
+	public void setCodePostal(int codePostal) {
+		this.codePostal = codePostal;
+	}
+
 }

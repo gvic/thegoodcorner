@@ -13,7 +13,9 @@ import java.awt.image.PixelGrabber;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.swing.ImageIcon;
@@ -23,6 +25,7 @@ import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.dispatcher.multipart.MultiPartRequestWrapper;
 
 import com.google.inject.Inject;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import core.ThumbNail2;
@@ -32,6 +35,7 @@ import entities.Annonce;
 import entities.Categorie;
 import entities.Communaute;
 import entities.Departement;
+import entities.ImagePath;
 import entities.Region;
 import entities.User;
 
@@ -66,6 +70,47 @@ public class AdAction extends ActionSupport {
 	// Server-side validation
 	public void validate() {
 		System.out.println("=== validate() method called ===");
+	}
+
+	@Override
+	public String input() throws Exception {
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		Object userIdO = session.get("userId");
+		if (userIdO != null) {
+			long userId = (Long) userIdO;
+			User userBean = uService.getOne(userId);
+			return "input_logged";
+		} else {
+			return "input_unlogged";
+		}
+	}
+
+	public String submitLogged() throws Exception {
+
+		System.out.println("=== submitLogged() method called ===");
+
+		adBean.setRegion(service.getOne(Region.class, regionId));
+		adBean.setCategorie(service.getOne(Categorie.class, categorieId));
+		adBean.setCommunautes(service.getByIds(Communaute.class, communitiesId));
+		MultiPartRequestWrapper multipartRequest = ((MultiPartRequestWrapper) ServletActionContext
+				.getRequest());
+		if (multipartRequest != null) {
+			store(multipartRequest);
+			if (service.saveOne(adBean) != null) {
+				addActionMessage(getText("ad.sent"));
+				return SUCCESS;
+			} else {
+				addActionMessage(getText("ad.save.impossible"));
+				return ERROR;
+			}
+		} else {
+			addActionError(getText("add.ad.impossible"));
+			return ERROR;
+		}
+
+	}
+
+	public String submitUnLogged() throws Exception {
 		// Validate SignUp form
 		if (userBean != null) {
 			System.out.println(userBean.toString());
@@ -74,42 +119,46 @@ public class AdAction extends ActionSupport {
 			if (!userBean.getLogin().equals("")
 					&& uService.findByField(mhm) != null) {
 				addFieldError("userBean.login", getText("username.used"));
+				return ERROR;
 			}
 			mhm.clear();
 			mhm.put("email", userBean.getEmail());
 			if (!userBean.getEmail().equals("")
 					&& uService.findByField(mhm) != null) {
 				addFieldError("userBean.email", getText("email.used"));
+				return ERROR;
 			}
-		}
-	}
 
-	public String submit() throws Exception {
+			if (uService.saveOne(userBean) != null) {
+				addActionMessage(userBean.getLogin() + " "
+						+ getText("now.signup"));
+				System.out.println("=== submitUnLogged() method called ===");
 
-		if (uService.saveOne(userBean) != null) {
-			addActionMessage(userBean.getLogin() + " " + getText("now.signup"));
-			System.out.println("=== submit() method called ===");
-
-			adBean.setRegion(service.getOne(Region.class, regionId));
-			adBean.setCategorie(service.getOne(Categorie.class, categorieId));
-			adBean.setCommunautes(service.getByIds(Communaute.class, communitiesId));
-			MultiPartRequestWrapper multipartRequest = ((MultiPartRequestWrapper) ServletActionContext
-					.getRequest());
-			if (multipartRequest != null) {
-				store(multipartRequest);
-				if (service.saveOne(adBean) != null) {
-					addActionMessage(getText("ad.sent"));
-					return SUCCESS;
+				adBean.setRegion(service.getOne(Region.class, regionId));
+				adBean.setCategorie(service
+						.getOne(Categorie.class, categorieId));
+				adBean.setCommunautes(service.getByIds(Communaute.class,
+						communitiesId));
+				MultiPartRequestWrapper multipartRequest = ((MultiPartRequestWrapper) ServletActionContext
+						.getRequest());
+				if (multipartRequest != null) {
+					store(multipartRequest);
+					if (service.saveOne(adBean) != null) {
+						addActionMessage(getText("ad.sent"));
+						return SUCCESS;
+					} else {
+						addActionMessage(getText("ad.save.impossible"));
+						return ERROR;
+					}
 				} else {
-					addActionMessage(getText("ad.save.impossible"));
+					addActionError(getText("add.ad.impossible"));
 					return ERROR;
 				}
 			} else {
-				addActionError(getText("add.ad.impossible"));
+				addActionError(getText("signup.impossible"));
 				return ERROR;
 			}
 		} else {
-			addActionError(getText("signup.impossible"));
 			return ERROR;
 		}
 
@@ -121,19 +170,22 @@ public class AdAction extends ActionSupport {
 		long userId = userBean.getId();
 		File fs[] = multipartRequest.getFiles("upload");
 		String[] ct = multipartRequest.getContentTypes("upload");
+		Set<ImagePath> sip = new HashSet<ImagePath>();
 		for (int i = 0; i < fs.length; i++) {
 			String outputFormat = ct[i].split("/")[1];
 			String fileName = userId + "_" + adBean.getId() + "_" + i;
-			adBean.addImgPath(UL_DIR + fileName);
-
-			String fullName = UL_DIR + fileName + "." + outputFormat;
-			String fullNameThumb = UL_DIR + fileName + "_thumb." + outputFormat;
-			File finalFile = new File(fullName);
+			String imagePath = UL_DIR + fileName + "." + outputFormat;
+			String thumbImagePath = UL_DIR + fileName + "_thumb." + outputFormat;
+			ImagePath ip = new ImagePath();
+			ip.setPath(imagePath);
+			sip.add(ip);
+			File finalFile = new File(imagePath);
 			FileUtils.copyFile(fs[i], finalFile);
 
 			ThumbNail2 tng = new ThumbNail2();
-			tng.createThumbnail(fullName, fullNameThumb, 300, 200);
+			tng.createThumbnail(imagePath, thumbImagePath, 300, 200);
 		}
+		adBean.setImgPaths(sip);
 	}
 
 	public void setCommunities(List<Communaute> communautes) {

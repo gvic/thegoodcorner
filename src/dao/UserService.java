@@ -6,6 +6,8 @@ import java.util.Map;
 import javax.ejb.Remote;
 
 import entities.Adresse;
+import entities.Departement;
+import entities.Region;
 import entities.User;
 
 @Remote
@@ -34,5 +36,9 @@ public interface UserService {
 		public User findByField(Map<String,Object> fieldValue) throws IllegalArgumentException; 
 		
 		public Adresse save(Adresse a);
+
+		public Departement getDepartement(long departementId);
+
+		public Region getRegion(long regionId);
 		
 }
