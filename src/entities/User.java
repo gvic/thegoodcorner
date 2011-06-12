@@ -129,7 +129,7 @@ public class User implements Serializable {
 	}
 
 	public String toString() {
-		return "User : " + getLogin() + ", " + getNom() + " " + getPrenom();
+		return "User n"+getId()+" : " + getLogin() + ", " + getNom() + " " + getPrenom();
 	}
 
 	public void setMd5_mdp(String md5_mdp) {

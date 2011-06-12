@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +27,7 @@ public class Communaute implements Serializable{
 	@ManyToMany(mappedBy="communautes")
 	private Set<User> users;
 
-	@ManyToMany(mappedBy="communautes")
+	@ManyToMany(mappedBy="communautes", fetch = FetchType.EAGER)
 	private Set<Annonce> annonces;
 	
 	public Communaute() {

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
@@ -77,7 +78,12 @@ public class AdUnloggedAction extends ActionSupport {
 			if (uService.saveOne(userBean) != null) {
 				addActionMessage(userBean.getLogin() + " "
 						+ getText("now.signup"));
-				adBean.setUser(service.getOne(User.class, userBean.getId()));
+				System.out.println("userbean : "+userBean.toString());
+				// The userBean variable isn't updated (with its ID)
+				Map<String, Object> hm = new HashMap<String, Object>();
+				hm.put("login", userBean.getLogin());
+				// That's why we have to retrieve it from DB with it's login
+				adBean.setUser(uService.findByField(hm));
 				adBean.setRegion(service.getOne(Region.class, regionId));
 				adBean.setDepartement(service.getOne(Departement.class, departementId));
 				adBean.setCategorie(service
