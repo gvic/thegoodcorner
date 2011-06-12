@@ -52,6 +52,34 @@ input.disabled:hover, input.disabled:focus  {
 .cache {
 	display: none;
 }
+.actionMessage{
+	border: 1px solid green;
+	background-color: rgba(0, 255, 0, 0.1);
+	color: green;
+	list-style: none;
+	font-weight: bold;
+	margin: 0 auto;
+	width: 50%;
+	text-align: center;
+	padding: 5px;
+}
+.actionError{
+	border: 1px solid red;
+	background-color: rgba(255, 0, 0, 0.1);
+	color: red;
+	list-style: none;
+	font-weight: bold;
+	margin: 0 auto;
+	width: 50%;
+	text-align: center;
+	padding: 5px;
+}
+.errorLabel, .errorMessage {
+	color: red;
+}
+.errorLabel {
+	font-style: italic;
+}
 #header{
 	background: #002fa7 url(images/header_rendering.png) repeat-x 0 -100px;
 	height: 155px;

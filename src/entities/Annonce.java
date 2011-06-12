@@ -1,6 +1,7 @@
 package entities;
 
 import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Set;
@@ -8,6 +9,7 @@ import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,7 +25,7 @@ import javax.persistence.UniqueConstraint;
 @Table(name="Annonce",
     uniqueConstraints = {@UniqueConstraint(columnNames = { "title","description" })}
 )
-public class Annonce implements Serializable{
+public class Annonce implements Serializable, Comparable<Annonce>{
 
 	private static final long serialVersionUID = 1L;
 
@@ -37,14 +39,20 @@ public class Annonce implements Serializable{
 	private User user;
 	
 	// Preferences de l'utilisateur pour une annonce
+//	@Column(nullable=true)
 	private int rayonGeographique;
+//	@Column(nullable=true)
 	private boolean telephoneFixeVisible;
+//	@Column(nullable=true)
 	private boolean telephonePortableVisible;
+//	@Column(nullable=true)
 	private boolean envoiColis;
+//	@Column(nullable=false)
 	private boolean validee;
 	
 	// Ou est l'objet a vendre?
 	@OneToOne
+//	@Column(nullable=true)
 	private Adresse adresse;
 	
 	@OneToOne
@@ -57,7 +65,7 @@ public class Annonce implements Serializable{
 	// @JoinColumn(name = "categorie_id", nullable = false)
 	private Categorie categorie;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<Communaute> communautes;
 	
 	private String title;
@@ -206,6 +214,17 @@ public class Annonce implements Serializable{
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	@Override
+	public int compareTo(Annonce arg0) {
+		if (getId()>arg0.getId()) {
+			return 1;
+		}
+		if (getId()<arg0.getId()) {
+			return -1;
+		}
+		return 0;
 	}
 
 	public ArrayList<String> getPathsToImg() {

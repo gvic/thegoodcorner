@@ -100,7 +100,7 @@ public class AdAction extends ActionSupport {
 
 			adBean.setRegion(service.getOne(Region.class, regionId));
 			adBean.setCategorie(service.getOne(Categorie.class, categorieId));
-			adBean.setCommunautes(service.get(Communaute.class, communitiesId));
+			adBean.setCommunautes(service.getByIds(Communaute.class, communitiesId));
 			if (service.saveOne(adBean) != null) {
 				MultiPartRequestWrapper multipartRequest = ((MultiPartRequestWrapper) ServletActionContext
 						.getRequest());
@@ -136,7 +136,6 @@ public class AdAction extends ActionSupport {
 
 			ThumbNail2 tng = new ThumbNail2();
 			tng.createThumbnail(fullName, fullNameThumb, 300, 200);
-
 		}
 	}
 

@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,7 +36,7 @@ public class Categorie implements Serializable, Comparable<Categorie>{
 	// cascade insertion Categorie -> insertion Annonces
 	// cascade maj Categorie -> maj Annonces
 	// cascade suppression Categorie -> suppression Annonces
-	@OneToMany(mappedBy = "categorie")
+	@OneToMany(mappedBy = "categorie", fetch = FetchType.EAGER)
 	private Set<Annonce> annonces = new HashSet<Annonce>();
 	
 	// Arbres des categories

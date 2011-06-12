@@ -11,7 +11,7 @@
 <!-- If login needed, the loginCheck.jsp will check the session for you -->
 <tiles:insertAttribute name="loginCheck"  ignore="true"/>
 <title><tiles:insertAttribute name="title" ignore="true" /></title>
-<sj:head jqueryui="true"/>
+<sj:head jqueryui="true" compressed="true" defaultIndicator="indicator" />
 <s:head theme="new_xhtml"/>
 </head>
 <body>
@@ -26,5 +26,6 @@
 			<tiles:insertAttribute name="footer" />
 		</div>
 	</div>
+	<img id="indicator"  src="%{request.context.path}/template/themes/css/images/indicator.gif" alt="Loading..." style="display:none"/>
 </body>
 </html>

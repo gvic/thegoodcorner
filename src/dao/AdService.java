@@ -17,7 +17,7 @@ public interface AdService {
 
 	public <T> T getOne(Class<T> arg, long id);
 	
-    public <T> Set<T> get(Class<T> arg, Set<Long> ids);
+    public <T> Set<T> getByIds(Class<T> arg, Set<Long> ids);
 	
 	public List<Departement> getDepartements();
 	public List<Communaute> getCommunautes();
@@ -41,4 +41,6 @@ public interface AdService {
 	public Annonce saveOne(Annonce a);
 	
 	public List<Annonce> search(String text);
+
+	public <T> List<T> getAll(Class<T> class1);
 }

@@ -89,7 +89,11 @@
     <definition name="showAd" extends="baseLayoutDressedUp">
         <put-attribute name="title" value="" /> <!-- Dynamic title-->
         <put-attribute name="body" value="/showAd.jsp" />
-    </definition>    
-    
+    </definition>   
+     
+    <definition name="listAd" extends="baseLayoutDressedUp">
+        <put-attribute name="title" value="" /> <!-- Dynamic title-->
+        <put-attribute name="body" value="/listAd.jsp" />
+    </definition>       
 
 </tiles-definitions>

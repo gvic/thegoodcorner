@@ -6,7 +6,7 @@
 <s:form id="submitAdForm" theme="xhtml" action="populateAd_submit"
 	enctype="multipart/form-data" method="POST">
 
-	<!-- 	En cas de probleme celle ci marche mais pas de couleur pour différencier regions/departs -->
+	<!-- 	En cas de probleme celle ci marche mais pas de couleur pour diff?rencier regions/departs -->
 	<s:select name="regionId" key="region.select" headerKey="-1"
 		headerValue="Select Region" list="regions" listValue="nom"
 		listKey="id"></s:select>
@@ -38,12 +38,10 @@
 		cssClass="active" />
 	<s:textfield name="userBean.email" key="login.email" cssClass="active" />
 
-	<s:password name="userBean.md5_mdp" key="login.password"
+ 		<s:password name="userBean.md5_mdp" key="login.password"
 		cssClass="active" />
 	<s:password name="confirmPassword" key="login.password.again"
 		cssClass="active" />
 	<sj:submit button="true" key="generic.submit" validate="true"
-		indicator="indicator" cssClass="float-right" />
+		cssClass="float-right" />
 </s:form>
-<img id="indicator" src="template/new_xhtml/css/images/indicator.gif"
-	alt="Loading..." style="display: none" />

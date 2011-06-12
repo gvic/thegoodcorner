@@ -135,10 +135,10 @@ public class AdServiceImpl implements AdService {
 		return em.find(arg, id);
 	}
 
-	// Get list entity bean thanks to their IDs
-	public <T> Set<T> get(Class<T> arg, Set<Long> ids) {
-		Set<T> res = new HashSet<T>();
-		for (Long long1 : ids) {
+    // Get list entity bean thanks to their IDs
+    public <T> Set<T> getByIds(Class<T> arg, Set<Long> ids) {
+    	Set<T> res = new HashSet<T>();
+    	for (Long long1 : ids) {
 			res.add(getOne(arg, long1));
 		}
 		return res;
@@ -294,7 +294,16 @@ public class AdServiceImpl implements AdService {
 				System.out.println("Ad already submit");
 			}
 		}
+        return res;
+    }
 
-		return res;
+	public <T> List<T> getAll(Class<T> class1) {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<T> cq = cb.createQuery(class1);
+		Root<T> rootReg= cq.from(class1);
+		cq.select(rootReg);
+		cq.distinct(true);
+		TypedQuery<T> query = em.createQuery(cq);
+		return query.getResultList();
 	}
 }
