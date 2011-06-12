@@ -11,7 +11,9 @@
 - Formulaire de recherche d'annonce, maxime a commencé,
 je prend la suite ce week end.
 
+- Login
 
+- Lister les annonces qui sont validées uniquement.
 ...
 
 
@@ -24,6 +26,4 @@ je prend la suite ce week end.
 - Vue pour voir une annonce
 
 - Signup
-
-- Login
 

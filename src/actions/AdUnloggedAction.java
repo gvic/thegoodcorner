@@ -15,6 +15,7 @@ import org.apache.struts2.dispatcher.multipart.MultiPartRequestWrapper;
 import com.google.inject.Inject;
 import com.opensymphony.xwork2.ActionSupport;
 
+import core.SimpleMail;
 import core.ThumbNail2;
 import dao.AdService;
 import dao.UserService;
@@ -54,7 +55,6 @@ public class AdUnloggedAction extends ActionSupport {
 	private List<String> uploadFileNames = new ArrayList<String>();
 	private List<String> uploadContentTypes = new ArrayList<String>();
 
-	
 	public void validate() {
 		if (userBean != null) {
 			System.out.println(userBean.toString());
@@ -62,43 +62,51 @@ public class AdUnloggedAction extends ActionSupport {
 			mhm.put("login", userBean.getLogin());
 			if (!userBean.getLogin().equals("")
 					&& uService.getByField(mhm) != null) {
-				addFieldError("userBean.login", getText("username.used"));
+				addFieldError("userBean.login", getText("errors.login.used"));
 			}
 			mhm.clear();
 			mhm.put("email", userBean.getEmail());
 			if (!userBean.getEmail().equals("")
 					&& uService.getByField(mhm) != null) {
-				addFieldError("userBean.email", getText("email.used"));
+				addFieldError("userBean.email", getText("errors.email.used"));
 			}
 		}
 	}
-	
+
 	public String execute() throws Exception {
 		if (userBean != null) {
 			if (uService.saveOne(userBean) != null) {
 				addActionMessage(userBean.getLogin() + " "
 						+ getText("now.signup"));
-				System.out.println("userbean : "+userBean.toString());
+				System.out.println("userbean : " + userBean.toString());
 				// The userBean variable isn't updated (with its ID)
 				Map<String, Object> hm = new HashMap<String, Object>();
 				hm.put("login", userBean.getLogin());
 				// That's why we have to retrieve it from DB with it's login
 				adBean.setUser(uService.getByField(hm));
 				adBean.setRegion(service.getOne(Region.class, regionId));
-				adBean.setDepartement(service.getOne(Departement.class, departementId));
+				adBean.setDepartement(service.getOne(Departement.class,
+						departementId));
 				adBean.setCategorie(service
 						.getOne(Categorie.class, categorieId));
 				adBean.setCommunautes(service.getByIds(Communaute.class,
 						communitiesId));
+				adBean.setValidee(false);
 				MultiPartRequestWrapper multipartRequest = ((MultiPartRequestWrapper) ServletActionContext
 						.getRequest());
 				if (multipartRequest != null) {
 					// =========================================================
 					// NullPointerException sur l'array fs dans la methode store
-					//store(multipartRequest);
+					store(multipartRequest);
 					// =========================================================
 					if (service.saveOne(adBean) != null) {
 						addActionMessage(getText("ad.sent"));
+						SimpleMail sm = new SimpleMail();
+						List<Annonce> adSaved = service.findAd(userBean, adBean.getTitle());
+						System.out.println(adSaved);
+						sm.sendValidationAdMessage(userBean.getLogin(), adSaved.get(0).getId(),
+								userBean.getEmail());
+						System.out.println(adBean.getId());
 						return SUCCESS;
 					} else {
 						// Don't forget to remove the user ..
@@ -128,23 +136,26 @@ public class AdUnloggedAction extends ActionSupport {
 		// Upload d'image que pour les user enregistrés
 		long userId = userBean.getId();
 		File fs[] = multipartRequest.getFiles("upload");
-		String[] ct = multipartRequest.getContentTypes("upload");
-		Set<ImagePath> sip = new HashSet<ImagePath>();
-		for (int i = 0; i < fs.length; i++) {
-			String outputFormat = ct[i].split("/")[1];
-			String fileName = userId + "_" + adBean.getId() + "_" + i;
-			String imagePath = UL_DIR + fileName + "." + outputFormat;
-			String thumbImagePath = UL_DIR + fileName + "_thumb." + outputFormat;
-			ImagePath ip = new ImagePath();
-			ip.setPath(imagePath);
-			sip.add(ip);
-			File finalFile = new File(imagePath);
-			FileUtils.copyFile(fs[i], finalFile);
+		if (fs != null) {
+			String[] ct = multipartRequest.getContentTypes("upload");
+			Set<ImagePath> sip = new HashSet<ImagePath>();
+			for (int i = 0; i < fs.length; i++) {
+				String outputFormat = ct[i].split("/")[1];
+				String fileName = userId + "_" + adBean.getId() + "_" + i;
+				String imagePath = UL_DIR + fileName + "." + outputFormat;
+				String thumbImagePath = UL_DIR + fileName + "_thumb."
+						+ outputFormat;
+				ImagePath ip = new ImagePath();
+				ip.setPath(imagePath);
+				sip.add(ip);
+				File finalFile = new File(imagePath);
+				FileUtils.copyFile(fs[i], finalFile);
 
-			ThumbNail2 tng = new ThumbNail2();
-			tng.createThumbnail(imagePath, thumbImagePath, 300, 200);
+				ThumbNail2 tng = new ThumbNail2();
+				tng.createThumbnail(imagePath, thumbImagePath, 300, 200);
+			}
+			adBean.setImgPaths(sip);
 		}
-		adBean.setImgPaths(sip);
 	}
 
 	public void setCommunities(List<Communaute> communautes) {

@@ -11,6 +11,7 @@ import entities.Categorie;
 import entities.Communaute;
 import entities.Departement;
 import entities.Region;
+import entities.User;
 
 @Remote
 public interface AdService {
@@ -38,9 +39,13 @@ public interface AdService {
 	
 	public List<Annonce> findByJointure(Map<String,Map<String,Object>> joins);
 	
+	public List<Annonce> findAd(User u, String title);
+	
 	public Annonce saveOne(Annonce a);
 	
 	public List<Annonce> search(String text);
 
 	public <T> List<T> getAll(Class<T> class1);
+
+	public void merge(Annonce ad);
 }

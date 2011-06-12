@@ -15,6 +15,7 @@ import com.google.inject.Inject;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
+import core.SimpleMail;
 import core.ThumbNail2;
 import dao.AdService;
 import dao.UserService;
@@ -64,16 +65,23 @@ public class AdLoggedAction extends ActionSupport {
 			adBean.setUser(userBean);
 			adBean.setRegion(service.getOne(Region.class, regionId));
 			adBean.setCategorie(service.getOne(Categorie.class, categorieId));
-			adBean.setCommunautes(service.getByIds(Communaute.class, communitiesId));
+			adBean.setCommunautes(service.getByIds(Communaute.class,
+					communitiesId));
+			adBean.setValidee(false);
 			MultiPartRequestWrapper multipartRequest = ((MultiPartRequestWrapper) ServletActionContext
 					.getRequest());
 			if (multipartRequest != null) {
 				// =========================================================
 				// NullPointerException sur l'array fs dans la methode store
-				//store(multipartRequest);
+				store(multipartRequest);
 				// =========================================================
 				if (service.saveOne(adBean) != null) {
 					addActionMessage(getText("ad.sent"));
+					SimpleMail sm = new SimpleMail();
+					List<Annonce> adSaved = service.findAd(userBean, adBean.getTitle());
+					System.out.println(adSaved);
+					sm.sendValidationAdMessage(userBean.getLogin(), adSaved.get(0).getId(),
+							userBean.getEmail());
 					return SUCCESS;
 				} else {
 					addActionMessage(getText("ad.save.impossible"));
@@ -88,29 +96,33 @@ public class AdLoggedAction extends ActionSupport {
 			return ERROR;
 		}
 	}
-	
+
 	private void store(MultiPartRequestWrapper multipartRequest)
 			throws Exception {
 		// Upload d'image que pour les user enregistrés
 		long userId = userBean.getId();
 		File fs[] = multipartRequest.getFiles("upload");
-		String[] ct = multipartRequest.getContentTypes("upload");
-		Set<ImagePath> sip = new HashSet<ImagePath>();
-		for (int i = 0; i < fs.length; i++) {
-			String outputFormat = ct[i].split("/")[1];
-			String fileName = userId + "_" + adBean.getId() + "_" + i;
-			String imagePath = UL_DIR + fileName + "." + outputFormat;
-			String thumbImagePath = UL_DIR + fileName + "_thumb." + outputFormat;
-			ImagePath ip = new ImagePath();
-			ip.setPath(imagePath);
-			sip.add(ip);
-			File finalFile = new File(imagePath);
-			FileUtils.copyFile(fs[i], finalFile);
+		if (fs != null) {
 
-			ThumbNail2 tng = new ThumbNail2();
-			tng.createThumbnail(imagePath, thumbImagePath, 300, 200);
+			String[] ct = multipartRequest.getContentTypes("upload");
+			Set<ImagePath> sip = new HashSet<ImagePath>();
+			for (int i = 0; i < fs.length; i++) {
+				String outputFormat = ct[i].split("/")[1];
+				String fileName = userId + "_" + adBean.getId() + "_" + i;
+				String imagePath = UL_DIR + fileName + "." + outputFormat;
+				String thumbImagePath = UL_DIR + fileName + "_thumb."
+						+ outputFormat;
+				ImagePath ip = new ImagePath();
+				ip.setPath(imagePath);
+				sip.add(ip);
+				File finalFile = new File(imagePath);
+				FileUtils.copyFile(fs[i], finalFile);
+
+				ThumbNail2 tng = new ThumbNail2();
+				tng.createThumbnail(imagePath, thumbImagePath, 300, 200);
+			}
+			adBean.setImgPaths(sip);
 		}
-		adBean.setImgPaths(sip);
 	}
 
 	public void setCommunities(List<Communaute> communautes) {

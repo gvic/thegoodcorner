@@ -206,8 +206,7 @@ public class Annonce implements Serializable {
 		
 	@Override
 	public String toString() {
-		String ret = "<div><p><b>"+title+"</b></p><p>"+description+"</p></div>";
-		return ret;
+		return id+"--"+title+"("+price+") - by "+user.getLogin();
 	}
 
 	public void setImgPaths(Set<ImagePath> imgPaths) {

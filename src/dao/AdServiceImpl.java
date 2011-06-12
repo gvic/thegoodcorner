@@ -24,6 +24,7 @@ import entities.Categorie;
 import entities.Communaute;
 import entities.Departement;
 import entities.Region;
+import entities.User;
 
 @Stateless(mappedName = "dao.AdServiceImpl")
 public class AdServiceImpl implements AdService {
@@ -284,18 +285,20 @@ public class AdServiceImpl implements AdService {
 	// sauvegarder une annonce
 	public Annonce saveOne(Annonce a) {
 		Annonce res = a;
-
 		a.setDate_de_publication(new java.util.Date());
 		a.setValidee(false);
 		if (res != null) {
 			try {
 				em.persist(a);
+				res = em.merge(a);
 			} catch (org.hibernate.exception.ConstraintViolationException e) {
 				System.out.println("Ad already submit");
 			}
 		}
         return res;
     }
+	
+	
 
 	public <T> List<T> getAll(Class<T> class1) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -305,5 +308,23 @@ public class AdServiceImpl implements AdService {
 		cq.distinct(true);
 		TypedQuery<T> query = em.createQuery(cq);
 		return query.getResultList();
+	}
+
+	@Override
+	public List<Annonce> findAd(User u, String title) {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Annonce> cq = cb.createQuery(Annonce.class);
+		Root<Annonce> rootAd = cq.from(Annonce.class);
+		cq.select(rootAd);
+		Predicate p1 = cb.equal(rootAd.get("title"), title);
+		Predicate p2 = cb.equal(rootAd.get("user"), u); 
+		cq.where(cb.and(p1, p2));
+		TypedQuery<Annonce> query = em.createQuery(cq);
+		return query.getResultList();
+	}
+
+	@Override
+	public void merge(Annonce ad) {
+		em.merge(ad);
 	}
 }

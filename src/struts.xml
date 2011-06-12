@@ -111,6 +111,10 @@
 			<result type="tiles">listAd</result>
 		</action>
 		
+		<action name="confirmAd" class="actions.ConfirmAd">
+			<result type="tiles">welcome</result>
+		</action>
+		
 		<action name="account">
 			<result type="tiles">account</result>
 		</action>
