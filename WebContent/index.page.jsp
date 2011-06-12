@@ -14,12 +14,6 @@
 		</div>
 		<div id="third-step">
 			<h1>3. Time has come</h1>
-			<p>
-				<s:a action="search_input">
-					<s:text name="search" />
-				</s:a>
-			</p>
-
 		</div>
 		<div id="fourth-step">
 			<h1>4. Free at last</h1>

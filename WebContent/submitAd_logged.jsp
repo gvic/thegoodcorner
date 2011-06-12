@@ -26,9 +26,9 @@
 		key="ad.description" />
 	<s:textfield name="adBean.price" key="ad.price" />
 
-	<s:file name="upload" label="File (1)" key="ad.photo"
+	<s:file name="upload" key="ad.photo"
 		cssClass="disabled" />
-	<s:file name="upload" label="File (2)" key="ad.photo"
+	<s:file name="upload" key="ad.photo"
 		cssClass="disabled" />
 	<!-- 	<s:file name="upload" label="File (3)" key="ad.photo" cssClass="disabled cache"/>-->
 	<!-- 	<s:file name="upload" label="File (4)" key="ad.photo" cssClass="disabled cache"/>-->

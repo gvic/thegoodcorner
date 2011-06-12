@@ -33,7 +33,7 @@
 	<div class="thead"><s:text name="account.menu" /></div>
 	<ul>
 		<li>
-		<s:url action="list" id="listurl" >
+		<s:url action="list" id="listurl" includeParams="get" >
 			<s:param name="userId" value="%{#session.userId}" ></s:param>
 		</s:url>
 		<s:a href="%{listurl}" >

@@ -186,6 +186,12 @@ public class ListAdAction extends ActionSupport {
 	public List<Annonce> getMyAnnonces() {
 		Map<String, Map<String, Object>> joins = new HashMap<String, Map<String,Object>>();
 		
+		System.out.println("departId:"+getDepartId()
+				+",regionId:"+getRegionId()
+				+",userId:"+getUserId()
+				+",categorieId:"+getCategorieId()
+				+",communauteId:"+getCommunauteId());
+		
 		if (getDepartId() != 0) {
 			Map<String, Object> value = new HashMap<String, Object>();
 			value.put("id", departId);
