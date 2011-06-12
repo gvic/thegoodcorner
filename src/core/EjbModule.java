@@ -7,6 +7,7 @@ import com.google.inject.Binder;
 import com.google.inject.Module;
 
 import dao.AdService;
+import dao.PopulateService;
 import dao.UserService;
 
 public class EjbModule implements Module {
@@ -21,8 +22,8 @@ public class EjbModule implements Module {
     binder.bind(AdService.class)
     .toProvider(fromJndi(AdService.class, "dao.AdServiceImpl"));
     
-    binder.bind(dao.PopulateService.class)
-    .toProvider(fromJndi(dao.PopulateService.class, "dao.PopulateServiceImpl"));
+    binder.bind(PopulateService.class)
+    .toProvider(fromJndi(PopulateService.class, "dao.PopulateServiceImpl"));
     
     
   }
