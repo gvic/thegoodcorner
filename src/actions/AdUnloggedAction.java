@@ -74,35 +74,30 @@ public class AdUnloggedAction extends ActionSupport {
 	
 	public String execute() throws Exception {
 		if (userBean != null) {
-			if (uService.saveOne(userBean) != null) {
-				addActionMessage(userBean.getLogin() + " "
-						+ getText("now.signup"));
-				adBean.setUser(userBean);
-				adBean.setRegion(service.getOne(Region.class, regionId));
-				adBean.setCategorie(service
-						.getOne(Categorie.class, categorieId));
-				adBean.setCommunautes(service.getByIds(Communaute.class,
-						communitiesId));
-				MultiPartRequestWrapper multipartRequest = ((MultiPartRequestWrapper) ServletActionContext
-						.getRequest());
-				if (multipartRequest != null) {
-					// =========================================================
-					// NullPointerException sur l'array fs dans la methode store
-					//store(multipartRequest);
-					// =========================================================
-					if (service.saveOne(adBean) != null) {
-						addActionMessage(getText("ad.sent"));
-						return SUCCESS;
-					} else {
-						addActionMessage(getText("ad.save.impossible"));
-						return ERROR;
-					}
+			adBean.setUser(userBean);
+			adBean.setRegion(service.getOne(Region.class, regionId));
+			adBean.setCategorie(service
+					.getOne(Categorie.class, categorieId));
+			adBean.setCommunautes(service.getByIds(Communaute.class,
+					communitiesId));
+			MultiPartRequestWrapper multipartRequest = ((MultiPartRequestWrapper) ServletActionContext
+					.getRequest());
+			if (multipartRequest != null) {
+				// =========================================================
+				// NullPointerException sur l'array fs dans la methode store
+				//store(multipartRequest);
+				// =========================================================
+				if (service.saveOne(adBean) != null && uService.saveOne(userBean) != null) {
+					addActionMessage(userBean.getLogin() + " "
+							+ getText("now.signup"));
+					addActionMessage(getText("ad.sent"));
+					return SUCCESS;
 				} else {
-					addActionError(getText("add.ad.impossible"));
+					addActionMessage(getText("ad.save.impossible"));
 					return ERROR;
 				}
 			} else {
-				addActionError(getText("signup.impossible"));
+				addActionError(getText("add.ad.impossible"));
 				return ERROR;
 			}
 		} else {
