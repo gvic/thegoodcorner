@@ -17,7 +17,11 @@
 <body>
 	<div id="wrapper">
 		<div id="header">
-			<tiles:insertAttribute name="header" />
+			<div id="header_l">
+				<div id="header_r">			
+					<tiles:insertAttribute name="header" />
+				</div>
+			</div>
 		</div>
 		<div id="page_l">
 			<div id="page_r">
