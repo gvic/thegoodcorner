@@ -93,13 +93,17 @@ public class AdAction extends ActionSupport {
 			adBean.setRegion(service.getOne(Region.class, regionId));
 			adBean.setCategorie(service.getOne(Categorie.class, categorieId));
 			adBean.setCommunautes(service.getByIds(Communaute.class, communitiesId));
-			if (service.saveOne(adBean) != null) {
-				MultiPartRequestWrapper multipartRequest = ((MultiPartRequestWrapper) ServletActionContext
-						.getRequest());
-				if (multipartRequest != null)
-					store(multipartRequest);
-				addActionMessage(getText("ad.sent"));
-				return SUCCESS;
+			MultiPartRequestWrapper multipartRequest = ((MultiPartRequestWrapper) ServletActionContext
+					.getRequest());
+			if (multipartRequest != null) {
+				store(multipartRequest);
+				if (service.saveOne(adBean) != null) {
+					addActionMessage(getText("ad.sent"));
+					return SUCCESS;
+				} else {
+					addActionMessage(getText("ad.save.impossible"));
+					return ERROR;
+				}
 			} else {
 				addActionError(getText("add.ad.impossible"));
 				return ERROR;
@@ -114,13 +118,14 @@ public class AdAction extends ActionSupport {
 	private void store(MultiPartRequestWrapper multipartRequest)
 			throws Exception {
 		// Upload d'image que pour les user enregistrés
-		long userId = userBean.getId(); 
+		long userId = userBean.getId();
 		File fs[] = multipartRequest.getFiles("upload");
 		String[] ct = multipartRequest.getContentTypes("upload");
 		for (int i = 0; i < fs.length; i++) {
 			String outputFormat = ct[i].split("/")[1];
-			String fileName = userId + "_"+adBean.getId()+"_"+i;
-			// adBean.addImgPath(UL_DIR+fileName);
+			String fileName = userId + "_" + adBean.getId() + "_" + i;
+			adBean.addImgPath(UL_DIR + fileName);
+
 			String fullName = UL_DIR + fileName + "." + outputFormat;
 			String fullNameThumb = UL_DIR + fileName + "_thumb." + outputFormat;
 			File finalFile = new File(fullName);

@@ -3,97 +3,105 @@
        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 <tiles-definitions>
-    <definition name="baseLayout" template="/BaseLayout.jsp">
-   		<put-attribute name="title" value="" />
-   		<put-attribute name="logCheck" value="" />
-        <put-attribute name="header" value="/header.jsp" />
-        <put-attribute name="body" value="" />
-        <put-attribute name="footer" value="/footer.jsp" />   
-        <put-attribute name="css" value=""/>
-        <put-attribute name="scripts" value=""/>      
-    </definition>
-    <definition name="baseLayoutDressedUp" extends="baseLayout">
-    	<put-list-attribute name="css" >
-        	<add-attribute type="string" value="/css/css.css"/>
-        	<add-attribute type="string" value="http://fonts.googleapis.com/css?family=Muli:light,regular|Raleway:100"/>
-        </put-list-attribute>
-        <put-list-attribute name="scripts" >
-        	<add-attribute type="string" value="js/jquery.scrollTo-1.4.2-min.js"/>
-        </put-list-attribute>
-    </definition>
-    <definition name="baseLayoutLogged" extends="baseLayoutDressedUp">
-   		<put-attribute name="loginCheck" value="/inc/loginCheck.jsp" />
-    </definition>    
-    <definition name="welcome" extends="baseLayoutDressedUp">
-        <put-attribute name="title" value="Welcome" />
-        <put-attribute name="body" value="/index.page.jsp" />
-        <put-list-attribute name="scripts">
-        	<add-attribute type="string" value="js/jquery.scrollTo-1.4.2-min.js"/>
-        	<add-attribute type="string" value="js/index.init.js"/>
-        	<add-attribute type="string" value="js/jquery.easing.1.3.js"/>
-       	</put-list-attribute>
-    </definition>
-    <definition name="loginPage" extends="baseLayoutDressedUp">
-        <put-attribute name="title" value="Welcome" />
-        <put-attribute name="body" value="/login.jsp" />
-    </definition>
-    <definition name="signup" extends="baseLayoutDressedUp">
-        <put-attribute name="title" value="Welcome" />
-        <put-attribute name="body" value="/signup.jsp" />
-    </definition>
-    <definition name="signup.success" extends="baseLayoutDressedUp">
-        <put-attribute name="title" value="Welcome" />
-        <put-attribute name="body" value="/success.jsp" />
-    </definition>
-    
-    <definition name="submitAd" extends="baseLayoutDressedUp">
-        <put-attribute name="title" value="Submit an ad" />
-        <put-attribute name="body" value="/submitAd.jsp" />
-    </definition>
-    
-    <definition name="updateAccount" extends="baseLayoutLogged">
-        <put-attribute name="title" value="Update your account" />
-        <put-attribute name="body" value="/account.jsp" />
-    </definition>
-    
-    <definition name="updateAccountSuccess" extends="baseLayoutDressedUp">
-        <put-attribute name="title" value="Welcome" />
-        <put-attribute name="body" value="/updateAccountSuccess.jsp" />
-    </definition>
-    
-    <definition name="changePassword" extends="baseLayoutDressedUp">
-        <put-attribute name="title" value="Change your password" />
-        <put-attribute name="body" value="/changePassword.jsp" />
-    </definition> 
-    
-    <definition name="searchForm" extends="baseLayoutDressedUp">
-        <put-attribute name="title" value="Search an ad" />
-        <put-attribute name="body" value="/searchForm.jsp" />
-    </definition>
-    
-    <definition name="populateIndex" extends="baseLayoutDressedUp">
-        <put-attribute name="title" value="Adminstration" />
-        <put-attribute name="body" value="/populateIndex.jsp" />
-    </definition>
-    
-    <definition name="addCommunaute" extends="baseLayoutDressedUp">
-        <put-attribute name="title" value="Adminstration | Ajout d'une communauté" />
-        <put-attribute name="body" value="/addCommunaute.jsp" />
-    </definition>
-    
-    <definition name="testLogged" extends="baseLayoutLogged">
-        <put-attribute name="title" value="Logged page" />
-        <put-attribute name="body" value="/logged.jsp" />
-    </definition>
+	<definition name="baseLayout" template="/BaseLayout.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="logCheck" value="" />
+		<put-attribute name="header" value="/header.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/footer.jsp" />
+		<put-attribute name="css" value="" />
+		<put-attribute name="scripts" value="" />
+	</definition>
+	<definition name="baseLayoutDressedUp" extends="baseLayout">
+		<put-list-attribute name="css">
+			<add-attribute type="string" value="/css/css.css" />
+			<add-attribute type="string"
+				value="http://fonts.googleapis.com/css?family=Muli:light,regular|Raleway:100" />
+		</put-list-attribute>
+		<put-list-attribute name="scripts">
+			<add-attribute type="string" value="js/jquery.scrollTo-1.4.2-min.js" />
+		</put-list-attribute>
+	</definition>
+	<definition name="baseLayoutLogged" extends="baseLayoutDressedUp">
+		<put-attribute name="loginCheck" value="/inc/loginCheck.jsp" />
+	</definition>
+	<definition name="welcome" extends="baseLayoutDressedUp">
+		<put-attribute name="title" value="Welcome" />
+		<put-attribute name="body" value="/index.page.jsp" />
+		<put-list-attribute name="scripts">
+			<add-attribute type="string" value="js/jquery.scrollTo-1.4.2-min.js" />
+			<add-attribute type="string" value="js/index.init.js" />
+			<add-attribute type="string" value="js/jquery.easing.1.3.js" />
+		</put-list-attribute>
+	</definition>
+	<definition name="loginPage" extends="baseLayoutDressedUp">
+		<put-attribute name="title" value="Welcome" />
+		<put-attribute name="body" value="/login.jsp" />
+	</definition>
+	
+	<definition name="signup" extends="baseLayoutDressedUp">
+<!-- 		<put-list-attribute name="scripts"> -->
+<!-- 			<add-attribute type="string" value="js/main.js" /> -->
+<!-- 			<add-attribute type="string" value="js/jquery-ui-1.8.1.custom.min.js" /> -->
+<!-- 			<add-attribute type="string" value="http://maps.google.com/maps/api/js?sensor=false" /> -->
+<!-- 		</put-list-attribute> -->
+		<put-attribute name="title" value="Welcome" />
+		<put-attribute name="body" value="/signup.jsp" />
+	</definition>
+	<definition name="signup.success" extends="baseLayoutDressedUp">
+		<put-attribute name="title" value="Welcome" />
+		<put-attribute name="body" value="/success.jsp" />
+	</definition>
 
-    <definition name="showAd" extends="baseLayoutDressedUp">
-        <put-attribute name="title" value="" /> <!-- Dynamic title-->
-        <put-attribute name="body" value="/showAd.jsp" />
-    </definition>   
-     
-    <definition name="listAd" extends="baseLayoutDressedUp">
+	<definition name="submitAd" extends="baseLayoutDressedUp">
+		<put-attribute name="title" value="Submit an ad" />
+		<put-attribute name="body" value="/submitAd.jsp" />
+	</definition>
+
+	<definition name="updateAccount" extends="baseLayoutLogged">
+		<put-attribute name="title" value="Update your account" />
+		<put-attribute name="body" value="/account.jsp" />
+	</definition>
+
+	<definition name="updateAccountSuccess" extends="baseLayoutDressedUp">
+		<put-attribute name="title" value="Welcome" />
+		<put-attribute name="body" value="/updateAccountSuccess.jsp" />
+	</definition>
+
+	<definition name="changePassword" extends="baseLayoutDressedUp">
+		<put-attribute name="title" value="Change your password" />
+		<put-attribute name="body" value="/changePassword.jsp" />
+	</definition>
+
+	<definition name="searchForm" extends="baseLayoutDressedUp">
+		<put-attribute name="title" value="Search an ad" />
+		<put-attribute name="body" value="/searchForm.jsp" />
+	</definition>
+
+	<definition name="populateIndex" extends="baseLayoutDressedUp">
+		<put-attribute name="title" value="Adminstration" />
+		<put-attribute name="body" value="/populateIndex.jsp" />
+	</definition>
+
+	<definition name="addCommunaute" extends="baseLayoutDressedUp">
+		<put-attribute name="title"
+			value="Adminstration | Ajout d'une communauté" />
+		<put-attribute name="body" value="/addCommunaute.jsp" />
+	</definition>
+
+	<definition name="testLogged" extends="baseLayoutLogged">
+		<put-attribute name="title" value="Logged page" />
+		<put-attribute name="body" value="/logged.jsp" />
+	</definition>
+
+	<definition name="showAd" extends="baseLayoutDressedUp">
+		<put-attribute name="title" value="" /> <!-- Dynamic title -->
+		<put-attribute name="body" value="/showAd.jsp" />
+	</definition>
+	
+<definition name="listAd" extends="baseLayoutDressedUp">
         <put-attribute name="title" value="" /> <!-- Dynamic title-->
         <put-attribute name="body" value="/listAd.jsp" />
-    </definition>       
+    </definition>    
 
 </tiles-definitions>
