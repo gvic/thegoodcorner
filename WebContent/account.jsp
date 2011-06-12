@@ -33,7 +33,10 @@
 	<div class="thead"><s:text name="account.menu" /></div>
 	<ul>
 		<li>
-		<s:a action="showAd">
+		<s:url action="list" id="listurl">
+			<s:param name="userId" value="%{#session.userId}"></s:param>
+		</s:url>
+		<s:a href="%{listurl}" >
 			<s:text name="account.show.ads" />
 		</s:a>
 		</li>

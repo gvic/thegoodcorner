@@ -77,8 +77,9 @@ public class AdUnloggedAction extends ActionSupport {
 			if (uService.saveOne(userBean) != null) {
 				addActionMessage(userBean.getLogin() + " "
 						+ getText("now.signup"));
-				adBean.setUser(userBean);
+				adBean.setUser(service.getOne(User.class, userBean.getId()));
 				adBean.setRegion(service.getOne(Region.class, regionId));
+				adBean.setDepartement(service.getOne(Departement.class, departementId));
 				adBean.setCategorie(service
 						.getOne(Categorie.class, categorieId));
 				adBean.setCommunautes(service.getByIds(Communaute.class,

@@ -201,7 +201,7 @@ public class AdServiceImpl implements AdService {
 	 * @return
 	 */
 	public List<Annonce> findByJointure(Map<String, Map<String, Object>> joins) {
-
+		System.out.println("findByJointure() called");
 		// SELECT DISTINCT a FROM Annonce a JOIN a.departement d WHERE
 		// d.nom=:value
 		List<Annonce> res = null;

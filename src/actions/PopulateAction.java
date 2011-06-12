@@ -14,38 +14,19 @@ public class PopulateAction extends ActionSupport {
 
 	private Communaute comBean;
 
-	@Override
 	public void validate() {
-		super.validate();
 		if (comBean != null) {
-			if (comBean.getDenomination() == null) {
-				addActionError(getText("errors.required"));
-			}else{
-				if(service.exists(comBean.getDenomination()).size() > 0)
-					addActionError(getText("errors.populate.communaute.exists"));
-			}
-			if (comBean.getDescription() == null) {
-				addActionError(getText("errors.required"));
-			}
+			if(service.exists(comBean.getDenomination()).size() > 0)
+					addFieldError("comBean.denomination",getText("errors.populate.communaute.exists"));
 		}
-	}
-
-	public String input() throws Exception {
-
-		return super.input();
 	}
 
 	public String processDatas() {
 		System.out.println(service.exists(comBean.getDenomination()).toString());
 		System.out.println((service.exists(comBean.getDenomination()).size()));
 
-//		if (service.exists(comBean.getDenomination()).size() > 0) {
-//			addActionError(getText("errors.populate.communaute.exists"));
-//			return ERROR;
-//		} else {
-			service.save(comBean);
-			return SUCCESS;
-//		}
+		service.save(comBean);
+		return SUCCESS;
 	}
 
 	public Communaute getComBean() {

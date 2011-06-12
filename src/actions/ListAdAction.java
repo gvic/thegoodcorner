@@ -186,27 +186,27 @@ public class ListAdAction extends ActionSupport {
 	public List<Annonce> getMyAnnonces() {
 		Map<String, Map<String, Object>> joins = new HashMap<String, Map<String,Object>>();
 		
-		if (departId != 0) {
+		if (getDepartId() != 0) {
 			Map<String, Object> value = new HashMap<String, Object>();
 			value.put("id", departId);
 			joins.put("departement", value);
 		}
-		if (regionId != 0) {
+		if (getRegionId() != 0) {
 			Map<String, Object> value = new HashMap<String, Object>();
 			value.put("id", regionId);
 			joins.put("region", value);
 		}
-		if (userId != 0) {
+		if (getUserId() != 0) {
 			Map<String, Object> value = new HashMap<String, Object>();
 			value.put("id", userId);
 			joins.put("user", value);
 		}
-		if (categorieId != 0) {
+		if (getCategorieId() != 0) {
 			Map<String, Object> value = new HashMap<String, Object>();
 			value.put("id", categorieId);
 			joins.put("categorie", value);
 		}
-		if (communauteId != 0) {
+		if (getCommunauteId() != 0) {
 			Map<String, Object> value = new HashMap<String, Object>();
 			value.put("id", communauteId);
 			joins.put("communautes", value);
@@ -237,5 +237,45 @@ public class ListAdAction extends ActionSupport {
 
 	public Integer getTotalrows() {
 		return totalrows;
+	}
+
+	public void setUserId(long userId) {
+		this.userId = userId;
+	}
+
+	public long getUserId() {
+		return userId;
+	}
+
+	public void setRegionId(long regionId) {
+		this.regionId = regionId;
+	}
+
+	public long getRegionId() {
+		return regionId;
+	}
+
+	public void setDepartId(long departId) {
+		this.departId = departId;
+	}
+
+	public long getDepartId() {
+		return departId;
+	}
+
+	public void setCategorieId(long categorieId) {
+		this.categorieId = categorieId;
+	}
+
+	public long getCategorieId() {
+		return categorieId;
+	}
+
+	public void setCommunauteId(long communauteId) {
+		this.communauteId = communauteId;
+	}
+
+	public long getCommunauteId() {
+		return communauteId;
 	}
 }
