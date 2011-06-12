@@ -1,11 +1,14 @@
 package actions;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.google.inject.Inject;
 import com.opensymphony.xwork2.ActionSupport;
 
+import core.annonceComparator;
 import dao.AdService;
 import entities.Annonce;
 
@@ -19,6 +22,14 @@ public class ListAdAction extends ActionSupport {
 	private List<Annonce>      gridModel;
 	// All results List
 	private List<Annonce>      myAnnonces;
+	
+	// Search annonces by :
+	private long userId = 0;
+	private long regionId = 0;
+	private long departId = 0;
+	private long categorieId = 0;
+	private long communauteId = 0;
+	
 
 	//get how many rows we want to have into the grid - rowNum attribute in the grid
 	private Integer             rows             = 0;
@@ -48,20 +59,12 @@ public class ListAdAction extends ActionSupport {
 		
 		myAnnonces = getMyAnnonces();
 		
-		System.out.println("=== SidX : "+sidx);
-		
-		if (getSord() != null && getSord().equalsIgnoreCase("asc"))
-	    {
-	      Collections.sort(myAnnonces);
-	    }
-	    if (getSord() != null && getSord().equalsIgnoreCase("desc"))
-	    {
-	      Collections.sort(myAnnonces);
-	      Collections.reverse(myAnnonces);
+		if (getSord() != null && getSidx() != null && !getSord().equals("") && !getSidx().equals("")) {
+			Collections.sort(myAnnonces,new annonceComparator(getSord(), getSidx()));
 	    }
 
 	    setRecords(getMyAnnonces().size());
-		if (getTotalrows() != 0){
+		if (getTotalrows() != 0) {
 			setRows(getTotalrows());
 		}
 	    
@@ -181,7 +184,35 @@ public class ListAdAction extends ActionSupport {
 	}
 	
 	public List<Annonce> getMyAnnonces() {
-		return service.getAll(Annonce.class);
+		Map<String, Map<String, Object>> joins = new HashMap<String, Map<String,Object>>();
+		
+		if (departId != 0) {
+			Map<String, Object> value = new HashMap<String, Object>();
+			value.put("id", departId);
+			joins.put("departement", value);
+		}
+		if (regionId != 0) {
+			Map<String, Object> value = new HashMap<String, Object>();
+			value.put("id", regionId);
+			joins.put("region", value);
+		}
+		if (userId != 0) {
+			Map<String, Object> value = new HashMap<String, Object>();
+			value.put("id", userId);
+			joins.put("user", value);
+		}
+		if (categorieId != 0) {
+			Map<String, Object> value = new HashMap<String, Object>();
+			value.put("id", categorieId);
+			joins.put("categorie", value);
+		}
+		if (communauteId != 0) {
+			Map<String, Object> value = new HashMap<String, Object>();
+			value.put("id", communauteId);
+			joins.put("communautes", value);
+		}
+		
+		return service.findByJointure(joins);
 	}
 
 	public void setMyAnnonces(List<Annonce> myAnnonces) {

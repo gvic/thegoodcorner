@@ -25,7 +25,7 @@ import javax.persistence.UniqueConstraint;
 @Table(name="Annonce",
     uniqueConstraints = {@UniqueConstraint(columnNames = { "title","description" })}
 )
-public class Annonce implements Serializable, Comparable<Annonce>{
+public class Annonce implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -203,18 +203,7 @@ public class Annonce implements Serializable, Comparable<Annonce>{
 	public void setId(long id) {
 		this.id = id;
 	}
-
-	@Override
-	public int compareTo(Annonce arg0) {
-		if (getId()>arg0.getId()) {
-			return 1;
-		}
-		if (getId()<arg0.getId()) {
-			return -1;
-		}
-		return 0;
-	}
-	
+		
 	@Override
 	public String toString() {
 		String ret = "<div><p><b>"+title+"</b></p><p>"+description+"</p></div>";
