@@ -3,7 +3,7 @@
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 <%@ taglib prefix="sjg" uri="/struts-jquery-grid-tags"%>
 
-<!--<s:a href="javascript:history.go(-1)"><s:text name="history.back"></s:text></s:a>-->
+<s:a href="javascript:history.go(-1)"><s:text name="history.back"></s:text></s:a>
 
 <s:url id="remoteurl" action="listAdJson" />
 <sjg:grid
@@ -12,8 +12,7 @@
      href="%{remoteurl}"
      pager="true"
      gridModel="gridModel"
-     rowNum="20" 
-     width="980" 
+     rowNum="20"  
      hoverrows="false"  
  >
      <sjg:gridColumn name="id" index="id" title="ID" sortable="false"/>

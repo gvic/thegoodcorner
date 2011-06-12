@@ -16,14 +16,6 @@
 		</sj:a>
 		</li>
 		<li>
-		<s:url action="list" id="listurl"  >
-			<s:param name="userId" value="%{#session.userId}" ></s:param>
-		</s:url>
-		<sj:a href="%{listurl}" targets="account-ajax" >
-			<s:text name="account.show.ads" />
-		</sj:a>
-		</li>
-		<li>
 		<s:url action="addCommunaute_input" id="addcomurl"></s:url>
 		<sj:a href="%{addcomurl}" targets="account-ajax">
 			<s:text name="account.add.communaute" />
@@ -34,6 +26,14 @@
 		<sj:a href="%{changeurl}" targets="account-ajax">
 			<s:text name="account.changePassword" />
 		</sj:a>
+		</li>
+		<li>
+		<s:url action="list" id="listurl"  >
+			<s:param name="userId" value="%{#session.userId}" ></s:param>
+		</s:url>
+		<s:a href="%{listurl}"  >
+			<s:text name="account.show.ads" />
+		</s:a>
 		</li>
 	</ul>
 </div>

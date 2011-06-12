@@ -108,7 +108,7 @@
 		</action>
 
 		<action name="list">
-			<result >/list.jsp</result>
+			<result type="tiles">listAd</result>
 		</action>
 		
 		<action name="account">
