@@ -61,13 +61,13 @@ public class AdUnloggedAction extends ActionSupport {
 			HashMap<String, Object> mhm = new HashMap<String, Object>();
 			mhm.put("login", userBean.getLogin());
 			if (!userBean.getLogin().equals("")
-					&& uService.findByField(mhm) != null) {
+					&& uService.getByField(mhm) != null) {
 				addFieldError("userBean.login", getText("username.used"));
 			}
 			mhm.clear();
 			mhm.put("email", userBean.getEmail());
 			if (!userBean.getEmail().equals("")
-					&& uService.findByField(mhm) != null) {
+					&& uService.getByField(mhm) != null) {
 				addFieldError("userBean.email", getText("email.used"));
 			}
 		}
@@ -83,7 +83,7 @@ public class AdUnloggedAction extends ActionSupport {
 				Map<String, Object> hm = new HashMap<String, Object>();
 				hm.put("login", userBean.getLogin());
 				// That's why we have to retrieve it from DB with it's login
-				adBean.setUser(uService.findByField(hm));
+				adBean.setUser(uService.getByField(hm));
 				adBean.setRegion(service.getOne(Region.class, regionId));
 				adBean.setDepartement(service.getOne(Departement.class, departementId));
 				adBean.setCategorie(service

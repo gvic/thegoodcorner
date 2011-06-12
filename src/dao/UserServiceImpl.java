@@ -3,16 +3,12 @@ package dao;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.Map.Entry;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -52,13 +48,6 @@ public class UserServiceImpl implements UserService {
 		return em.createQuery("select p from User p").getResultList();
 	}
 
-	@SuppressWarnings("unchecked")
-	// obtenir les users dont le nom correspond à un modèle
-	public List<User> getAllLike(String modele) {
-		return em.createQuery("select p from User p where p.nom like :modele")
-				.setParameter("modele", modele).getResultList();
-	}
-
 	// obtenir une u via son identifiant
 	public User getOne(long id) {
 		return em.find(User.class, id);
@@ -94,44 +83,17 @@ public class UserServiceImpl implements UserService {
 
 	// Check if a field is already used?
 	// throws Exception in case of bad field parameter
-	public User findByField(Map<String, Object> fieldValue)
-			throws IllegalArgumentException {
-		User res = null;
-		try {
-			Set<String> keys = fieldValue.keySet();
-			Iterator<String> iteKeys = keys.iterator();
-			Collection<Object> values = fieldValue.values();
-			Iterator<Object> iteValues = values.iterator();
-			String query = "SELECT p FROM User p WHERE";
-			// Iterator on keys
-			int i = 0;
-			while (iteKeys.hasNext()) {
-				if (i != 0) {
-					query += " AND";
-				}
-				query += " p." + iteKeys.next() + "=:value" + i;
-				i++;
-			}
-			TypedQuery<User> q = em.createQuery(query, User.class);
-			// Iterator on values
-			i = 0;
-			while (iteValues.hasNext()) {
-				q.setParameter("value" + i, iteValues.next());
-				i++;
-			}
-			User u = q.getSingleResult();
-			if (u != null) {
-				res = u;
-			}
-		} catch (NoResultException e) {
-			e.printStackTrace();
-		} catch (NonUniqueResultException e) {
-			e.printStackTrace();
-			// Very Strange if it happens!
-		} catch (NullPointerException e) {
-			e.printStackTrace();
+	public User getByField(Map<String, Object> fieldValue) {
+		
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<User> cq = cb.createQuery(User.class);
+		Root<User> rootReg = cq.from(User.class);
+		for (Entry<String, Object> entry : fieldValue.entrySet()) {
+			cq.select(rootReg).where(cb.equal(rootReg.get(entry.getKey()), entry.getValue()))
+				.distinct(true);
 		}
-		return res;
+		TypedQuery<User> query = em.createQuery(cq);
+		return query.getSingleResult();		
 	}
 
 	// mettre à jour une u

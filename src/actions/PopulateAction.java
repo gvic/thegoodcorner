@@ -1,5 +1,8 @@
 package actions;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.google.inject.Inject;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -15,16 +18,13 @@ public class PopulateAction extends ActionSupport {
 	private Communaute comBean;
 
 	public void validate() {
-		if (comBean != null) {
-			if(service.exists(comBean.getDenomination()).size() > 0)
-					addFieldError("comBean.denomination",getText("errors.populate.communaute.exists"));
-		}
+		Map<String, Object> m = new HashMap<String, Object>();
+		m.put("denomination", comBean.getDenomination());
+		if(service.getByField(m) != null)
+			addFieldError("comBean.denomination",getText("errors.populate.communaute.exists"));
 	}
 
 	public String processDatas() {
-		System.out.println(service.exists(comBean.getDenomination()).toString());
-		System.out.println((service.exists(comBean.getDenomination()).size()));
-
 		service.save(comBean);
 		return SUCCESS;
 	}

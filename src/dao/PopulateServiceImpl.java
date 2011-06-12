@@ -1,8 +1,12 @@
 package dao;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -25,7 +29,6 @@ public class PopulateServiceImpl implements PopulateService {
 		return em;
 	}
 
-	@Override
 	public List<Communaute> getCommunautes() {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Communaute> cq = cb.createQuery(Communaute.class);
@@ -35,19 +38,32 @@ public class PopulateServiceImpl implements PopulateService {
 		return query.getResultList();
 	}
 
-	@Override
-	public List<Communaute> exists(String nom) {
+	// Check if a field is already used?
+	// throws Exception in case of bad field parameter
+	public Communaute getByField(Map<String, Object> fieldValue) {
+		Communaute c = null;
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Communaute> cq = cb.createQuery(Communaute.class);
-		Root<Communaute> rootCom = cq.from(Communaute.class);
-		cq.select(rootCom).where(cb.equal(rootCom.get("denomination"),nom));
+		Root<Communaute> rootReg = cq.from(Communaute.class);
+		for (Entry<String, Object> entry : fieldValue.entrySet()) {
+			cq.select(rootReg).where(cb.equal(rootReg.get(entry.getKey()), entry.getValue()))
+				.distinct(true);
+		}
 		TypedQuery<Communaute> query = em.createQuery(cq);
-		return query.getResultList();
+		try {
+			c = query.getSingleResult();
+		} catch (NoResultException e) {
+			e.printStackTrace();
+		}
+		return c;
 	}
 
-	@Override
 	public void save(Communaute c) {
 		em.persist(c);
+	}
+
+	public Communaute getOne(long id) {
+		return em.find(Communaute.class, id);
 	}
 
 }

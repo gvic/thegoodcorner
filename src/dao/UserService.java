@@ -27,13 +27,10 @@ public interface UserService {
         // supprimer une personne via son identifiant
         public void deleteOne(Long id);
 
-        // obtenir les personnes dont le nom correspond àun modèle
-        public List<User> getAllLike(String modele);
-
         public boolean isUser(String username, String password);
 		
         // Find user by map of fields-values
-		public User findByField(Map<String,Object> fieldValue) throws IllegalArgumentException; 
+		public User getByField(Map<String,Object> fieldValue); 
 		
 		public Adresse save(Adresse a);
 

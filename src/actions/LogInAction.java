@@ -30,7 +30,7 @@ public class LogInAction extends ActionSupport {
 		HashMap<String, Object> hm = new HashMap<String, Object>();
 		hm.put("login", login);
 		hm.put("md5_mdp", UserServiceImpl.md5Encryption(password));
-		User u = service.findByField(hm);
+		User u = service.getByField(hm);
 		// Add session infos
 		Map<String,Object> session = ActionContext.getContext().getSession();
 		session.put("loggedin","true");
@@ -49,11 +49,11 @@ public class LogInAction extends ActionSupport {
 		if (login != null && password != null) {
 			HashMap<String, Object> hm = new HashMap<String, Object>();
 			hm.put("login", login);
-			if (service.findByField(hm) == null) {
+			if (service.getByField(hm) == null) {
 				addFieldError("login", getText("errors.login"));
 			}
 			hm.put("md5_mdp", UserServiceImpl.md5Encryption(password));
-			if (service.findByField(hm) == null) {
+			if (service.getByField(hm) == null) {
 				addFieldError("password", getText("errors.password"));
 			}
 		}
