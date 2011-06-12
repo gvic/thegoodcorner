@@ -86,7 +86,10 @@ public class AdUnloggedAction extends ActionSupport {
 				MultiPartRequestWrapper multipartRequest = ((MultiPartRequestWrapper) ServletActionContext
 						.getRequest());
 				if (multipartRequest != null) {
-					store(multipartRequest);
+					// =========================================================
+					// NullPointerException sur l'array fs dans la methode store
+					//store(multipartRequest);
+					// =========================================================
 					if (service.saveOne(adBean) != null) {
 						addActionMessage(getText("ad.sent"));
 						return SUCCESS;

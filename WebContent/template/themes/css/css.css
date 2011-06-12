@@ -211,6 +211,22 @@ input.disabled:hover, input.disabled:focus  {
 	color: #002fa7;
 	text-shadow: 1px 1px white;
 }
+#page #account-infos {
+	float: left;
+}
+#page #account-menu {
+	border: 1px solid grey;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	background-color : rgba(240,240,240,0.9);
+	float: right;
+}
+#page #account-menu h2 {
+	padding:10px;
+	background: #ffa219 url(images/onglet_rendering.png) repeat-x 0 100%;
+	border-bottom: 1px solid grey;
+}
 
 #footer {
 	clear: both;

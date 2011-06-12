@@ -2,7 +2,7 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 
-<div style="float: left">
+<div id="account-infos">
 	<s:actionerror />
 	<s:actionmessage />
 	<s:form id="updateAccountForm" theme="xhtml"
@@ -29,20 +29,23 @@
 	</s:form>
 </div>
 
-<div style="float: right">
-	<p>
+<div id="account-menu">
+	<h2><s:text name="account.menu" /></h2>
+	<ul>
+		<li>
 		<s:a action="showAd">
 			<s:text name="account.show.ads" />
 		</s:a>
-	</p>
-	<p>
+		</li>
+		<li>
 		<s:a action="addCommunaute_input">
 			<s:text name="account.add.communaute" />
 		</s:a>
-	</p>
-	<p>
+		</li>
+		<li>
 		<s:a action="changePassword_input">
 			<s:text name="account.changePassword" />
 		</s:a>
-	</p>
+		</li>
+	</ul>
 </div>

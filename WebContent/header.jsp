@@ -7,12 +7,12 @@
 <div id="add-ad">
 	<s:if test="%{#session.loggedin == 'true'}">
 		<s:a action="populateAdLogged_input">
-			<div class="button"><s:text name="menu.add.ad" /></div>
+			<span class="button"><s:text name="menu.add.ad" /></span>
 		</s:a>
 	</s:if>
 	<s:else>
 		<s:a action="populateAdUnlogged_input">
-			<div class="button"><s:text name="menu.add.ad" /></div>
+			<span class="button"><s:text name="menu.add.ad" /></span>
 		</s:a>
 	</s:else>
 </div>

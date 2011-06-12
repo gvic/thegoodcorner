@@ -26,10 +26,10 @@ public class User implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
 	private Set<Annonce> annonces;
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<Communaute> communautes;
 
 	private String prenom;
