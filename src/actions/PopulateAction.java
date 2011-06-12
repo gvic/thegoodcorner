@@ -26,6 +26,7 @@ public class PopulateAction extends ActionSupport {
 
 	public String processDatas() {
 		service.save(comBean);
+		addActionMessage(getText("community.add.success"));
 		return SUCCESS;
 	}
 

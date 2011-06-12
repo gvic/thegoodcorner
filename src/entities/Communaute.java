@@ -24,7 +24,7 @@ public class Communaute implements Serializable{
 	private String denomination;
 	private String description;
 	
-	@ManyToMany(mappedBy="communautes")
+	@ManyToMany(mappedBy="communautes", fetch = FetchType.EAGER)
 	private Set<User> users;
 
 	@ManyToMany(mappedBy="communautes", fetch = FetchType.EAGER)

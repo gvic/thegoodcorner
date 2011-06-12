@@ -199,6 +199,7 @@ input.disabled:hover, input.disabled:focus  {
 	width: 250px;
 	background-color: rgba(230, 230, 230, 0.95);
 	color: black;
+	z-index: 11;
 }
 #page {
 	width: 980px;

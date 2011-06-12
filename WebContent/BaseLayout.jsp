@@ -26,6 +26,6 @@
 			<tiles:insertAttribute name="footer" />
 		</div>
 	</div>
-	<img id="indicator"  src="%{request.context.path}/template/themes/css/images/indicator.gif" alt="Loading..." style="display:none"/>
+	<img id="indicator"  src="<s:url value="/template/themes/css/images/indicator.gif" ></s:url>" alt="Loading..." style="display:none"/>
 </body>
 </html>
