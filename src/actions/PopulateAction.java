@@ -37,6 +37,4 @@ public class PopulateAction extends ActionSupport {
 		this.comBean = comBean;
 	}
 
-	
-
 }

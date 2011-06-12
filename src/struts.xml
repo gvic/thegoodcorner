@@ -54,6 +54,7 @@
 
 		<action name="addCommunaute_*" class="actions.PopulateAction"
 			method="{1}">
+			<interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>
 			<result name="input" type="tiles">addCommunaute</result>
 			<result name="error" type="tiles">addCommunaute</result>
 			<result name="success" type="tiles" >welcome</result>
