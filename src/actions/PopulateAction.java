@@ -1,7 +1,5 @@
 package actions;
 
-import java.util.List;
-
 import com.google.inject.Inject;
 import com.opensymphony.xwork2.ActionSupport;
 

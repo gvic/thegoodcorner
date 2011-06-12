@@ -5,7 +5,6 @@ import java.util.List;
 import com.google.inject.Inject;
 import com.opensymphony.xwork2.ActionSupport;
 
-import dao.AdService;
 import dao.AdServiceImpl;
 import entities.Annonce;
 
