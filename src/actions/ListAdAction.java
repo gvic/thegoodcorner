@@ -48,6 +48,8 @@ public class ListAdAction extends ActionSupport {
 		
 		myAnnonces = getMyAnnonces();
 		
+		System.out.println("=== SidX : "+sidx);
+		
 		if (getSord() != null && getSord().equalsIgnoreCase("asc"))
 	    {
 	      Collections.sort(myAnnonces);
