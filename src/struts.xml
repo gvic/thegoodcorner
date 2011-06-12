@@ -3,15 +3,7 @@
 "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
 "http://struts.apache.org/dtds/struts-2.0.dtd">
 
-<struts>
-	<constant name="struts.devMode" value="true" />
-	<constant name="struts.custom.i18n.resources" value="package"></constant>
-	<!-- Use Guice as the ObjectFactory for this application -->
-	<constant name="struts.objectFactory" value="guice" />
-	<!-- When wiring actions use Guice bindings defined in the below module -->
-	<constant name="guice.module" value="core.EjbModule" />
-	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
-	
+<struts>	
 	<package name="default" extends="struts-default,json-default" namespace="/">
         <result-types>
             <result-type name="tiles"
