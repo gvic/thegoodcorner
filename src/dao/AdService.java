@@ -48,4 +48,6 @@ public interface AdService {
 	public <T> List<T> getAll(Class<T> class1);
 
 	public void merge(Annonce ad);
+
+//	public Map getRegionsWithDeparts();
 }

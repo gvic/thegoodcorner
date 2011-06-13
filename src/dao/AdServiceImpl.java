@@ -2,6 +2,7 @@ package dao;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -18,6 +19,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+
+import org.apache.commons.collections.MapUtils;
 
 import entities.Annonce;
 import entities.Categorie;
@@ -310,7 +313,6 @@ public class AdServiceImpl implements AdService {
 		return query.getResultList();
 	}
 
-	@Override
 	public List<Annonce> findAd(User u, String title) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Annonce> cq = cb.createQuery(Annonce.class);
@@ -323,8 +325,24 @@ public class AdServiceImpl implements AdService {
 		return query.getResultList();
 	}
 
-	@Override
 	public void merge(Annonce ad) {
 		em.merge(ad);
 	}
+
+//	public Map getRegionsWithDeparts() {
+//		Map areas = new HashMap();
+//		List<Region> regions = getRegions();
+//		Region reg = null;
+//		Iterator<Region> it_reg = regions.iterator();
+//		while (it_reg.hasNext()) {
+//			reg = it_reg.next();
+//			List<Departement> matched_dep = reg.getDepartements();
+//			Map key_value_dep = new HashMap();
+//			for (Departement departement : matched_dep) {
+//				key_value_dep.put(departement.getId(), departement.getNom());
+//			}
+//			areas.put(reg.getId(),key_value_dep);
+//		}
+//		return areas;
+//	}
 }

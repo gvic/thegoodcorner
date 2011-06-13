@@ -46,7 +46,8 @@ public class AdLoggedAction extends ActionSupport {
 	private Set<Long> communitiesId;
 
 	private List<Region> regions;
-	private List<Departement> departements;
+//	private List<Departement> departements;
+//	private Map regionDeparts;
 	private List<Communaute> communities;
 	private List<Categorie> categories;
 
@@ -213,13 +214,13 @@ public class AdLoggedAction extends ActionSupport {
 		return departementId;
 	}
 
-	public void setDepartements(List<Departement> departements) {
-		this.departements = departements;
-	}
-
-	public List<Departement> getDepartements() {
-		return service.getDepartements();
-	}
+//	public void setDepartements(List<Departement> departements) {
+//		this.departements = departements;
+//	}
+//
+//	public List<Departement> getDepartements() {
+//		return service.getDepartements();
+//	}
 
 	public void setUserBean(User userBean) {
 		this.userBean = userBean;
@@ -228,4 +229,12 @@ public class AdLoggedAction extends ActionSupport {
 	public User getUserBean() {
 		return userBean;
 	}
+
+//	public void setRegionDeparts(Map<Long,List<String>> regionDeparts) {
+//		this.regionDeparts = regionDeparts;
+//	}
+//
+//	public Map getRegionDeparts() {
+//		return service.getRegionsWithDeparts();
+//	}
 }
