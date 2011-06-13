@@ -16,7 +16,6 @@
 	<s:doubleselect name="regionId" list="regions" listValue="nom" listKey="id"
 		doubleName="departementId" doubleList="departements" doubleListValue="nom" doubleListKey="id">
 	</s:doubleselect>
-	<%-- 	<s:select key="adBean.departement" list="departements"></s:select> --%>
 
 	<s:select name="communitiesId" key="ad.communautes"
 		headerKey="communaute.select" list="communities"

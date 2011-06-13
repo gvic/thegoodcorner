@@ -7,12 +7,12 @@
 	enctype="multipart/form-data" method="POST">
 
 	<!-- 	En cas de probleme celle ci marche mais pas de couleur pour diff?rencier regions/departs -->
-	<s:select name="regionId" key="region.select" headerKey="-1"
-		headerValue="Select Region" list="regions" listValue="nom"
-		listKey="id"></s:select>
-	<s:select name="departementId" key="departement.select" headerKey="-1"
-		headerValue="Select Department" list="departements" listValue="nom"
-		listKey="id"></s:select>
+	<s:doubleselect
+		name="regionId" list="regions" listValue="nom"
+		listKey="id" headerKey="-1" headerValue="%{getText('select.region')}"
+		doubleName="departementId" doubleList="departements" doubleListValue="nom"
+		doubleListKey="id" doubleHeaderKey="-1" doubleHeaderValue="%{getText('select.depart')}">
+	</s:doubleselect>
 	<%-- 	<s:select key="adBean.departement" list="departements"></s:select> --%>
 
 	<s:select name="communitiesId" key="ad.communautes"
