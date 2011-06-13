@@ -55,6 +55,16 @@ public class AdLoggedAction extends ActionSupport {
 	private List<String> uploadFileNames = new ArrayList<String>();
 	private List<String> uploadContentTypes = new ArrayList<String>();
 
+	public String input() throws Exception {
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		Object userIdO = session.get("userId");
+		if (userIdO == null) {
+			return "unlogged";
+		}
+		return INPUT;
+		
+	}
+	
 	public String execute() throws Exception {
 		System.out.println("=== execute() method called ===");
 

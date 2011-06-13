@@ -88,6 +88,13 @@ a:hover {
 .errorLabel {
 	font-style: italic;
 }
+.tips {
+	font-family: 'Cedarville Cursive', arial, serif;
+	font-size: 24px;
+	color: green;
+	-moz-transform: rotate(-3deg);  
+	-webkit-transform: rotate(-3deg); 	
+}
 .button {
 	padding: 10px;
 	margin-right:3px;

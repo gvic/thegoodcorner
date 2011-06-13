@@ -13,6 +13,7 @@ import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.dispatcher.multipart.MultiPartRequestWrapper;
 
 import com.google.inject.Inject;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import core.SimpleMail;
@@ -55,6 +56,16 @@ public class AdUnloggedAction extends ActionSupport {
 	private List<String> uploadFileNames = new ArrayList<String>();
 	private List<String> uploadContentTypes = new ArrayList<String>();
 
+	public String input() throws Exception {
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		Object userIdO = session.get("userId");
+		if (userIdO != null) {
+			// The user is actually logged in!
+			return "logged";
+		}
+		return INPUT;
+	}
+	
 	public void validate() {
 		if (userBean != null) {
 			System.out.println(userBean.toString());

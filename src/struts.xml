@@ -60,7 +60,7 @@
 		    </interceptor-ref>
 		    <interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>
 			<result name="input" type="tiles">submitAd_logged</result>
-			
+			<result name="unlogged" type="tiles">submitAd_unlogged</result>
 			<result name="error" type="tiles">submitAd_logged</result>
 			<result name="success" type="tiles">welcome</result>
 		</action>
@@ -73,6 +73,7 @@
 		    </interceptor-ref>
 		    <interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>
 			<result name="input" type="tiles">submitAd_unlogged</result>
+			<result name="logged" type="tiles">submitAd_logged</result>
 			<result name="error" type="tiles">submitAd_unlogged</result>
 			<result name="success" type="tiles">welcome</result>
 		</action>

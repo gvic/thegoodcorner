@@ -3,6 +3,9 @@
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 
 <div id="account-ajax">
+<span class="tips">
+<s:text name="account.manage"></s:text>
+</span>
 </div>
 
 <div id="account-menu">
