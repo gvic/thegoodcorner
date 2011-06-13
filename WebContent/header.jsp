@@ -2,7 +2,7 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 <div id="title">
-	<a href="">The <span class="good">Good</span> Corner</a>
+	<s:a action="index">The <span class="good">Good</span> Corner</s:a>
 </div>
 <div id="add-ad">
 	<s:if test="%{#session.loggedin == 'true'}">

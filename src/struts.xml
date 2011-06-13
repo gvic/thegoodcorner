@@ -3,36 +3,41 @@
 "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
 "http://struts.apache.org/dtds/struts-2.0.dtd">
 
-<struts>	
-	<package name="default" extends="struts-default,json-default" namespace="/">
-        <result-types>
-            <result-type name="tiles"
-                class="org.apache.struts2.views.tiles.TilesResult" />
-        </result-types>
-        
-        <default-action-ref name="index"></default-action-ref>
-        
+<struts>
+	<package name="default" extends="struts-default,json-default"
+		namespace="/">
+		<result-types>
+			<result-type name="tiles"
+				class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
+		<interceptors>
+			<interceptor name="loginInterceptor" class="core.LoginInterceptor"></interceptor>
+		</interceptors>
+		<default-action-ref name="index"></default-action-ref>
+
 		<action name="index">
 			<result type="tiles">welcome</result>
 		</action>
-		
+
 		<action name="testLog">
 			<result type="tiles">testLogged</result>
 		</action>
-				
+
 		<action name="logout" class="actions.LogInAction" method="logout">
 			<result name="success" type="redirect">/index.html</result>
 		</action>
 
 		<action name="Login_*" class="actions.LogInAction" method="{1}">
 			<interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>
-			<result name="input" >/login.jsp</result>
-			<result name="error" >/login.jsp</result>
-			<result name="success" type="tiles" >welcome</result>
+			<result name="input">/login.jsp</result>
+			<result name="error">/login.jsp</result>
+			<result name="success" type="redirectAction">
+				<param name="actionName">${#session['lastAction']}</param>
+			</result>
 		</action>
 
-<!--		Use a WildCard for the called method-->
-<!--		This disable first validation (on page load) called by : signUp_input.action-->
+		<!-- Use a WildCard for the called method -->
+		<!-- This disable first validation (on page load) called by : signUp_input.action -->
 		<action name="SignUp_*" class="actions.SignUpAction" method="{1}">
 			<interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>
 			<result name="input" type="tiles">signup</result>
@@ -47,18 +52,18 @@
 		<action name="addCommunaute_*" class="actions.PopulateAction"
 			method="{1}">
 			<interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>
-			<result name="input" >/addCommunaute.jsp</result>
-			<result name="error" >/addCommunaute.jsp</result>
+			<result name="input">/addCommunaute.jsp</result>
+			<result name="error">/addCommunaute.jsp</result>
 			<result name="success" type="tiles">account</result>
 		</action>
-		
+
 		<action name="populateAdLogged_*" class="actions.AdLoggedAction" method="{1}">
-			<!-- interceptors for FileUpload validations-->
-		    <interceptor-ref name="defaultStack">
-		    	<param name="fileUpload.maximumSize">200000000</param>
-		    	<param name="fileUpload.allowedTypes">image/jpeg,image/gif,image/png,image/bmp</param>
-		    </interceptor-ref>
-		    <interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>
+			<!-- interceptors for FileUpload validations -->
+			<interceptor-ref name="defaultStack">
+				<param name="fileUpload.maximumSize">200000000</param>
+				<param name="fileUpload.allowedTypes">image/jpeg,image/gif,image/png,image/bmp</param>
+			</interceptor-ref>
+			<interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>
 			<result name="input" type="tiles">submitAd_logged</result>
 			<result name="unlogged" type="tiles">submitAd_unlogged</result>
 			<result name="error" type="tiles">submitAd_logged</result>
@@ -66,61 +71,64 @@
 		</action>
 
 		<action name="populateAdUnlogged_*" class="actions.AdUnloggedAction" method="{1}">
-			<!-- interceptors for FileUpload validations-->
-		    <interceptor-ref name="defaultStack">
-		    	<param name="fileUpload.maximumSize">200000000</param>
-		    	<param name="fileUpload.allowedTypes">image/jpeg,image/gif,image/png,image/bmp</param>
-		    </interceptor-ref>
-		    <interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>
+			<!-- interceptors for FileUpload validations -->
+			<interceptor-ref name="defaultStack">
+				<param name="fileUpload.maximumSize">200000000</param>
+				<param name="fileUpload.allowedTypes">image/jpeg,image/gif,image/png,image/bmp</param>
+			</interceptor-ref>
+			<interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>
 			<result name="input" type="tiles">submitAd_unlogged</result>
 			<result name="logged" type="tiles">submitAd_logged</result>
 			<result name="error" type="tiles">submitAd_unlogged</result>
 			<result name="success" type="tiles">welcome</result>
 		</action>
-		
-		<action name="updateAccount_*" class="actions.AccountAction" method="{1}">
+
+		<action name="updateAccount_*" class="actions.AccountAction"
+			method="{1}">
 			<!-- Compulsary for AJAX validation callbacks -->
 			<interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>
-			<result name="input" >/account-infos.jsp</result>
-			<result name="error" >/account-infos.jsp</result>
+			<result name="input">/account-infos.jsp</result>
+			<result name="error">/account-infos.jsp</result>
 			<result name="success" type="tiles">account</result>
 		</action>
-		
-		<action name="changePassword_*" class="actions.ChangePasswordAction" method="{1}">
+
+		<action name="changePassword_*" class="actions.ChangePasswordAction"
+			method="{1}">
 			<!-- Compulsary for AJAX validation callbacks -->
 			<interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>
-			<result name="input" >/changePassword.jsp</result>
-			<result name="error" >/changePassword.jsp</result>
+			<result name="input">/changePassword.jsp</result>
+			<result name="error">/changePassword.jsp</result>
 			<result name="success" type="tiles">account</result>
 		</action>
-		
+
 		<action name="search_*" class="actions.SearchAction" method="{1}">
 			<result name="input" type="tiles">searchForm</result>
 			<result name="error" type="tiles">searchForm</result>
 			<result name="success" type="tiles">searchForm</result>
 		</action>
-				
-		<action name="showAd" class="actions.ShowAdAction" >
+
+		<action name="showAd" class="actions.ShowAdAction">
 			<result type="tiles">showAd</result>
-		</action>				
-				
-		<action name="listAdJson" class="actions.ListAdAction" >
+		</action>
+
+		<action name="listAdJson" class="actions.ListAdAction">
 			<result name="success" type="json">/listadaction</result>
 		</action>
 
 		<action name="list">
 			<result type="tiles">listAd</result>
 		</action>
-		
+
 		<action name="confirmAd" class="actions.ConfirmAd">
 			<result type="tiles">welcome</result>
 		</action>
-		
+
 		<action name="account">
 			<result type="tiles">account</result>
 		</action>
-		
+
 		<action name="loginPage">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
 			<result type="tiles">loginPage</result>
 		</action>
 
