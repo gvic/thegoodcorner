@@ -70,6 +70,7 @@ a:hover {
 	width: 50%;
 	text-align: center;
 	padding: 5px;
+	margin-bottom:10px;
 }
 .actionError{
 	border: 1px solid red;
@@ -81,6 +82,7 @@ a:hover {
 	width: 50%;
 	text-align: center;
 	padding: 5px;
+	margin-bottom:10px;
 }
 .errorLabel, .errorMessage {
 	color: red;
@@ -90,10 +92,12 @@ a:hover {
 }
 .tips {
 	font-family: 'Cedarville Cursive', arial, serif;
-	font-size: 24px;
+	font-size: 32px;
 	color: green;
-	-moz-transform: rotate(-3deg);  
-	-webkit-transform: rotate(-3deg); 	
+	-moz-transform: rotate(-2deg);  
+	-webkit-transform: rotate(-2deg);
+	text-shadow: 2px 2px 2px silver;
+	float: right; 	
 }
 .button {
 	padding: 10px;
@@ -249,6 +253,7 @@ a:hover {
 }
 #page #account-ajax {
 	float: left;
+	width: 710px
 }
 #page #account-menu {
 	width: 250px;
