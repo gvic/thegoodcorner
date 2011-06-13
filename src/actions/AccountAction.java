@@ -71,11 +71,13 @@ public class AccountAction extends ActionSupport{
 			User userBean = service.getOne(userId);
 			regions = adService.getRegions();
 			region = userBean.getRegion();
+			System.out.println(region);
 			if(region != null)
 				regionIdKey = userBean.getRegion().getId();
 			
 			departements = adService.getDepartements();
 			departement = userBean.getDepartement();
+			System.out.println(departement);
 			if (departement != null)
 				departementIdKey = userBean.getDepartement().getId();
 			

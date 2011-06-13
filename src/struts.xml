@@ -118,6 +118,10 @@
 		<action name="account">
 			<result type="tiles">account</result>
 		</action>
+		
+		<action name="loginPage">
+			<result type="tiles">loginPage</result>
+		</action>
 
 	</package>
 </struts>
