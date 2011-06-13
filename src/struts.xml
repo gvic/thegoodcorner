@@ -49,7 +49,7 @@
 			<interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>
 			<result name="input" >/addCommunaute.jsp</result>
 			<result name="error" >/addCommunaute.jsp</result>
-			<result name="success" type="tiles" >account</result>
+			<result name="success" type="tiles">account</result>
 		</action>
 		
 		<action name="populateAdLogged_*" class="actions.AdLoggedAction" method="{1}">

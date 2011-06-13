@@ -35,7 +35,7 @@ public class ChangePasswordAction extends ActionSupport{
 			long userId = (Long) userIdO;
 			User userBean = service.getOne(userId);
 			if (!userBean.getMd5_mdp().equals(UserServiceImpl.md5Encryption(oldPassword))) {
-				addActionError(getText("errors.oldPassword"));	
+				addFieldError("oldPassword",getText("errors.oldPassword"));	
 			}		
 		}
 		else {

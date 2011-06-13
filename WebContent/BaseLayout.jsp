@@ -26,6 +26,8 @@
 		<div id="page_l">
 			<div id="page_r">
 				<div id="page">
+					<s:actionmessage/>
+					<s:actionerror />
 					<tiles:insertAttribute name="body" />
 				</div>
 			</div>

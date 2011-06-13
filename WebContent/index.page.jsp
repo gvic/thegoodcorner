@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<s:actionmessage/>
-<s:actionerror />
 <div id="steps">
 		<div id="first-step">
 			<h1>1. What da fuck?</h1>
@@ -20,4 +18,4 @@
 		</div>
 </div>
 
-<script src="<s:url value='/template/new_xhtml/js/index.init.js' includeParams='none' encode='false' />" type="text/javascript"></script>
+<script src="<s:url value='/template/js/index.init.js' includeParams='none' encode='false' />" type="text/javascript"></script>

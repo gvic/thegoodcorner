@@ -48,8 +48,8 @@
 		<to>%{context-path}/showAd.action?adId=$1</to>
 	</rule>
 	<outbound-rule>
-		<from>/showAd.action?adId=$1</from>
-		<to>/([0-9]+)/show.html</to>
+		<from>/showAd.action?adId=([0-9]+)</from>
+		<to>/$1/show.html</to>
 	</outbound-rule>
 	
 	<rule>

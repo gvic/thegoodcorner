@@ -14,6 +14,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import entities.Adresse;
@@ -89,10 +90,11 @@ public class UserServiceImpl implements UserService {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<User> cq = cb.createQuery(User.class);
 		Root<User> rootReg = cq.from(User.class);
+		Predicate p = cb.conjunction();
 		for (Entry<String, Object> entry : fieldValue.entrySet()) {
-			cq.select(rootReg).where(cb.equal(rootReg.get(entry.getKey()), entry.getValue()))
-				.distinct(true);
+			 p = cb.and(p,cb.equal(rootReg.get(entry.getKey()), entry.getValue()));				
 		}
+		cq.where(p);
 		TypedQuery<User> query = em.createQuery(cq);
 		try {
 			u = query.getSingleResult();

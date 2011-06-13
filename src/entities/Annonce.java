@@ -73,8 +73,7 @@ public class Annonce implements Serializable {
 	
 	@Basic()
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date date_de_publication;
-	
+	private Date date_de_publication;	
 	
 	public Annonce(){
 		super();
@@ -215,6 +214,5 @@ public class Annonce implements Serializable {
 
 	public Set<ImagePath> getImgPaths() {
 		return imgPaths;
-	}
-	
+	}	
 }
