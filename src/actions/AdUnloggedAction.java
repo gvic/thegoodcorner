@@ -51,7 +51,6 @@ public class AdUnloggedAction extends ActionSupport {
 	private Set<Long> communitiesId;
 
 	private List<Region> regions;
-	private List<Departement> departements;
 	private List<Communaute> communities;
 	private List<Categorie> categories;
 
@@ -260,14 +259,6 @@ public class AdUnloggedAction extends ActionSupport {
 
 	public long getDepartementId() {
 		return departementId;
-	}
-
-	public void setDepartements(List<Departement> departements) {
-		this.departements = departements;
-	}
-
-	public List<Departement> getDepartements() {
-		return service.getDepartements();
 	}
 
 	public void setUserBean(User userBean) {

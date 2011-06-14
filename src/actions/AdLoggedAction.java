@@ -1,6 +1,7 @@
 package actions;
 
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -30,7 +31,8 @@ import entities.User;
 public class AdLoggedAction extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
-	private static final String UL_DIR = "/uploads/";
+	private static final String UL_DIR = 
+		ServletActionContext.getServletContext().getRealPath(ServletActionContext.getServletContext().getContextPath())+ "/uploads/";
 
 	@Inject
 	AdService service;
@@ -46,8 +48,6 @@ public class AdLoggedAction extends ActionSupport {
 	private Set<Long> communitiesId;
 
 	private List<Region> regions;
-//	private List<Departement> departements;
-//	private Map regionDeparts;
 	private List<Communaute> communities;
 	private List<Categorie> categories;
 
@@ -224,14 +224,6 @@ public class AdLoggedAction extends ActionSupport {
 		return departementId;
 	}
 
-//	public void setDepartements(List<Departement> departements) {
-//		this.departements = departements;
-//	}
-//
-//	public List<Departement> getDepartements() {
-//		return service.getDepartements();
-//	}
-
 	public void setUserBean(User userBean) {
 		this.userBean = userBean;
 	}
@@ -239,12 +231,4 @@ public class AdLoggedAction extends ActionSupport {
 	public User getUserBean() {
 		return userBean;
 	}
-
-//	public void setRegionDeparts(Map<Long,List<String>> regionDeparts) {
-//		this.regionDeparts = regionDeparts;
-//	}
-//
-//	public Map getRegionDeparts() {
-//		return service.getRegionsWithDeparts();
-//	}
 }
