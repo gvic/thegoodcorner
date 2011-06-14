@@ -26,14 +26,9 @@ input, textarea{
 	text-shadow: 1px 1px 2px white;
 	font-family: 'Muli';
 }
-input:hover, textarea:hover {
+input:focus, textarea:focus {
 	border: 1px solid rgba(100, 100, 100, 0.7);
 	background-color: rgba(255, 255, 255, 1);
-	-moz-box-shadow: 0px 0px 4px rgba(0,0,0,0.4);
-	-webkit-box-shadow: 0px 0px 4px rgba(0,0,0,0.4);
-	box-shadow: 0px 0px 4px rgba(0,0,0,0.4);
-}
-input:focus, textarea:focus {
 	-moz-box-shadow: 0px 0px 4px rgba(0,0,0,0.4);
 	-webkit-box-shadow: 0px 0px 4px rgba(0,0,0,0.4);
 	box-shadow: 0px 0px 4px rgba(0,0,0,0.4);

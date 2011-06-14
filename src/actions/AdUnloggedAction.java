@@ -11,10 +11,12 @@ import java.util.Set;
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.dispatcher.multipart.MultiPartRequestWrapper;
+import org.jboss.remoting3.RequestContext;
 
 import com.google.inject.Inject;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.sun.tools.ws.processor.model.Request;
 
 import core.SimpleMail;
 import core.ThumbNail2;
@@ -31,7 +33,8 @@ import entities.User;
 public class AdUnloggedAction extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
-	private static final String UL_DIR =  "/uploads/";
+	private static final String UL_DIR = 
+		ServletActionContext.getServletContext().getRealPath(ServletActionContext.getServletContext().getContextPath())+ "/uploads/";
 
 	@Inject
 	AdService service;
@@ -63,6 +66,7 @@ public class AdUnloggedAction extends ActionSupport {
 			// The user is actually logged in!
 			return "logged";
 		}
+		System.out.println(UL_DIR);
 		return INPUT;
 	}
 	
