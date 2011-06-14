@@ -31,7 +31,7 @@ import entities.User;
 public class AdUnloggedAction extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
-	private static final String UL_DIR = "uploads/";
+	private static final String UL_DIR = "/uploads/";
 
 	@Inject
 	AdService service;
@@ -94,7 +94,8 @@ public class AdUnloggedAction extends ActionSupport {
 				Map<String, Object> hm = new HashMap<String, Object>();
 				hm.put("login", userBean.getLogin());
 				// That's why we have to retrieve it from DB with it's login
-				adBean.setUser(uService.getByField(hm));
+				userBean = uService.getByField(hm);
+				adBean.setUser(userBean);
 				adBean.setRegion(service.getOne(Region.class, regionId));
 				adBean.setDepartement(service.getOne(Departement.class,
 						departementId));
@@ -146,9 +147,9 @@ public class AdUnloggedAction extends ActionSupport {
 			throws Exception {
 		// Upload d'image que pour les user enregistrés
 		long userId = userBean.getId();
-		File fs[] = multipartRequest.getFiles("upload");
+		File fs[] = multipartRequest.getFiles("uploads");
 		if (fs != null) {
-			String[] ct = multipartRequest.getContentTypes("upload");
+			String[] ct = multipartRequest.getContentTypes("uploads");
 			Set<ImagePath> sip = new HashSet<ImagePath>();
 			for (int i = 0; i < fs.length; i++) {
 				String outputFormat = ct[i].split("/")[1];

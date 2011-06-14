@@ -30,7 +30,7 @@ import entities.User;
 public class AdLoggedAction extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
-	private static final String UL_DIR = "uploads/";
+	private static final String UL_DIR = "/uploads/";
 
 	@Inject
 	AdService service;
@@ -112,10 +112,10 @@ public class AdLoggedAction extends ActionSupport {
 			throws Exception {
 		// Upload d'image que pour les user enregistrés
 		long userId = userBean.getId();
-		File fs[] = multipartRequest.getFiles("upload");
+		File fs[] = multipartRequest.getFiles("uploads");
 		if (fs != null) {
 
-			String[] ct = multipartRequest.getContentTypes("upload");
+			String[] ct = multipartRequest.getContentTypes("uploads");
 			Set<ImagePath> sip = new HashSet<ImagePath>();
 			for (int i = 0; i < fs.length; i++) {
 				String outputFormat = ct[i].split("/")[1];
