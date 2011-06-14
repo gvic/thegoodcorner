@@ -23,6 +23,7 @@ public class LogInAction extends ActionSupport {
 	private String login;
 	private String password;
 	
+	
 	public String login() throws Exception {
 		System.out.println("=== login() method called ===");
 		addActionMessage(getText("welcome")+" "+login);
