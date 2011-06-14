@@ -23,9 +23,12 @@ public class AccountAction extends ActionSupport{
 	@Inject UserService service;
 	@Inject AdService adService;
 	
-	private User userBean;
+	private String name, firstname, email, login, phone, mobile;
+    private int codePostal; //XML Validation fails...
 	private long regionIdKey = -1;
 	private long departementIdKey = -1;
+	private Region region;
+	private Region departement;	
 	private List<Region> regions;
 	
 	/**
@@ -36,13 +39,14 @@ public class AccountAction extends ActionSupport{
 		System.out.println("=== validate() method called ===");
 				
 		Map<String,Object>  session = ActionContext.getContext().getSession();
-		userBean = (User) session.get("user");
+		User userBean = (User) session.get("user");
 		if (userBean != null) {			
-			HashMap<String,Object> mhm = new HashMap<String,Object>();
-			mhm.put("email", userBean.getEmail());
-			if ( !userBean.getEmail().equals("") && service.getByField(mhm)!=null) {
-				addFieldError("email", getText("email.used"));
-			}
+			String oldEmail = userBean.getEmail();
+            HashMap<String,Object> mhm = new HashMap<String,Object>();
+            mhm.put("email", email);
+            if ( !email.equals("") && service.getByField(mhm)!=null && !email.equals(oldEmail) ) {
+            	addFieldError("email", getText("email.used"));
+            }
 		}
 		else{
 			addActionError(getText("error.notloggedin"));
@@ -54,7 +58,7 @@ public class AccountAction extends ActionSupport{
 	 */
 	public String input() throws Exception {
 		Map<String,Object>  session = ActionContext.getContext().getSession();
-		userBean = (User) session.get("user");
+		User userBean = (User) session.get("user");
 		// Compulsary for the Double Select
 		regions = adService.getRegions();
 		if (userBean != null) {
@@ -63,6 +67,13 @@ public class AccountAction extends ActionSupport{
 				regionIdKey = userBean.getRegion().getId();
 			if (userBean.getDepartement() != null)
 				departementIdKey = userBean.getDepartement().getId();
+			codePostal = userBean.getCodePostal();
+            name = userBean.getNom();
+            firstname = userBean.getPrenom();
+            email = userBean.getEmail();
+            login = userBean.getLogin();
+            phone = userBean.getTelephoneFixe();
+            mobile = userBean.getTelephonePortable();
 			return INPUT;
 		} else {
 			addActionError(getText("error.notloggedin"));
@@ -75,11 +86,21 @@ public class AccountAction extends ActionSupport{
 	 * @return Action result
 	 */
 	public String updateAccount(){
+		Map<String,Object>  session = ActionContext.getContext().getSession();
+		User userBean = (User) session.get("user");
+
 		if (userBean != null) {
-//			userBean.setRegion(service.getRegion(regionIdKey));
-//			userBean.setDepartement(service.getDepartement(departementIdKey));
+            if (departementIdKey != -1)
+                userBean.setDepartement(service.getDepartement(departementIdKey));
+            if (regionIdKey != -1)
+                userBean.setRegion(service.getRegion(regionIdKey));
+            userBean.setCodePostal(codePostal);
+            userBean.setNom(name);
+            userBean.setPrenom(firstname);
+            userBean.setEmail(email);
+            userBean.setTelephoneFixe(phone);
+            userBean.setTelephonePortable(mobile);
 			service.updateOne(userBean);
-			Map<String,Object>  session = ActionContext.getContext().getSession();
 			session.remove("user");
 			session.put("user",userBean);
 			addActionMessage(getText("account.update.success"));
@@ -112,6 +133,78 @@ public class AccountAction extends ActionSupport{
 
 	public long getDepartementIdKey() {
 		return departementIdKey;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	public int getCodePostal() {
+		return codePostal;
+	}
+
+	public void setCodePostal(int codePostal) {
+		this.codePostal = codePostal;
+	}
+
+	public void setRegion(Region region) {
+		this.region = region;
+	}
+
+	public Region getRegion() {
+		return region;
+	}
+
+	public void setDepartement(Region departement) {
+		this.departement = departement;
+	}
+
+	public Region getDepartement() {
+		return departement;
 	}
 	
 }
