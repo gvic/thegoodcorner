@@ -57,9 +57,10 @@ public class AccountAction extends ActionSupport{
 	public String input() throws Exception {
 		Map<String,Object>  session = ActionContext.getContext().getSession();
 		userBean = (User) session.get("user");
+		// Compulsary for the Double Select
+		regions = adService.getRegions();
 		if (userBean != null) {
-			// Compulsary for the Double Select
-			regions = adService.getRegions();
+			System.out.println(userBean);
 			if(userBean.getRegion() != null)
 				regionIdKey = userBean.getRegion().getId();
 			if (userBean.getDepartement() != null)
@@ -76,8 +77,6 @@ public class AccountAction extends ActionSupport{
 	 * @return Action result
 	 */
 	public String updateAccount(){
-		Map<String,Object>  session = ActionContext.getContext().getSession();
-		userBean = (User) session.get("user");
 		if (userBean != null) {
 			service.updateOne(userBean);
 			addActionMessage(getText("account.update.success"));
