@@ -23,7 +23,6 @@ import dao.UserService;
 import entities.Annonce;
 import entities.Categorie;
 import entities.Communaute;
-import entities.Departement;
 import entities.ImagePath;
 import entities.Region;
 import entities.User;

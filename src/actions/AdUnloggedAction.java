@@ -11,12 +11,10 @@ import java.util.Set;
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.dispatcher.multipart.MultiPartRequestWrapper;
-import org.jboss.remoting3.RequestContext;
 
 import com.google.inject.Inject;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-import com.sun.tools.ws.processor.model.Request;
 
 import core.SimpleMail;
 import core.ThumbNail2;
