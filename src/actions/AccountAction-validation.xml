@@ -3,17 +3,17 @@
         "-//OpenSymphony Group//XWork Validator 1.0.2//EN"
         "http://www.geniusweb.fr/dtds/xwork/xwork-validator-1.0.2.dtd">
 <validators>
-	<field name="firstname">
+	<field name="userBean.prenom">
 		<field-validator type="requiredstring">
 			<message key="errors.required" />
 		</field-validator>
 	</field>
-	<field name="name">
+	<field name="userBean.nom">
 		<field-validator type="requiredstring">
 			<message key="errors.required" />
 		</field-validator>
 	</field>
-	<field name="email">
+	<field name="userBean.email">
 		<field-validator type="requiredstring">
 			<message key="errors.required" />
 		</field-validator>
@@ -22,12 +22,11 @@
 		</field-validator>
 	</field>
 
-	<field name="codePostal">
-		<field-validator type="int">
-			<param name="min">01000</param>
-			<param name="max">99999</param>
-			<message key="errors.codePostal" />
-		</field-validator>
-	</field>
+<!--	<field name="userBean.codePostal">-->
+<!--		<field-validator type="regex">-->
+<!--           <param name="expression"><![CDATA[([0-9]{5})]]></param>-->
+<!--			<message key="errors.codePostal" />-->
+<!--        </field-validator>-->
+<!--	</field>-->
 
 </validators>

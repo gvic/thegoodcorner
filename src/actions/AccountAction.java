@@ -24,9 +24,7 @@ public class AccountAction extends ActionSupport{
 	@Inject AdService adService;
 	
 	private User userBean;
-	private long regionId;
 	private long regionIdKey = -1;
-	private long departementId;
 	private long departementIdKey = -1;
 	private List<Region> regions;
 	
@@ -78,29 +76,18 @@ public class AccountAction extends ActionSupport{
 	 */
 	public String updateAccount(){
 		if (userBean != null) {
+//			userBean.setRegion(service.getRegion(regionIdKey));
+//			userBean.setDepartement(service.getDepartement(departementIdKey));
 			service.updateOne(userBean);
+			Map<String,Object>  session = ActionContext.getContext().getSession();
+			session.remove("user");
+			session.put("user",userBean);
 			addActionMessage(getText("account.update.success"));
 			return SUCCESS;
 		} else {
 			addActionError(getText("error.notloggedin"));
 			return ERROR;
 		}
-	}
-
-	public long getRegionId() {
-		return regionId;
-	}
-
-	public void setRegionId(long regionId) {
-		this.regionId = regionId;
-	}
-
-	public long getDepartementId() {
-		return departementId;
-	}
-
-	public void setDepartementId(long departementId) {
-		this.departementId = departementId;
 	}
 
 	public List<Region> getRegions() {
