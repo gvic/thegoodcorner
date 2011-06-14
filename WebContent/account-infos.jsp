@@ -6,23 +6,22 @@
 <s:actionmessage />
 <s:form id="updateAccountForm" theme="xhtml"
 	action="updateAccount_updateAccount">
-	<s:textfield name="login" key="login.username" value="%{login}"
+	<s:textfield name="userBean.login" key="login.username"
 		disabled="true" cssClass="disabled" />
 
-	<s:select name="regionId" key="region.select" headerKey="%{regionIdKey}"
-		headerValue="%{region}" list="regions" listValue="nom"
-		listKey="id"></s:select>
-	<s:select name="departementId" key="departement.select" headerKey="%{departementIdKey}"
-		headerValue="%{departement}" list="departements" listValue="nom"
-		listKey="id"></s:select>
+	<s:doubleselect
+		name="regionId" list="regions" listValue="nom"
+		headerKey="-1" headerValue="%{getText('select.region')}"
+		doubleName="departementId" doubleList="departements" doubleListValue="nom"
+		doubleHeaderKey="-1" doubleHeaderValue="%{getText('select.depart')}">
+	</s:doubleselect>
 
-	<s:textfield name="codePostal" key="login.codePostal" value="%{codePostal}" />
-	<s:textfield name="name" key="login.nom" value="%{name}" />
-	<s:textfield name="firstname" key="login.prenom" value="%{firstname}" />
-	<s:textfield name="email" key="login.email" value="%{email}" />
-	<s:textfield name="phone" key="login.telfixe" value="%{phone}" />
-	<s:textfield name="mobile" key="login.telephonePortable"
-		value="%{mobile}" />
+	<s:textfield name="userBean.codePostal" key="login.codePostal" />
+	<s:textfield name="userBean.nom" key="login.nom" />
+	<s:textfield name="userBean.prenom" key="login.prenom" />
+	<s:textfield name="userBean.email" key="login.email" />
+	<s:textfield name="userBean.telephoneFixe" key="login.telfixe" />
+	<s:textfield name="userBean.telephonePortable" key="login.telephonePortable" />
 	<sj:submit button="true" key="account.update" validate="true"
 		cssClass="float-right" />
 </s:form>

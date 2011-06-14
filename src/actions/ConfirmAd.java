@@ -14,9 +14,7 @@ public class ConfirmAd extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 	@Inject	AdService service;
 	@Inject UserService uService;
-	private String key;
-	
-	
+	private String key;	
 	
 	@Override
 	public String execute() throws Exception {

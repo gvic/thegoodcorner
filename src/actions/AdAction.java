@@ -3,6 +3,7 @@ package actions;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +29,7 @@ import entities.ImagePath;
 import entities.Region;
 import entities.User;
 
-public class AdLoggedAction extends ActionSupport {
+public class AdAction extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
 	private static final String UL_DIR = 
@@ -41,6 +42,7 @@ public class AdLoggedAction extends ActionSupport {
 
 	private Annonce adBean;
 	private User userBean;
+	private String confirmPassword;
 
 	private long regionId;
 	private long departementId;
@@ -48,6 +50,7 @@ public class AdLoggedAction extends ActionSupport {
 	private Set<Long> communitiesId;
 
 	private List<Region> regions;
+	private List<Departement> departements;
 	private List<Communaute> communities;
 	private List<Categorie> categories;
 
@@ -56,57 +59,75 @@ public class AdLoggedAction extends ActionSupport {
 	private List<String> uploadContentTypes = new ArrayList<String>();
 
 	public String input() throws Exception {
-		Map<String, Object> session = ActionContext.getContext().getSession();
-		Object userIdO = session.get("userId");
-		if (userIdO == null) {
-			return "unlogged";
-		}
+		System.out.println(UL_DIR);
 		return INPUT;
+	}
 
+	public void validate() {
+		if (userBean != null) {
+			if (userBean.getLogin().equals("")) {
+				addFieldError("userBean.login", getText("errors.required"));
+			}
+			if (userBean.getMd5_mdp().equals("")) {
+				addFieldError("userBean.login", getText("errors.required"));
+			}
+			System.out.println(userBean.toString());
+			HashMap<String, Object> mhm = new HashMap<String, Object>();
+			mhm.put("login", userBean.getLogin());
+			if (!userBean.getLogin().equals("")
+					&& uService.getByField(mhm) != null) {
+				addFieldError("userBean.login", getText("errors.login.used"));
+			}
+			mhm.clear();
+			mhm.put("email", userBean.getEmail());
+			if (!userBean.getEmail().equals("")
+					&& uService.getByField(mhm) != null) {
+				addFieldError("userBean.email", getText("errors.email.used"));
+			}
+		}
 	}
 
 	public String execute() throws Exception {
-		System.out.println("=== execute() method called ===");
-
 		Map<String, Object> session = ActionContext.getContext().getSession();
-		Object userIdO = session.get("userId");
-		if (userIdO != null) {
-			long userId = (Long) userIdO;
-			userBean = uService.getOne(userId);
-			adBean.setUser(userBean);
-			adBean.setRegion(service.getOne(Region.class, regionId));
-			adBean.setDepartement(service.getOne(Departement.class, departementId));
-			adBean.setDate_de_publication(new Date());
-			adBean.setCategorie(service.getOne(Categorie.class, categorieId));
-			adBean.setCommunautes(service.getByIds(Communaute.class,
-					communitiesId));
-			adBean.setValidee(false);
-			MultiPartRequestWrapper multipartRequest = ((MultiPartRequestWrapper) ServletActionContext
-					.getRequest());
-			if (multipartRequest != null) {
-				// =========================================================
-				// NullPointerException sur l'array fs dans la methode store
-				Set<ImagePath> sip = store(multipartRequest);
-				// =========================================================
-				adBean.setImgPaths(sip);
-				service.save(adBean);
-				addActionMessage(getText("ad.sent"));
-				SimpleMail sm = new SimpleMail();
-				List<Annonce> adSaved = service.findAd(userBean,
-						adBean.getTitle());
-				System.out.println(adSaved);
-				sm.sendValidationAdMessage(userBean.getLogin(), adSaved.get(0)
-						.getId(), userBean.getEmail());
-				return SUCCESS;
-
+		User user = (User) session.get("user");
+		if (user == null) {
+			// Not logged in
+			if (uService.saveOne(userBean) != null) {
+				addActionMessage(userBean.getLogin() + " "
+						+ getText("now.signup"));
+				System.out.println("userbean : " + userBean.toString());
+				// The userBean variable isn't updated (with its ID)
+				Map<String, Object> hm = new HashMap<String, Object>();
+				hm.put("login", userBean.getLogin());
+				// That's why we have to retrieve it from DB with it's login
+				userBean = uService.getByField(hm);
 			} else {
-				addActionError(getText("add.ad.impossible"));
+				addActionError(getText("signup.impossible"));
 				return ERROR;
 			}
 		} else {
-			addActionError(getText("error.notloggedin"));
-			return ERROR;
+			userBean = user;
 		}
+		adBean.setUser(userBean);
+		adBean.setRegion(service.getOne(Region.class, regionId));
+		adBean.setDepartement(service.getOne(Departement.class,
+				departementId));
+		adBean.setDate_de_publication(new Date());
+		adBean.setCategorie(service.getOne(Categorie.class,
+				categorieId));
+		adBean.setCommunautes(service.getByIds(Communaute.class,
+				communitiesId));
+		adBean.setValidee(false);
+		MultiPartRequestWrapper multipartRequest = ((MultiPartRequestWrapper) ServletActionContext
+				.getRequest());
+		Set<ImagePath> sip = null;
+		if (multipartRequest != null) {
+			sip = store(multipartRequest);
+		}
+		adBean.setImgPaths(sip);
+		service.save(adBean,userBean);
+		addActionMessage(getText("ad.sent"));
+		return SUCCESS;
 	}
 
 	private Set<ImagePath> store(MultiPartRequestWrapper multipartRequest)
@@ -134,7 +155,7 @@ public class AdLoggedAction extends ActionSupport {
 				ThumbNail2 tng = new ThumbNail2();
 				tng.createThumbnail(imagePath, thumbImagePath, 300, 200);
 			}
-			ret  = sip;
+			ret = sip;
 		}
 		return ret;
 	}
@@ -227,6 +248,14 @@ public class AdLoggedAction extends ActionSupport {
 		return departementId;
 	}
 
+	public void setDepartements(List<Departement> departements) {
+		this.departements = departements;
+	}
+
+	public List<Departement> getDepartements() {
+		return service.getDepartements();
+	}
+
 	public void setUserBean(User userBean) {
 		this.userBean = userBean;
 	}
@@ -234,4 +263,13 @@ public class AdLoggedAction extends ActionSupport {
 	public User getUserBean() {
 		return userBean;
 	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
 }

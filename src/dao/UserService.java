@@ -37,5 +37,7 @@ public interface UserService {
 		public Departement getDepartement(long departementId);
 
 		public Region getRegion(long regionId);
+
+		public void changePassword(User user, String newPassword);
 		
 }

@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.ejb.Stateless;
+import javax.mail.MessagingException;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -21,6 +22,8 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.apache.commons.collections.MapUtils;
+
+import core.SimpleMail;
 
 import entities.Annonce;
 import entities.Categorie;
@@ -62,7 +65,19 @@ public class AdServiceImpl implements AdService {
 		return query.getResultList();
 	}
 
-	public void save(Annonce annonce) {
+	public void save(Annonce annonce, User user) {
+		em.persist(annonce);
+		List<Annonce> adSaved = findAd(user,
+			annonce.getTitle());
+		System.out.println(adSaved);
+		SimpleMail sm = new SimpleMail();
+		try {
+			sm.sendValidationAdMessage(user.getLogin(), adSaved.get(0).getId(),
+				user.getEmail());
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+		System.out.println(annonce.getId());
 		em.persist(annonce);
 	}
 

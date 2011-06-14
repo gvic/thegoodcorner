@@ -5,20 +5,13 @@
 	<s:a action="index">The <span class="good">Good</span> Corner</s:a>
 </div>
 <div id="add-ad">
-	<s:if test="%{#session.loggedin == 'true'}">
-		<s:a action="populateAdLogged_input">
+		<s:a action="populateAd_input">
 			<span class="button"><s:text name="menu.add.ad" /></span>
 		</s:a>
-	</s:if>
-	<s:else>
-		<s:a action="populateAdUnlogged_input">
-			<span class="button"><s:text name="menu.add.ad" /></span>
-		</s:a>
-	</s:else>
 </div>
 <div id="onglet-wrapper">
 	<div id="nav-login">
-		<s:if test="%{#session.loggedin == 'true'}">
+		<s:if test="%{#session.user != null}">
 			<s:a action="logout" >
 				<div id="onglet-logout" class="onglet">
 					<s:text name="menu.logout" />

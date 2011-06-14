@@ -147,5 +147,10 @@ public class UserServiceImpl implements UserService {
 		return query.getSingleResult();
 	}
 
+	public void changePassword(User user, String newPassword) {
+		user.setMd5_mdp(UserServiceImpl.md5Encryption(newPassword));
+		updateOne(user);		
+	}
+
 
 }

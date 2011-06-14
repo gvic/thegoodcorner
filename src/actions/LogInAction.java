@@ -34,8 +34,7 @@ public class LogInAction extends ActionSupport {
 		User u = service.getByField(hm);
 		// Add session infos
 		Map<String,Object> session = ActionContext.getContext().getSession();
-		session.put("loggedin","true");
-		session.put("userId",u.getId());
+		session.put("user",u);
 		// Update some stuff on user..
 		u.setDerniereConnexion(new Date(new java.util.Date().getTime()));
 		service.updateOne(u);
@@ -64,8 +63,7 @@ public class LogInAction extends ActionSupport {
 	public String logout() throws Exception {
 		System.out.println("=== logout() method called ===");
 		Map<String,Object>  session = ActionContext.getContext().getSession();
-		session.remove("loggedin");
-		session.remove("userId");
+		session.remove("user");
 		return SUCCESS;
   	}
 

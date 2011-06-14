@@ -30,11 +30,9 @@ public class ChangePasswordAction extends ActionSupport{
 	public void validate() {
 		System.out.println("=== validate() method called ===");
 		Map<String,Object>  session = ActionContext.getContext().getSession();
-		Object userIdO = session.get("userId");
-		if (userIdO != null) {
-			long userId = (Long) userIdO;
-			User userBean = service.getOne(userId);
-			if (!userBean.getMd5_mdp().equals(UserServiceImpl.md5Encryption(oldPassword))) {
+		User user = (User) session.get("user");
+		if (user != null) {
+			if (!user.getMd5_mdp().equals(UserServiceImpl.md5Encryption(oldPassword))) {
 				addFieldError("oldPassword",getText("errors.oldPassword"));	
 			}		
 		}
@@ -48,11 +46,9 @@ public class ChangePasswordAction extends ActionSupport{
 	 */
 	public String input() throws Exception {
 		Map<String,Object>  session = ActionContext.getContext().getSession();
-		Object userIdO = session.get("userId");
-		if (userIdO != null) {
-			long userId = (Long) userIdO;
-			User userBean = service.getOne(userId);
-			login = userBean.getLogin();
+		User user = (User) session.get("user");
+		if (user != null) {
+			login = user.getLogin();
 			return INPUT;
 		} else {
 			addActionError(getText("error.notloggedin"));
@@ -66,17 +62,12 @@ public class ChangePasswordAction extends ActionSupport{
 	 */
 	public String changePassword(){
 		Map<String,Object>  session = ActionContext.getContext().getSession();
-		Object userIdO = session.get("userId");
-		if (userIdO != null) {
-			long userId = (Long) userIdO;
-			
-			User userBean = service.getOne(userId);			
-			userBean.setMd5_mdp(UserServiceImpl.md5Encryption(newPassword));
-			
-			service.updateOne(userBean);
+		User user = (User) session.get("user");
+		if (user != null) {			
+			service.changePassword(user, newPassword);
 			addActionMessage(getText("account.update.success"));
 			// Because the field is disabled it is not processed...
-			login = userBean.getLogin();
+			login = user.getLogin();
 			return SUCCESS;
 		} else {
 			addActionError(getText("error.notloggedin"));

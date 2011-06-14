@@ -29,7 +29,7 @@ public interface AdService {
 	public List<Categorie> getSecondLevelCategories();
 	public List<Categorie> getMasterCategory();
 	public List<Categorie> getSonsCategories(Categorie c);	
-	public void save(Annonce annonce);
+	public void save(Annonce annonce, User user);
 	public void save(ImagePath ip);
 
 	public List<String> getOrderedCategories();

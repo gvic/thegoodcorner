@@ -64,27 +64,14 @@
 			<result name="success" type="tiles">account</result>
 		</action>
 
-		<action name="populateAdLogged_*" class="actions.AdLoggedAction" method="{1}">
+		<action name="populateAd_*" class="actions.AdAction" method="{1}">
 			<!-- interceptors for FileUpload validations -->
 			<interceptor-ref name="loginStack">
 				<param name="fileUpload.maximumSize">200000000</param>
 				<param name="fileUpload.allowedTypes">image/jpeg,image/gif,image/png,image/bmp</param>
 			</interceptor-ref>
-			<result name="input" type="tiles">submitAd_logged</result>
-			<result name="unlogged" type="tiles">submitAd_unlogged</result>
-			<result name="error" type="tiles">submitAd_logged</result>
-			<result name="success" type="tiles">welcome</result>
-		</action>
-
-		<action name="populateAdUnlogged_*" class="actions.AdUnloggedAction" method="{1}">
-			<!-- interceptors for FileUpload validations -->
-			<interceptor-ref name="loginStack">
-				<param name="fileUpload.maximumSize">200000000</param>
-				<param name="fileUpload.allowedTypes">image/jpeg,image/gif,image/png,image/bmp</param>
-			</interceptor-ref>
-			<result name="input" type="tiles">submitAd_unlogged</result>
-			<result name="logged" type="tiles">submitAd_logged</result>
-			<result name="error" type="tiles">submitAd_unlogged</result>
+			<result name="input" type="tiles">submitAd</result>
+			<result name="error" type="tiles">submitAd</result>
 			<result name="success" type="tiles">welcome</result>
 		</action>
 
