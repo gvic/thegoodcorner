@@ -31,7 +31,7 @@ import entities.User;
 public class AdUnloggedAction extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
-	private static final String UL_DIR = "/uploads/";
+	private static final String UL_DIR =  "/uploads/";
 
 	@Inject
 	AdService service;
