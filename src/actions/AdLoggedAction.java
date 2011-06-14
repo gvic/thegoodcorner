@@ -1,8 +1,8 @@
 package actions;
 
 import java.io.File;
-
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +23,7 @@ import dao.UserService;
 import entities.Annonce;
 import entities.Categorie;
 import entities.Communaute;
+import entities.Departement;
 import entities.ImagePath;
 import entities.Region;
 import entities.User;
@@ -61,9 +62,9 @@ public class AdLoggedAction extends ActionSupport {
 			return "unlogged";
 		}
 		return INPUT;
-		
+
 	}
-	
+
 	public String execute() throws Exception {
 		System.out.println("=== execute() method called ===");
 
@@ -74,6 +75,8 @@ public class AdLoggedAction extends ActionSupport {
 			userBean = uService.getOne(userId);
 			adBean.setUser(userBean);
 			adBean.setRegion(service.getOne(Region.class, regionId));
+			adBean.setDepartement(service.getOne(Departement.class, departementId));
+			adBean.setDate_de_publication(new Date());
 			adBean.setCategorie(service.getOne(Categorie.class, categorieId));
 			adBean.setCommunautes(service.getByIds(Communaute.class,
 					communitiesId));
@@ -83,20 +86,19 @@ public class AdLoggedAction extends ActionSupport {
 			if (multipartRequest != null) {
 				// =========================================================
 				// NullPointerException sur l'array fs dans la methode store
-				store(multipartRequest);
+				Set<ImagePath> sip = store(multipartRequest);
 				// =========================================================
-				if (service.saveOne(adBean) != null) {
-					addActionMessage(getText("ad.sent"));
-					SimpleMail sm = new SimpleMail();
-					List<Annonce> adSaved = service.findAd(userBean, adBean.getTitle());
-					System.out.println(adSaved);
-					sm.sendValidationAdMessage(userBean.getLogin(), adSaved.get(0).getId(),
-							userBean.getEmail());
-					return SUCCESS;
-				} else {
-					addActionMessage(getText("ad.save.impossible"));
-					return ERROR;
-				}
+				adBean.setImgPaths(sip);
+				service.save(adBean);
+				addActionMessage(getText("ad.sent"));
+				SimpleMail sm = new SimpleMail();
+				List<Annonce> adSaved = service.findAd(userBean,
+						adBean.getTitle());
+				System.out.println(adSaved);
+				sm.sendValidationAdMessage(userBean.getLogin(), adSaved.get(0)
+						.getId(), userBean.getEmail());
+				return SUCCESS;
+
 			} else {
 				addActionError(getText("add.ad.impossible"));
 				return ERROR;
@@ -107,11 +109,12 @@ public class AdLoggedAction extends ActionSupport {
 		}
 	}
 
-	private void store(MultiPartRequestWrapper multipartRequest)
+	private Set<ImagePath> store(MultiPartRequestWrapper multipartRequest)
 			throws Exception {
 		// Upload d'image que pour les user enregistrés
 		long userId = userBean.getId();
 		File fs[] = multipartRequest.getFiles("uploads");
+		Set<ImagePath> ret = null;
 		if (fs != null) {
 
 			String[] ct = multipartRequest.getContentTypes("uploads");
@@ -131,8 +134,9 @@ public class AdLoggedAction extends ActionSupport {
 				ThumbNail2 tng = new ThumbNail2();
 				tng.createThumbnail(imagePath, thumbImagePath, 300, 200);
 			}
-			adBean.setImgPaths(sip);
+			ret  = sip;
 		}
+		return ret;
 	}
 
 	public void setCommunities(List<Communaute> communautes) {

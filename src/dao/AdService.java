@@ -10,6 +10,7 @@ import entities.Annonce;
 import entities.Categorie;
 import entities.Communaute;
 import entities.Departement;
+import entities.ImagePath;
 import entities.Region;
 import entities.User;
 
@@ -29,6 +30,7 @@ public interface AdService {
 	public List<Categorie> getMasterCategory();
 	public List<Categorie> getSonsCategories(Categorie c);	
 	public void save(Annonce annonce);
+	public void save(ImagePath ip);
 
 	public List<String> getOrderedCategories();
 
@@ -40,8 +42,6 @@ public interface AdService {
 	public List<Annonce> findByJointure(Map<String,Map<String,Object>> joins);
 	
 	public List<Annonce> findAd(User u, String title);
-	
-	public Annonce saveOne(Annonce a);
 	
 	public List<Annonce> search(String text);
 

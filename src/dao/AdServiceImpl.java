@@ -26,6 +26,7 @@ import entities.Annonce;
 import entities.Categorie;
 import entities.Communaute;
 import entities.Departement;
+import entities.ImagePath;
 import entities.Region;
 import entities.User;
 
@@ -327,6 +328,12 @@ public class AdServiceImpl implements AdService {
 
 	public void merge(Annonce ad) {
 		em.merge(ad);
+	}
+
+	@Override
+	public void save(ImagePath ip) {
+		em.persist(ip);
+		
 	}
 
 //	public Map getRegionsWithDeparts() {

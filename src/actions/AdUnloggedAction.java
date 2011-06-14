@@ -2,6 +2,7 @@ package actions;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -49,6 +50,7 @@ public class AdUnloggedAction extends ActionSupport {
 	private Set<Long> communitiesId;
 
 	private List<Region> regions;
+	private List<Departement> departements;
 	private List<Communaute> communities;
 	private List<Categorie> categories;
 
@@ -66,7 +68,7 @@ public class AdUnloggedAction extends ActionSupport {
 		System.out.println(UL_DIR);
 		return INPUT;
 	}
-	
+
 	public void validate() {
 		if (userBean != null) {
 			System.out.println(userBean.toString());
@@ -100,6 +102,7 @@ public class AdUnloggedAction extends ActionSupport {
 				adBean.setRegion(service.getOne(Region.class, regionId));
 				adBean.setDepartement(service.getOne(Departement.class,
 						departementId));
+				adBean.setDate_de_publication(new Date());
 				adBean.setCategorie(service
 						.getOne(Categorie.class, categorieId));
 				adBean.setCommunautes(service.getByIds(Communaute.class,
@@ -110,23 +113,20 @@ public class AdUnloggedAction extends ActionSupport {
 				if (multipartRequest != null) {
 					// =========================================================
 					// NullPointerException sur l'array fs dans la methode store
-					store(multipartRequest);
+					Set<ImagePath> sip = store(multipartRequest);
 					// =========================================================
-					if (service.saveOne(adBean) != null) {
-						addActionMessage(getText("ad.sent"));
-						SimpleMail sm = new SimpleMail();
-						List<Annonce> adSaved = service.findAd(userBean, adBean.getTitle());
-						System.out.println(adSaved);
-						sm.sendValidationAdMessage(userBean.getLogin(), adSaved.get(0).getId(),
-								userBean.getEmail());
-						System.out.println(adBean.getId());
-						return SUCCESS;
-					} else {
-						// Don't forget to remove the user ..
-						uService.deleteOne(userBean.getId());
-						addActionMessage(getText("ad.save.impossible"));
-						return ERROR;
-					}
+					adBean.setImgPaths(sip);
+					service.save(adBean);
+					addActionMessage(getText("ad.sent"));
+					SimpleMail sm = new SimpleMail();
+					List<Annonce> adSaved = service.findAd(userBean,
+							adBean.getTitle());
+					System.out.println(adSaved);
+					sm.sendValidationAdMessage(userBean.getLogin(), adSaved
+							.get(0).getId(), userBean.getEmail());
+					System.out.println(adBean.getId());
+					return SUCCESS;
+
 				} else {
 					// Don't forget to remove the user ..
 					uService.deleteOne(userBean.getId());
@@ -144,12 +144,14 @@ public class AdUnloggedAction extends ActionSupport {
 
 	}
 
-	private void store(MultiPartRequestWrapper multipartRequest)
+	private Set<ImagePath> store(MultiPartRequestWrapper multipartRequest)
 			throws Exception {
 		// Upload d'image que pour les user enregistrés
 		long userId = userBean.getId();
 		File fs[] = multipartRequest.getFiles("uploads");
+		Set<ImagePath> ret = null;
 		if (fs != null) {
+
 			String[] ct = multipartRequest.getContentTypes("uploads");
 			Set<ImagePath> sip = new HashSet<ImagePath>();
 			for (int i = 0; i < fs.length; i++) {
@@ -167,8 +169,9 @@ public class AdUnloggedAction extends ActionSupport {
 				ThumbNail2 tng = new ThumbNail2();
 				tng.createThumbnail(imagePath, thumbImagePath, 300, 200);
 			}
-			adBean.setImgPaths(sip);
+			ret = sip;
 		}
+		return ret;
 	}
 
 	public void setCommunities(List<Communaute> communautes) {
@@ -257,6 +260,14 @@ public class AdUnloggedAction extends ActionSupport {
 
 	public long getDepartementId() {
 		return departementId;
+	}
+
+	public void setDepartements(List<Departement> departements) {
+		this.departements = departements;
+	}
+
+	public List<Departement> getDepartements() {
+		return service.getDepartements();
 	}
 
 	public void setUserBean(User userBean) {
