@@ -140,7 +140,7 @@ a:hover {
 	position: relative;
 	top: 30px;
 	left: 250px;
-	width:350px;
+	width:380px;
 /*
 	-moz-transform: rotate(-1deg);  
 	-webkit-transform: rotate(-1deg); 
@@ -215,7 +215,7 @@ a:hover {
 	border-radius: 5px;
 	margin: 0 auto;
 	padding: 10px;
-	width: 250px;
+	width: 280px;
 	background-color: rgba(230, 230, 230, 0.95);
 	color: black;
 	z-index: 11;
