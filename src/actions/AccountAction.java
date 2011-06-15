@@ -90,8 +90,10 @@ public class AccountAction extends ActionSupport{
 		User userBean = (User) session.get("user");
 
 		if (userBean != null) {
+			System.out.println("departementID:"+departementIdKey);
             if (departementIdKey != -1)
                 userBean.setDepartement(service.getDepartement(departementIdKey));
+            System.out.println("regionID:"+regionIdKey);
             if (regionIdKey != -1)
                 userBean.setRegion(service.getRegion(regionIdKey));
             userBean.setCodePostal(codePostal);

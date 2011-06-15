@@ -12,100 +12,112 @@ import com.opensymphony.xwork2.ActionSupport;
 import core.annonceComparator;
 import dao.AdService;
 import entities.Annonce;
+import entities.Categorie;
+import entities.Communaute;
+import entities.Departement;
+import entities.Region;
 import entities.User;
 
 public class ListAdAction extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
-	
-	@Inject AdService service;
-	
-	//Your result List
-	private List<Annonce>      gridModel;
-	// All results List
-	private List<Annonce>      myAnnonces;
-	
-	// Search annonces by :
-	private long userId;
-	private long regionId;
-	private long departId;
-	private long categorieId;
-	private long communauteId;
-	
-	public ListAdAction() {
-		setUserId(-1);
-		setRegionId(-1);
-		setDepartId(-1);
-		setCategorieId(-1);
-		setCommunauteId(-1);
-	}
-	
 
-	//get how many rows we want to have into the grid - rowNum attribute in the grid
-	private Integer             rows             = 0;
-	//Get the requested page. By default grid sets this to 1.
-	private Integer             page             = 0;
+	@Inject
+	AdService service;
+
+	// Your result List
+	private List<Annonce> gridModel;
+	// All results List
+	private List<Annonce> myAnnonces;
+
+	// Search annonces by :
+	private long userId = 0;
+	private long regionId = -1;
+	private long departId = -1;
+	private int codePostal;
+	private long categorieId = -1;
+	private List<Departement> departements;
+	private List<Region> regions;
+	private List<Categorie> categories;
+	private List<Communaute> communities;
+	private long communauteId = 0;
+
+	// get how many rows we want to have into the grid - rowNum attribute in the
+	// grid
+	private Integer rows = 0;
+	// Get the requested page. By default grid sets this to 1.
+	private Integer page = 0;
 	// sorting order - asc or desc
-	private String              sord;
+	private String sord;
 	// get index row - i.e. user click to sort.
-	private String              sidx;
+	private String sidx;
 	// Search Field
-	private String              searchField;
+	private String searchField;
 	// The Search String
-	private String              searchString;
-	// he Search Operation ['eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','cn','nc']
-	private String              searchOper;
+	private String searchString;
+	// he Search Operation
+	// ['eq','ne','lt','le','gt','ge','bw','bn','in','ni','ew','en','cn','nc']
+	private String searchOper;
 	// Your Total Pages
-	private Integer             total            = 0;
+	private Integer total = 0;
 	// total nb of rows in the whole list
-	private Integer             totalrows            = 0;
+	private Integer totalrows = 0;
 	// All Record
-	private Integer             records          = 0;
+	private Integer records = 0;
 	// Load all data at once. By default grid sets this to false
 	private boolean loadonce = false;
 	
+	@Override
+	public String input() throws Exception {
+		return super.input();
+	}
+
 	public String execute() {
 		System.out.println("=== method execute() from ListAdAction called ===");
-		
-		myAnnonces = getMyAnnonces();
-		
-		if (getSord() != null && getSidx() != null && !getSord().equals("") && !getSidx().equals("")) {
-			Collections.sort(myAnnonces,new annonceComparator(getSord(), getSidx()));
-	    }
 
-	    setRecords(getMyAnnonces().size());
+		myAnnonces = getMyAnnonces();
+
+		if (getSord() != null && getSidx() != null && !getSord().equals("")
+				&& !getSidx().equals("")) {
+			Collections.sort(myAnnonces, new annonceComparator(getSord(),
+					getSidx()));
+		}
+
+		setRecords(getMyAnnonces().size());
 		if (getTotalrows() != 0) {
 			setRows(getTotalrows());
 		}
-	    
+
 		int to = (getRows() * getPage());
 		int from = to - getRows();
-		if (to > getRecords()) to = getRecords();
-		System.out.println("to :"+to+", from :"+from+", total :"+total);
-		
+		if (to > getRecords())
+			to = getRecords();
+		System.out.println("to :" + to + ", from :" + from + ", total :"
+				+ total);
+
 		if (loadonce) {
-		      setGridModel(myAnnonces);
+			setGridModel(myAnnonces);
 		} else {
-//		  if (searchString != null && searchOper != null) {
-//			int id = Integer.parseInt(searchString);
-//			if (searchOper.equalsIgnoreCase("eq")) {
-//					List<Annonce> cList = new ArrayList<Annonce>();
-//					cList.add(myAnnonces.get(id));
-//					setGridModel(cList);
-//	        } else if (searchOper.equalsIgnoreCase("ne")) {
-//	        	setGridModel(service.findNotById(myAnnonces, id, from, to));
-//	        } else if (searchOper.equalsIgnoreCase("lt")) {
-//	        	setGridModel(service.findLesserAsId(myAnnonces, id, from, to));
-//	        } else if (searchOper.equalsIgnoreCase("gt")) {
-//	        	setGridModel(service.findGreaterAsId(myAnnonces, id, from, to));
-//	        }
-//        } else {
-        	setGridModel(myAnnonces.subList(from, to));
-//        }
+			// if (searchString != null && searchOper != null) {
+			// int id = Integer.parseInt(searchString);
+			// if (searchOper.equalsIgnoreCase("eq")) {
+			// List<Annonce> cList = new ArrayList<Annonce>();
+			// cList.add(myAnnonces.get(id));
+			// setGridModel(cList);
+			// } else if (searchOper.equalsIgnoreCase("ne")) {
+			// setGridModel(service.findNotById(myAnnonces, id, from, to));
+			// } else if (searchOper.equalsIgnoreCase("lt")) {
+			// setGridModel(service.findLesserAsId(myAnnonces, id, from, to));
+			// } else if (searchOper.equalsIgnoreCase("gt")) {
+			// setGridModel(service.findGreaterAsId(myAnnonces, id, from, to));
+			// }
+			// } else {
+			setGridModel(myAnnonces.subList(from, to));
+			// }
 		}
 
-	    setTotal((int) Math.ceil((double) getRecords() / (double) getRows()));
-		
+		setTotal((int) Math.ceil((double) getRecords() / (double) getRows()));
+
 		return SUCCESS;
 	}
 
@@ -192,9 +204,9 @@ public class ListAdAction extends ActionSupport {
 	public Integer getRecords() {
 		return records;
 	}
-	
+
 	public List<Annonce> getMyAnnonces() {
-		Map<String, Map<String, Object>> joins = new HashMap<String, Map<String,Object>>();
+Map<String, Map<String, Object>> joins = new HashMap<String, Map<String,Object>>();
 		
 		System.out.println("departId:"+getDepartId()
 				+",regionId:"+getRegionId()
@@ -234,7 +246,7 @@ public class ListAdAction extends ActionSupport {
 			value.put("id", communauteId);
 			joins.put("communautes", value);
 		}
-	
+
 		return service.findByJointure(joins,showunvalide);
 	}
 
@@ -297,4 +309,45 @@ public class ListAdAction extends ActionSupport {
 	public long getCommunauteId() {
 		return communauteId;
 	}
+
+	public void setCodePostal(int codePostal) {
+		this.codePostal = codePostal;
+	}
+
+	public int getCodePostal() {
+		return codePostal;
+	}
+
+	public void setDepartements(List<Departement> departements) {
+		this.departements = departements;
+	}
+
+	public List<Departement> getDepartements() {
+		return departements;
+	}
+
+	public void setRegions(List<Region> regions) {
+		this.regions = regions;
+	}
+
+	public List<Region> getRegions() {
+		return service.getRegions();
+	}
+
+	public void setCommunities(List<Communaute> communautes) {
+		this.communities = communautes;
+	}
+
+	public List<Communaute> getCommunities() {
+		return service.getCommunautes();
+	}
+
+	public List<Categorie> getCategories() {
+		return service.getCategories();
+	}
+
+	public void setCategories(List<Categorie> categories) {
+		this.categories = categories;
+	}
+
 }

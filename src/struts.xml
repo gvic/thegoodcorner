@@ -24,7 +24,7 @@
 		<default-interceptor-ref name="loginStack"></default-interceptor-ref>
 		<default-action-ref name="index"></default-action-ref>
 
-		<action name="index">
+		<action name="index" class="actions.ListAdAction">
 			<result type="tiles">welcome</result>
 		</action>
 

@@ -9,12 +9,12 @@
 	<s:textfield name="login" key="login.username" disabled="true"
 		cssClass="disabled" value="%{login}" />
 
-	<s:doubleselect name="regionIdKey" list="regions" listValue="nom"
+	<s:doubleselect name="regionIdKey" list="regions" listValue="nom" label="%{getText('area.select.label')}"
 		listKey="id" headerKey="-1" headerValue="%{getText('region.select')}"
-		value="%{regionIdKey}" doubleName="departementIdkey"
-		doubleList="departements" doubleListValue="nom" doubleHeaderKey="-1"
+		value="%{regionIdKey}" doubleName="departementIdKey"
+		doubleList="departements" doubleListValue="nom" doubleHeaderKey="-1" doubleListKey="id"
 		doubleHeaderValue="%{getText('departement.select')}"
-		doubleValue="%{regionIdKey}">
+		doubleValue="%{departementIdKey}">
 	</s:doubleselect>
 
 	<s:textfield name="codePostal" key="login.codePostal"

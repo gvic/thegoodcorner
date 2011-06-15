@@ -61,6 +61,17 @@ public class AdAction extends ActionSupport {
 	private List<String> uploadContentTypes = new ArrayList<String>();
 
 	public String input() throws Exception {
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		userBean = (User) session.get("user");
+		if (userBean != null) {
+			regions = service.getRegions();
+			System.out.println(userBean.getRegion());
+			System.out.println(userBean.getDepartement());
+			if (userBean.getRegion() != null)
+				regionId = userBean.getRegion().getId();
+			if (userBean.getDepartement() != null)
+				departementId = userBean.getDepartement().getId();
+		}
 		return INPUT;
 	}
 
@@ -94,6 +105,7 @@ public class AdAction extends ActionSupport {
 			if (!userBean.getEmail().equals("")
 					&& uService.getByField(mhm) != null)
 				addFieldError("userBean.email", getText("errors.email.used"));
+
 		}
 	}
 
@@ -152,6 +164,8 @@ public class AdAction extends ActionSupport {
 						+ outputFormat;
 				String thumbImagePath = AdAction.UL_DIR + fileName + "_thumb."
 						+ outputFormat;
+				String thumbImagePath2 = AdAction.UL_DIR + fileName
+						+ "_thumb2." + outputFormat;
 				ImagePath ip = new ImagePath();
 				ip.setPath(imagePath);
 				service.save(ip);
@@ -170,6 +184,7 @@ public class AdAction extends ActionSupport {
 
 				ThumbNail2 tng = new ThumbNail2();
 				tng.createThumbnail(imagePath, thumbImagePath, 300, 200);
+				tng.createThumbnail(imagePath, thumbImagePath2, 300, 200);
 			}
 			ret = sip;
 		}

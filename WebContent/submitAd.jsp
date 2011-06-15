@@ -8,10 +8,11 @@
 
 	<!-- 	En cas de probleme celle ci marche mais pas de couleur pour diff?rencier regions/departs -->
 	<s:doubleselect
-		name="regionId" list="regions" listValue="nom"
-		listKey="id" headerKey="-1" headerValue="%{getText('region.select')}"
+		name="regionId" list="regions" listValue="nom" key="" label="%{getText('area.select.label')}"
+		listKey="id" headerKey="-1" headerValue="%{getText('region.select')}" value="regionId"
 		doubleName="departementId" doubleList="departements" doubleListValue="nom"
-		doubleListKey="id" doubleHeaderKey="-1" doubleHeaderValue="%{getText('department.select')}">
+		doubleListKey="id" doubleHeaderKey="-1" doubleHeaderValue="%{getText('department.select')}"
+		doubleValue="%{departementId}">
 	</s:doubleselect>
 	<%-- 	<s:select key="adBean.departement" list="departements"></s:select> --%>
 	
