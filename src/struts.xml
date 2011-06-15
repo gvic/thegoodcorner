@@ -49,7 +49,7 @@
 		<action name="SignUp_*" class="actions.SignUpAction" method="{1}">
 			<result name="input" type="tiles">signup</result>
 			<result name="error" type="tiles">signup</result>
-			<result name="success" type="redirect">welcome</result>
+			<result name="success" type="tiles">welcome</result>
 		</action>
 
 		<action name="admin" class="actions.PopulateAction" method="adminPopulate">
@@ -96,7 +96,6 @@
 		</action>
 
 		<action name="showAd" class="actions.ShowAdAction">
-			<result name="input" type="redirect">welcome</result>
 			<result type="tiles">showAd</result>
 		</action>
 
@@ -109,9 +108,6 @@
 		</action>
 
 		<action name="confirmAd" class="actions.ConfirmAd">
-			<result name="input" type="redirectAction">
-				<param name="actionName">index.action</param>
-			</result>
 			<result type="tiles">welcome</result>
 		</action>
 

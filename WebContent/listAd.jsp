@@ -15,7 +15,6 @@
      rowNum="20"  
      hoverrows="false"  
      width="980"
-     
  >
      <sjg:gridColumn name="date_de_publication" index="date_de_publication" title="%{getText('list.date.published')}" formatter="date" formatoptions="{newformat : 'd/m H:i', srcformat : 'Y-m-d H:i:s'}" sortable="true"/>
      <sjg:gridColumn name="imgPaths" title="%{getText('list.img')}" formatter="formatImg" sortable="false"/>

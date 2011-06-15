@@ -26,11 +26,19 @@ public class ListAdAction extends ActionSupport {
 	private List<Annonce>      myAnnonces;
 	
 	// Search annonces by :
-	private long userId = 0;
-	private long regionId = 0;
-	private long departId = 0;
-	private long categorieId = 0;
-	private long communauteId = 0;
+	private long userId;
+	private long regionId;
+	private long departId;
+	private long categorieId;
+	private long communauteId;
+	
+	public ListAdAction() {
+		setUserId(-1);
+		setRegionId(-1);
+		setDepartId(-1);
+		setCategorieId(-1);
+		setCommunauteId(-1);
+	}
 	
 
 	//get how many rows we want to have into the grid - rowNum attribute in the grid
@@ -196,17 +204,17 @@ public class ListAdAction extends ActionSupport {
 		
 		boolean showunvalide = false;
 		
-		if (getDepartId() != 0) {
+		if (getDepartId() != -1) {
 			Map<String, Object> value = new HashMap<String, Object>();
 			value.put("id", departId);
 			joins.put("departement", value);
 		}
-		if (getRegionId() != 0) {
+		if (getRegionId() != -1) {
 			Map<String, Object> value = new HashMap<String, Object>();
 			value.put("id", regionId);
 			joins.put("region", value);
 		}
-		if (getUserId() != 0) {
+		if (getUserId() != -1) {
 			Map<String, Object> value = new HashMap<String, Object>();
 			value.put("id", userId);
 			joins.put("user", value);
@@ -216,12 +224,12 @@ public class ListAdAction extends ActionSupport {
 			if (user.getId()==userId) 
 				showunvalide = true;
 		}
-		if (getCategorieId() != 0) {
+		if (getCategorieId() != -1) {
 			Map<String, Object> value = new HashMap<String, Object>();
 			value.put("id", categorieId);
 			joins.put("categorie", value);
 		}
-		if (getCommunauteId() != 0) {
+		if (getCommunauteId() != -1) {
 			Map<String, Object> value = new HashMap<String, Object>();
 			value.put("id", communauteId);
 			joins.put("communautes", value);
