@@ -116,7 +116,10 @@ a:hover {
 .button:hover {
 	opacity:1;
 }
-
+.rotate90 {
+	-moz-transform: rotate(-90deg);  
+	-webkit-transform: rotate(-90deg);	
+}
 #header{
 	background: #002fa7 url(images/header_rendering.png) repeat-x 0 -100px;
 	color: white;
@@ -257,9 +260,9 @@ a:hover {
 }
 #page #account-ajax {
 	float: left;
-	width: 710px
+	width: 710px;
 }
-#page #account-menu {
+#page .menu-box {
 	width: 250px;
 	border: 1px solid grey;
 	-webkit-border-radius: 3px;
@@ -267,14 +270,16 @@ a:hover {
 	border-radius: 3px;
 	background-color : rgba(240,240,240,0.9);
 	float: right;
+	margin-bottom: 20px;
 }
-#page #account-menu .thead {
+#page .menu-box .thead {
 	padding:10px;
 	background: #002fa7 url(images/onglet_rendering.png) repeat-x 0 100%;
 	border-bottom: 1px solid grey;
 	text-shadow: 1px 1px 1px #555;
 	text-align: center;
 	color: white;
+	font-weight: bold;
 }
 #page #account-menu ul {	
 	padding: 0;
@@ -283,6 +288,25 @@ a:hover {
 	margin: 10px;
 }
 
+#page .annonce {
+	width: 710px;
+	float: left;	
+}
+#page .annonce .date{
+	float: right;
+	color: gray;
+	font-style: italic;
+	font-size: 13px;
+}
+#page .annonce .annonce-description {
+	clear: both;
+}
+#page .annonce .annonce-price {
+	float:right;
+	border: 1px solid gray;
+	color: rgba(255,255,255,0.9);
+	padding: 5px;
+}
 #footer {
 	clear: both;
 	border-top:1px solid white;

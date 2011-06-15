@@ -1,6 +1,9 @@
 <%@ page language="java"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
+<s:if test="#session.user == null">
+<span class="tips"><s:text name="tips.forgot.login"></s:text><span class="rotate90">-></span></span>
+</s:if>
 <s:actionmessage />
 <s:actionerror />
 <s:form id="submitAdForm" theme="xhtml" action="populateAd_execute"

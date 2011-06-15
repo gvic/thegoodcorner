@@ -4,11 +4,11 @@
 
 <div id="account-ajax">
 <span class="tips">
-<s:text name="account.manage"></s:text>
+<s:text name="tips.manage"></s:text>
 </span>
 </div>
 
-<div id="account-menu">
+<div id="account-menu" class="menu-box">
 	<div class="thead"><s:text name="account.menu" /></div>
 	<ul>
 		<li>
@@ -30,6 +30,12 @@
 			<s:text name="account.changePassword" />
 		</sj:a>
 		</li>
+	</ul>
+</div>
+
+<div id="account-adds" class="menu-box">
+	<div class="thead"><s:text name="account.ads" /></div>
+	<ul>
 		<li>
 		<s:url action="list" id="listurl" includeParams="none">
 			<s:param name="userId" value="%{#session.user.id}" ></s:param>

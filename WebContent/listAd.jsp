@@ -26,7 +26,7 @@
  </sjg:grid>
 
 <!--Custom Formatter -->
-<s:url id="adurl" action="showAd" />
+<s:url id="adurl" action="showAd" includeParams="none" />
 <script type="text/javascript">
         function formatImg(cellvalue, options, rowObject) {
             if (cellvalue == null) {
