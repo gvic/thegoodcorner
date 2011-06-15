@@ -31,7 +31,7 @@ public class ListAdAction extends ActionSupport {
 	private List<Annonce> myAnnonces;
 
 	// Search annonces by :
-	private long userId = 0;
+	private long userId = -1;
 	private long regionId = -1;
 	private long departId = -1;
 	private int codePostal;
@@ -40,7 +40,7 @@ public class ListAdAction extends ActionSupport {
 	private List<Region> regions;
 	private List<Categorie> categories;
 	private List<Communaute> communities;
-	private long communauteId = 0;
+	private long communauteId = -1;
 
 	// get how many rows we want to have into the grid - rowNum attribute in the
 	// grid

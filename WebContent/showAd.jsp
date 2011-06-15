@@ -6,7 +6,7 @@
 
 <s:div id="annonce-%{annonceBean.id}" cssClass="annonce">
 <h2 class="annonce-title"><s:property value="annonceBean.title"/></h2>
-<span class="date"><s:date name="annonceBean.date_de_publication" format="%{getText('date.format')}"/></span>
+<span class="date"><s:date name="annonceBean.date_de_publication" format="%{getText('i18n.date.format')}"/></span>
 <div class="annonce-description">
 <s:property value="annonceBean.description"/>
 </div>
