@@ -6,11 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.inject.Inject;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import core.annonceComparator;
 import dao.AdService;
 import entities.Annonce;
+import entities.User;
 
 public class ListAdAction extends ActionSupport {
 
@@ -192,6 +194,8 @@ public class ListAdAction extends ActionSupport {
 				+",categorieId:"+getCategorieId()
 				+",communauteId:"+getCommunauteId());
 		
+		boolean showunvalide = false;
+		
 		if (getDepartId() != 0) {
 			Map<String, Object> value = new HashMap<String, Object>();
 			value.put("id", departId);
@@ -206,6 +210,11 @@ public class ListAdAction extends ActionSupport {
 			Map<String, Object> value = new HashMap<String, Object>();
 			value.put("id", userId);
 			joins.put("user", value);
+			
+			Map<String, Object> session = ActionContext.getContext().getSession();
+			User user = (User) session.get("user");
+			if (user.getId()==userId) 
+				showunvalide = true;
 		}
 		if (getCategorieId() != 0) {
 			Map<String, Object> value = new HashMap<String, Object>();
@@ -217,12 +226,8 @@ public class ListAdAction extends ActionSupport {
 			value.put("id", communauteId);
 			joins.put("communautes", value);
 		}
-		
-		if (joins.isEmpty()) {
-			return service.getAll(Annonce.class);
-		} else {		
-			return service.findByJointure(joins);
-		}
+	
+		return service.findByJointure(joins,showunvalide);
 	}
 
 	public void setMyAnnonces(List<Annonce> myAnnonces) {

@@ -24,6 +24,24 @@
 		<from>/SignUp_input.action</from>
 		<to>/signup.html</to>
 	</outbound-rule>
+
+	<rule>
+		<from>/addAd.html</from>
+		<to>%{context-path}/populateAd_input.action</to>
+	</rule>
+	<outbound-rule>
+		<from>/populateAd_input.action</from>
+		<to>/addAd.html</to>
+	</outbound-rule>		
+
+	<rule>
+		<from>/logout.html</from>
+		<to>%{context-path}/logout.action</to>
+	</rule>
+	<outbound-rule>
+		<from>/logout.action</from>
+		<to>/logout.html</to>
+	</outbound-rule>		
 		
 	<rule>
 		<from>/login.html</from>

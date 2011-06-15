@@ -213,7 +213,7 @@ public class AdServiceImpl implements AdService {
 	 * 
 	 * @return
 	 */
-	public List<Annonce> findByJointure(Map<String, Map<String, Object>> joins) {
+	public List<Annonce> findByJointure(Map<String, Map<String, Object>> joins, boolean showUnvalide) {
 		System.out.println("findByJointure() called");
 		// SELECT DISTINCT a FROM Annonce a JOIN a.departement d WHERE
 		// d.nom=:value
@@ -232,6 +232,8 @@ public class AdServiceImpl implements AdService {
 				i++;
 			}
 
+			query += " WHERE";
+			
 			i = 0;
 			int j = 0;
 			Set<Object> oValues = new HashSet<Object>();
@@ -241,16 +243,28 @@ public class AdServiceImpl implements AdService {
 				oValues.addAll(map.values());
 				while (iteEntry.hasNext()) {
 					String key = iteEntry.next();
-					if (i == 0) {
-						query += " WHERE";
+					if (i != 0 ) {
+						query += " AND";
 					}
 					query += " v" + i + "." + key + "=:value" + j;
 					j++;
 				}
 				i++;
 			}
+			
+			// If we want to show all ads
+			if (!showUnvalide) {
+				if (i != 0 ) {
+					query += " AND";
+				}
+				// Show only activated ads
+				query += " a.validee=:valide";
+			}
 
 			TypedQuery<Annonce> q = em.createQuery(query, Annonce.class);
+			// If we want to show all ads
+			if (!showUnvalide)
+				q.setParameter("valide", true);
 			j = 0;
 			Iterator<Object> iteoValues = oValues.iterator();
 			while (iteoValues.hasNext()) {

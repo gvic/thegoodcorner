@@ -1,7 +1,6 @@
 package entities;
 
 import java.io.Serializable;
-
 import java.util.Date;
 import java.util.Set;
 
@@ -15,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -50,9 +48,9 @@ public class Annonce implements Serializable {
 //	@Column(nullable=false)
 	private boolean validee;
 	
-	@OneToOne
+	@ManyToOne
 	private Departement departement;
-	@OneToOne
+	@ManyToOne
 	private Region region;
 	
 	

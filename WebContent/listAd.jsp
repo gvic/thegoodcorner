@@ -33,7 +33,10 @@
             if (cellvalue == null) {
 				return "";
             } else {
-                return "<a href='<s:property value="adurl"/>?adId="+options.rowId+"' >"+cellvalue+"<img src='" + cellvalue + "' alt='' /></a>";
+                var file = cellvalue[0].path.split(".");
+				var format = file[1];
+				var nom = file[0];
+                return "<a href='<s:property value="adurl"/>?adId="+options.rowId+"' ><img src='"+nom+"_thumb2."+format+"' alt='' /></a>";
             }
         }
         function group(cellvalue, options, rowObject) {
