@@ -158,6 +158,9 @@ public class AdAction extends ActionSupport {
 				System.out.println(ip.toString());
 				sip.add(ip);
 				System.out.println(ip.getId());
+				// Change image path for Java processing
+				imagePath = ServletActionContext.getServletContext().getRealPath("/")+imagePath;
+				thumbImagePath = ServletActionContext.getServletContext().getRealPath("/")+thumbImagePath;
 				File finalFile = new File(imagePath);
 				FileUtils.copyFile(fs[i], finalFile);
 		

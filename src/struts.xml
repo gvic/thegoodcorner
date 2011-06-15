@@ -108,6 +108,7 @@
 		</action>
 
 		<action name="confirmAd" class="actions.ConfirmAd">
+			<result name="input" type="tiles">welcome</result>
 			<result type="tiles">welcome</result>
 		</action>
 

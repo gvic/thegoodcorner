@@ -16,7 +16,6 @@ public class ConfirmAd extends ActionSupport {
 	@Inject UserService uService;
 	private String key;	
 	
-	@Override
 	public String execute() throws Exception {
 		String s = SimpleMail.hexToStr(key);
 		String[] a = s.split("_"); //0:login 1:idAd
@@ -31,9 +30,10 @@ public class ConfirmAd extends ActionSupport {
 			service.merge(ad);
 			addActionMessage(getText("ad.validated"));
 		} else{
-			addActionMessage(getText("errors.ad.non.validated"));
+			addActionError(getText("errors.ad.non.validated"));
+			return ERROR;
 		}
-		return super.execute();
+		return SUCCESS;
 	}
 	
 	
