@@ -246,6 +246,7 @@ Map<String, Map<String, Object>> joins = new HashMap<String, Map<String,Object>>
 			value.put("id", communauteId);
 			joins.put("communautes", value);
 		}
+		
 
 		return service.findByJointure(joins,showunvalide);
 	}
