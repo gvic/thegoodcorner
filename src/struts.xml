@@ -67,7 +67,7 @@
 		<action name="populateAd_*" class="actions.AdAction" method="{1}">
 			<!-- interceptors for FileUpload validations -->
 			<interceptor-ref name="loginStack">
-				<param name="fileUpload.maximumSize">200000000</param>
+				<param name="fileUpload.maximumSize">4000000</param>
 				<param name="fileUpload.allowedTypes">image/jpeg,image/gif,image/png,image/bmp</param>
 			</interceptor-ref>
 			<result name="input" type="tiles">submitAd</result>

@@ -1,5 +1,6 @@
 package dao;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -22,8 +23,14 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.apache.commons.collections.MapUtils;
+import org.apache.commons.io.FileUtils;
+import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.dispatcher.multipart.MultiPartRequestWrapper;
+
+import actions.AdAction;
 
 import core.SimpleMail;
+import core.ThumbNail2;
 
 import entities.Annonce;
 import entities.Categorie;
@@ -35,7 +42,7 @@ import entities.User;
 
 @Stateless(mappedName = "dao.AdServiceImpl")
 public class AdServiceImpl implements AdService {
-
+	
 	@PersistenceContext
 	private EntityManager em;
 
@@ -66,19 +73,16 @@ public class AdServiceImpl implements AdService {
 	}
 
 	public void save(Annonce annonce, User user) {
-		em.persist(annonce);
-		List<Annonce> adSaved = findAd(user,
-			annonce.getTitle());
-		System.out.println(adSaved);
+		annonce = saveOne(annonce);
+		System.out.println(annonce.getId());
+		System.out.println(annonce);
 		SimpleMail sm = new SimpleMail();
 		try {
-			sm.sendValidationAdMessage(user.getLogin(), adSaved.get(0).getId(),
+			sm.sendValidationAdMessage(user.getLogin(), annonce.getId(),
 				user.getEmail());
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
-		System.out.println(annonce.getId());
-		em.persist(annonce);
 	}
 
 	public List<Region> getRegions() {
@@ -341,14 +345,12 @@ public class AdServiceImpl implements AdService {
 		return query.getResultList();
 	}
 
-	public void merge(Annonce ad) {
-		em.merge(ad);
-	}
-
-	@Override
 	public void save(ImagePath ip) {
 		em.persist(ip);
-		
+	}
+
+	public <T> T merge(T ent) {
+		return em.merge(ent);
 	}
 
 //	public Map getRegionsWithDeparts() {

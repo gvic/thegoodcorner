@@ -215,6 +215,15 @@ a:hover {
 	color: black;
 	z-index: 11;
 }
+.close-button {
+	float:right;
+	cursor: pointer;
+	color:gray;
+	border:2px solid gray;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
 #header_l {
 	background: transparent url(images/lionel_nob.png) no-repeat left 0px;
 	

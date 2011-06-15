@@ -33,6 +33,7 @@
 			<script type="text/javascript">
 		       $.subscribe('show-overlay', function(event,data) {
 		           $('#overlay-popup').fadeIn('fast');
+		           $('#login').prepend('<span class="close-button" onclick="$(this).parent().hide();$(\'#overlay-popup\').fadeOut(\'fast\')">X</span>')
 		       });
 			</script>
 

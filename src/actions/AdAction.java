@@ -32,9 +32,10 @@ import entities.User;
 public class AdAction extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
-	private static final String UL_DIR = 
-		ServletActionContext.getServletContext().getRealPath(ServletActionContext.getServletContext().getContextPath())+ "/uploads/";
-
+//	public static final String UL_DIR = 
+//		ServletActionContext.getServletContext().getRealPath(ServletActionContext.getServletContext().getContextPath())+ "/uploads/";
+	public static final String UL_DIR = "uploads/images_annonces/";
+	
 	@Inject
 	AdService service;
 	@Inject
@@ -59,31 +60,36 @@ public class AdAction extends ActionSupport {
 	private List<String> uploadContentTypes = new ArrayList<String>();
 
 	public String input() throws Exception {
-		System.out.println(UL_DIR);
 		return INPUT;
 	}
 
 	public void validate() {
 		if (userBean != null) {
-			if (userBean.getLogin().equals("")) {
+			if (userBean.getLogin().equals(""))
 				addFieldError("userBean.login", getText("errors.required"));
-			}
-			if (userBean.getMd5_mdp().equals("")) {
-				addFieldError("userBean.login", getText("errors.required"));
-			}
+			if (userBean.getLogin().length() < 4)
+				addFieldError("userBean.login", getText("errors.login.tooshort"));
+			if (userBean.getMd5_mdp().equals(""))
+				addFieldError("userBean.md5_mdp", getText("errors.required"));
+			if (userBean.getMd5_mdp().length() < 6)
+				addFieldError("userBean.md5_mdp", getText("errors.password.tooshort"));
+			if (confirmPassword.equals(""))
+				addFieldError("confirmPassword", getText("errors.required"));
+			if (!confirmPassword.equals(userBean.getMd5_mdp()))
+				addFieldError("confirmPassword", getText("errors.confirmPassword"));
+			if (userBean.getEmail().equals(""))
+				addFieldError("userBean.email", getText("errors.required"));
 			System.out.println(userBean.toString());
 			HashMap<String, Object> mhm = new HashMap<String, Object>();
 			mhm.put("login", userBean.getLogin());
 			if (!userBean.getLogin().equals("")
-					&& uService.getByField(mhm) != null) {
+					&& uService.getByField(mhm) != null)
 				addFieldError("userBean.login", getText("errors.login.used"));
-			}
 			mhm.clear();
 			mhm.put("email", userBean.getEmail());
 			if (!userBean.getEmail().equals("")
-					&& uService.getByField(mhm) != null) {
+					&& uService.getByField(mhm) != null)
 				addFieldError("userBean.email", getText("errors.email.used"));
-			}
 		}
 	}
 
@@ -120,38 +126,41 @@ public class AdAction extends ActionSupport {
 		adBean.setValidee(false);
 		MultiPartRequestWrapper multipartRequest = ((MultiPartRequestWrapper) ServletActionContext
 				.getRequest());
-		Set<ImagePath> sip = null;
-		if (multipartRequest != null) {
-			sip = store(multipartRequest);
-		}
-		adBean.setImgPaths(sip);
+		adBean.setImgPaths(storeImages(multipartRequest));
+		// ANNONCE-IMAGEPATH relationship problem
+		// annonce_id isn't store in the imagePaths
 		service.save(adBean,userBean);
 		addActionMessage(getText("ad.sent"));
 		return SUCCESS;
 	}
 
-	private Set<ImagePath> store(MultiPartRequestWrapper multipartRequest)
-			throws Exception {
+	public Set<ImagePath> storeImages(MultiPartRequestWrapper multipartRequest)
+	throws Exception {
 		// Upload d'image que pour les user enregistrés
 		long userId = userBean.getId();
 		File fs[] = multipartRequest.getFiles("uploads");
 		Set<ImagePath> ret = null;
 		if (fs != null) {
-
+		
 			String[] ct = multipartRequest.getContentTypes("uploads");
 			Set<ImagePath> sip = new HashSet<ImagePath>();
 			for (int i = 0; i < fs.length; i++) {
 				String outputFormat = ct[i].split("/")[1];
 				String fileName = userId + "_" + adBean.getId() + "_" + i;
-				String imagePath = UL_DIR + fileName + "." + outputFormat;
-				String thumbImagePath = UL_DIR + fileName + "_thumb."
+				String imagePath = AdAction.UL_DIR+ fileName + "." + outputFormat;
+				String thumbImagePath = AdAction.UL_DIR + fileName + "_thumb."
 						+ outputFormat;
 				ImagePath ip = new ImagePath();
 				ip.setPath(imagePath);
+				service.save(ip);
+				ip = service.merge(ip); // Merge to retrieve saved instance?
+				System.out.println("== Is the ImagePath Well Saved?? ==");
+				System.out.println(ip.toString());
 				sip.add(ip);
+				System.out.println(ip.getId());
 				File finalFile = new File(imagePath);
 				FileUtils.copyFile(fs[i], finalFile);
-
+		
 				ThumbNail2 tng = new ThumbNail2();
 				tng.createThumbnail(imagePath, thumbImagePath, 300, 200);
 			}
@@ -159,7 +168,7 @@ public class AdAction extends ActionSupport {
 		}
 		return ret;
 	}
-
+	
 	public void setCommunities(List<Communaute> communautes) {
 		this.communities = communautes;
 	}

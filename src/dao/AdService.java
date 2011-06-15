@@ -6,6 +6,8 @@ import java.util.Set;
 
 import javax.ejb.Remote;
 
+import org.apache.struts2.dispatcher.multipart.MultiPartRequestWrapper;
+
 import entities.Annonce;
 import entities.Categorie;
 import entities.Communaute;
@@ -47,7 +49,7 @@ public interface AdService {
 
 	public <T> List<T> getAll(Class<T> class1);
 
-	public void merge(Annonce ad);
-
+	public <T>  T merge(T ent);
+	
 //	public Map getRegionsWithDeparts();
 }

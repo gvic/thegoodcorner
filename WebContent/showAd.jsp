@@ -12,6 +12,9 @@
 <div class="annonce-price">
 <s:property value="annonceBean.price"/>
 </div>
+<s:iterator value="annonceBean.imgPaths">
+	<img alt="<s:property value="annonceBean.title"/>" src="<s:property value="path"/>" />
+</s:iterator>
 </s:div>
 
 
