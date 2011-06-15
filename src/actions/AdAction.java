@@ -8,16 +8,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.dispatcher.multipart.MultiPartRequestWrapper;
-
 import com.google.inject.Inject;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-
-import core.SimpleMail;
 import core.ThumbNail2;
 import dao.AdService;
 import dao.UserService;
@@ -32,10 +28,11 @@ import entities.User;
 public class AdAction extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
-//	public static final String UL_DIR = 
-//		ServletActionContext.getServletContext().getRealPath(ServletActionContext.getServletContext().getContextPath())+ "/uploads/";
+	// public static final String UL_DIR =
+	// ServletActionContext.getServletContext().getRealPath(ServletActionContext.getServletContext().getContextPath())+
+	// "/uploads/";
 	public static final String UL_DIR = "uploads/images_annonces/";
-	
+
 	@Inject
 	AdService service;
 	@Inject
@@ -50,9 +47,13 @@ public class AdAction extends ActionSupport {
 	private long categorieId;
 	private Set<Long> communitiesId;
 
+	@SuppressWarnings("unused")
 	private List<Region> regions;
+	@SuppressWarnings("unused")
 	private List<Departement> departements;
+	@SuppressWarnings("unused")
 	private List<Communaute> communities;
+	@SuppressWarnings("unused")
 	private List<Categorie> categories;
 
 	private List<File> uploads = new ArrayList<File>();
@@ -68,15 +69,18 @@ public class AdAction extends ActionSupport {
 			if (userBean.getLogin().equals(""))
 				addFieldError("userBean.login", getText("errors.required"));
 			if (userBean.getLogin().length() < 4)
-				addFieldError("userBean.login", getText("errors.login.tooshort"));
+				addFieldError("userBean.login",
+						getText("errors.login.tooshort"));
 			if (userBean.getMd5_mdp().equals(""))
 				addFieldError("userBean.md5_mdp", getText("errors.required"));
 			if (userBean.getMd5_mdp().length() < 6)
-				addFieldError("userBean.md5_mdp", getText("errors.password.tooshort"));
+				addFieldError("userBean.md5_mdp",
+						getText("errors.password.tooshort"));
 			if (confirmPassword.equals(""))
 				addFieldError("confirmPassword", getText("errors.required"));
 			if (!confirmPassword.equals(userBean.getMd5_mdp()))
-				addFieldError("confirmPassword", getText("errors.confirmPassword"));
+				addFieldError("confirmPassword",
+						getText("errors.confirmPassword"));
 			if (userBean.getEmail().equals(""))
 				addFieldError("userBean.email", getText("errors.required"));
 			System.out.println(userBean.toString());
@@ -116,38 +120,36 @@ public class AdAction extends ActionSupport {
 		}
 		adBean.setUser(userBean);
 		adBean.setRegion(service.getOne(Region.class, regionId));
-		adBean.setDepartement(service.getOne(Departement.class,
-				departementId));
+		adBean.setDepartement(service.getOne(Departement.class, departementId));
 		adBean.setDate_de_publication(new Date());
-		adBean.setCategorie(service.getOne(Categorie.class,
-				categorieId));
-		adBean.setCommunautes(service.getByIds(Communaute.class,
-				communitiesId));
+		adBean.setCategorie(service.getOne(Categorie.class, categorieId));
+		adBean.setCommunautes(service.getByIds(Communaute.class, communitiesId));
 		adBean.setValidee(false);
 		MultiPartRequestWrapper multipartRequest = ((MultiPartRequestWrapper) ServletActionContext
 				.getRequest());
 		adBean.setImgPaths(storeImages(multipartRequest));
 		// ANNONCE-IMAGEPATH relationship problem
 		// annonce_id isn't store in the imagePaths
-		service.save(adBean,userBean);
+		service.save(adBean, userBean);
 		addActionMessage(getText("ad.sent"));
 		return SUCCESS;
 	}
 
 	public Set<ImagePath> storeImages(MultiPartRequestWrapper multipartRequest)
-	throws Exception {
+			throws Exception {
 		// Upload d'image que pour les user enregistrés
 		long userId = userBean.getId();
 		File fs[] = multipartRequest.getFiles("uploads");
 		Set<ImagePath> ret = null;
 		if (fs != null) {
-		
+
 			String[] ct = multipartRequest.getContentTypes("uploads");
 			Set<ImagePath> sip = new HashSet<ImagePath>();
 			for (int i = 0; i < fs.length; i++) {
 				String outputFormat = ct[i].split("/")[1];
 				String fileName = userId + "_" + adBean.getId() + "_" + i;
-				String imagePath = AdAction.UL_DIR+ fileName + "." + outputFormat;
+				String imagePath = AdAction.UL_DIR + fileName + "."
+						+ outputFormat;
 				String thumbImagePath = AdAction.UL_DIR + fileName + "_thumb."
 						+ outputFormat;
 				ImagePath ip = new ImagePath();
@@ -159,11 +161,13 @@ public class AdAction extends ActionSupport {
 				sip.add(ip);
 				System.out.println(ip.getId());
 				// Change image path for Java processing
-				imagePath = ServletActionContext.getServletContext().getRealPath("/")+imagePath;
-				thumbImagePath = ServletActionContext.getServletContext().getRealPath("/")+thumbImagePath;
+				imagePath = ServletActionContext.getServletContext()
+						.getRealPath("/") + imagePath;
+				thumbImagePath = ServletActionContext.getServletContext()
+						.getRealPath("/") + thumbImagePath;
 				File finalFile = new File(imagePath);
 				FileUtils.copyFile(fs[i], finalFile);
-		
+
 				ThumbNail2 tng = new ThumbNail2();
 				tng.createThumbnail(imagePath, thumbImagePath, 300, 200);
 			}
@@ -171,7 +175,7 @@ public class AdAction extends ActionSupport {
 		}
 		return ret;
 	}
-	
+
 	public void setCommunities(List<Communaute> communautes) {
 		this.communities = communautes;
 	}

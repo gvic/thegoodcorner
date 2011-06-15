@@ -45,7 +45,7 @@ public class AccountAction extends ActionSupport{
             HashMap<String,Object> mhm = new HashMap<String,Object>();
             mhm.put("email", email);
             if ( !email.equals("") && service.getByField(mhm)!=null && !email.equals(oldEmail) ) {
-            	addFieldError("email", getText("email.used"));
+            	addFieldError("email", getText("errors.email.used"));
             }
 		}
 		else{

@@ -9,9 +9,9 @@
 	<!-- 	En cas de probleme celle ci marche mais pas de couleur pour diff?rencier regions/departs -->
 	<s:doubleselect
 		name="regionId" list="regions" listValue="nom"
-		listKey="id" headerKey="-1" headerValue="%{getText('select.region')}"
+		listKey="id" headerKey="-1" headerValue="%{getText('region.select')}"
 		doubleName="departementId" doubleList="departements" doubleListValue="nom"
-		doubleListKey="id" doubleHeaderKey="-1" doubleHeaderValue="%{getText('select.depart')}">
+		doubleListKey="id" doubleHeaderKey="-1" doubleHeaderValue="%{getText('department.select')}">
 	</s:doubleselect>
 	<%-- 	<s:select key="adBean.departement" list="departements"></s:select> --%>
 	
@@ -19,7 +19,7 @@
 		headerKey="communaute.select" list="communities"
 		listValue="denomination" listKey="id" multiple="true" />
 	<s:select name="categorieId" key="ad.categorie" headerKey="-1"
-		headerValue="Select Categorie" list="categories" listValue="nom"
+		headerValue="%{getText('category.select')}" list="categories" listValue="nom"
 		listKey="id" />
 	<s:textfield name="adBean.title" key="ad.title" />
 	<s:textarea name="adBean.description" cols="50" rows="10"

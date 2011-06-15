@@ -18,7 +18,7 @@
  	            <class>entities.Region</class>
  	            <exclude-unlisted-classes>false</exclude-unlisted-classes> 
                 <properties>
-                        <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+                        <property name="hibernate.hbm2ddl.auto" value="update"/>
                 </properties>
 <!--                -->
         </persistence-unit>

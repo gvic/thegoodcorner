@@ -26,12 +26,12 @@ public class SignUpAction extends ActionSupport {
 			HashMap<String,Object> mhm = new HashMap<String,Object>();
 			mhm.put("login", userBean.getLogin());
 			if (!userBean.getLogin().equals("") && service.getByField(mhm)!=null) {
-				addFieldError("userBean.login", getText("username.used"));
+				addFieldError("userBean.login", getText("errors.username.used"));
 			}
 			mhm.clear();
 			mhm.put("email", userBean.getEmail());
 			if (!userBean.getEmail().equals("") && service.getByField(mhm)!=null) {
-				addFieldError("userBean.email", getText("email.used"));
+				addFieldError("userBean.email", getText("errors.email.used"));
 			}
 		}
 	}

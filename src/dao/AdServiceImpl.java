@@ -1,9 +1,7 @@
 package dao;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -22,16 +20,7 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.apache.commons.collections.MapUtils;
-import org.apache.commons.io.FileUtils;
-import org.apache.struts2.ServletActionContext;
-import org.apache.struts2.dispatcher.multipart.MultiPartRequestWrapper;
-
-import actions.AdAction;
-
 import core.SimpleMail;
-import core.ThumbNail2;
-
 import entities.Annonce;
 import entities.Categorie;
 import entities.Communaute;
@@ -42,7 +31,7 @@ import entities.User;
 
 @Stateless(mappedName = "dao.AdServiceImpl")
 public class AdServiceImpl implements AdService {
-	
+
 	@PersistenceContext
 	private EntityManager em;
 
@@ -79,7 +68,7 @@ public class AdServiceImpl implements AdService {
 		SimpleMail sm = new SimpleMail();
 		try {
 			sm.sendValidationAdMessage(user.getLogin(), annonce.getId(),
-				user.getEmail());
+					user.getEmail());
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
@@ -159,10 +148,10 @@ public class AdServiceImpl implements AdService {
 		return em.find(arg, id);
 	}
 
-    // Get list entity bean thanks to their IDs
-    public <T> Set<T> getByIds(Class<T> arg, Set<Long> ids) {
-    	Set<T> res = new HashSet<T>();
-    	for (Long long1 : ids) {
+	// Get list entity bean thanks to their IDs
+	public <T> Set<T> getByIds(Class<T> arg, Set<Long> ids) {
+		Set<T> res = new HashSet<T>();
+		for (Long long1 : ids) {
 			res.add(getOne(arg, long1));
 		}
 		return res;
@@ -318,15 +307,13 @@ public class AdServiceImpl implements AdService {
 				System.out.println("Ad already submit");
 			}
 		}
-        return res;
-    }
-	
-	
+		return res;
+	}
 
 	public <T> List<T> getAll(Class<T> class1) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<T> cq = cb.createQuery(class1);
-		Root<T> rootReg= cq.from(class1);
+		Root<T> rootReg = cq.from(class1);
 		cq.select(rootReg);
 		cq.distinct(true);
 		TypedQuery<T> query = em.createQuery(cq);
@@ -339,7 +326,7 @@ public class AdServiceImpl implements AdService {
 		Root<Annonce> rootAd = cq.from(Annonce.class);
 		cq.select(rootAd);
 		Predicate p1 = cb.equal(rootAd.get("title"), title);
-		Predicate p2 = cb.equal(rootAd.get("user"), u); 
+		Predicate p2 = cb.equal(rootAd.get("user"), u);
 		cq.where(cb.and(p1, p2));
 		TypedQuery<Annonce> query = em.createQuery(cq);
 		return query.getResultList();
@@ -353,20 +340,25 @@ public class AdServiceImpl implements AdService {
 		return em.merge(ent);
 	}
 
-//	public Map getRegionsWithDeparts() {
-//		Map areas = new HashMap();
-//		List<Region> regions = getRegions();
-//		Region reg = null;
-//		Iterator<Region> it_reg = regions.iterator();
-//		while (it_reg.hasNext()) {
-//			reg = it_reg.next();
-//			List<Departement> matched_dep = reg.getDepartements();
-//			Map key_value_dep = new HashMap();
-//			for (Departement departement : matched_dep) {
-//				key_value_dep.put(departement.getId(), departement.getNom());
-//			}
-//			areas.put(reg.getId(),key_value_dep);
-//		}
-//		return areas;
-//	}
+	@Override
+	public void delete(Annonce ad) {
+		em.remove(ad);
+	}
+
+	// public Map getRegionsWithDeparts() {
+	// Map areas = new HashMap();
+	// List<Region> regions = getRegions();
+	// Region reg = null;
+	// Iterator<Region> it_reg = regions.iterator();
+	// while (it_reg.hasNext()) {
+	// reg = it_reg.next();
+	// List<Departement> matched_dep = reg.getDepartements();
+	// Map key_value_dep = new HashMap();
+	// for (Departement departement : matched_dep) {
+	// key_value_dep.put(departement.getId(), departement.getNom());
+	// }
+	// areas.put(reg.getId(),key_value_dep);
+	// }
+	// return areas;
+	// }
 }
