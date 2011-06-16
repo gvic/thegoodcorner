@@ -103,7 +103,7 @@
 			<result name="success" type="json">/listadaction</result>
 		</action>
 
-		<action name="list">
+		<action name="list_*" class="actions.ListAdAction">
 			<result type="tiles">listAd</result>
 		</action>
 

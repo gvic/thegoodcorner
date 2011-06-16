@@ -261,6 +261,7 @@ a:hover {
 #page #account-ajax {
 	float: left;
 	width: 710px;
+	min-height: 250px;
 }
 #page .menu-box {
 	width: 250px;

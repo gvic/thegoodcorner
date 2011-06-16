@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Map.Entry;
 
 import javax.ejb.Stateless;
 import javax.mail.MessagingException;
@@ -17,6 +18,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -260,7 +262,9 @@ public class AdServiceImpl implements AdService {
 				// Show only activated ads
 				query += " a.validee=:valide";
 			}
-
+			
+			System.out.println("== QUERY : "+query+ " ==");
+			
 			TypedQuery<Annonce> q = em.createQuery(query, Annonce.class);
 			// If we want to show all ads
 			if (!showUnvalide)
@@ -283,6 +287,54 @@ public class AdServiceImpl implements AdService {
 		return res;
 	}
 
+	public List<Annonce> mainSearch(Map<String,Object> map, String keywords, boolean showUnvalide) {
+		System.out.println("mainSearch() called");
+		List<Annonce> res = null;
+		
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Annonce> cq = cb.createQuery(Annonce.class);
+		Root<Annonce> rootReg = cq.from(Annonce.class);
+		Predicate p = cb.conjunction();
+		boolean p_used = false;
+		for (Entry<String, Object> entry : map.entrySet()) {
+			p_used = true;
+			p.getExpressions().add(cb.equal(rootReg.get(entry.getKey()), entry.getValue()));				
+		}
+		
+		String[] keyWords = keywords.split(" ");
+		Predicate p2 = cb.disjunction();
+		boolean p2_used = false;
+		for (String key : keyWords) {
+			if (!key.equals("")) {
+				p2_used = true;
+				Path<String> path = rootReg.get("title");
+				p2.getExpressions().add(cb.like(cb.upper(path), cb.upper(cb.literal("%"+key+"%"))));
+			}
+		}
+		
+		cq.select(rootReg);
+		if (p2_used && p_used) {
+			cq.where(cb.and(p,p2));
+		}
+		else {
+			if (p2_used) {
+				cq.where(p2);
+			}
+			if (p_used) {
+				cq.where(p);
+			}
+		}
+
+		TypedQuery<Annonce> query = em.createQuery(cq);
+		try {
+			res = query.getResultList();
+		} catch (NoResultException e) {
+			e.printStackTrace();
+		}
+		return res;
+	}
+	
+	
 	/**
 	 * Searches and returns a list of Annonce which contain in their title one
 	 * of the key words in the text entered in parameter. -------------(Method

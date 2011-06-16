@@ -6,8 +6,7 @@
 	<s:actionerror />
 	<s:actionmessage />
 
-	<s:form id="searchAdForm" action="list" method="get">
-		
+	<s:form id="searchAdForm" action="list" theme="simple">
 		<s:div id="first-step">
 			<h1>1. Place</h1>
 			<s:doubleselect name="regionId" list="regions" listValue="nom"
@@ -17,12 +16,12 @@
 				doubleListValue="nom" doubleHeaderKey="-1" doubleListKey="id"
 				doubleHeaderValue="%{getText('departement.select')}">
 			</s:doubleselect>
-			<s:textfield name="codePostal" key="search.codePostal"/>
+			
 		</s:div>
 		<s:div id="second-step">
 			<h1>2. Community</h1>
 			<s:select name="communauteId" key="ad.communautes"
-				headerKey="search.communaute" list="communities"
+				headerKey="-1" headerValue="%{getText('search.communaute')}" list="communities"
 				listValue="denomination" listKey="id" />
 		</s:div>
 		<s:div id="third-step">

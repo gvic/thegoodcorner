@@ -5,7 +5,9 @@
 
 <s:a href="javascript:history.go(-1)"><s:text name="history.back"></s:text></s:a>
 
-<s:url id="remoteurl" action="listAdJson" />
+<s:url id="remoteurl"
+action="listAdJson?userId=%{userId}&regionId=%{regionId}&communauteId=%{communauteId}&categorieId=%{categorieId}&departId=%{departId}&keywords=%{keywords}" >
+</s:url>
 <sjg:grid
      id="gridtable"
      dataType="json"

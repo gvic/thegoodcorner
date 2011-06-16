@@ -2,8 +2,10 @@ package actions;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.google.inject.Inject;
 import com.opensymphony.xwork2.ActionContext;
@@ -34,9 +36,15 @@ public class ListAdAction extends ActionSupport {
 	private long userId = -1;
 	private long regionId = -1;
 	private long departId = -1;
-	private int codePostal;
+	private int codePostal = 0;
 	private long categorieId = -1;
 	private long communauteId = -1;
+	
+	private String keywords = "";
+	
+	public ListAdAction() {
+		setRegionId(-1);
+	}
 
 	// get how many rows we want to have into the grid - rowNum attribute in the
 	// grid
@@ -65,6 +73,12 @@ public class ListAdAction extends ActionSupport {
 	
 	@Override
 	public String input() throws Exception {
+		System.out.println("departId:"+getDepartId()
+				+",regionId:"+getRegionId()
+				+",userId:"+getUserId()
+				+",categorieId:"+getCategorieId()
+				+",communauteId:"+getCommunauteId());
+		
 		return super.input();
 	}
 
@@ -202,49 +216,42 @@ public class ListAdAction extends ActionSupport {
 	}
 
 	public List<Annonce> getMyAnnonces() {
-Map<String, Map<String, Object>> joins = new HashMap<String, Map<String,Object>>();
+		Map<String,Object> map= new HashMap<String, Object>();
 		
 		System.out.println("departId:"+getDepartId()
 				+",regionId:"+getRegionId()
 				+",userId:"+getUserId()
 				+",categorieId:"+getCategorieId()
-				+",communauteId:"+getCommunauteId());
+				+",communauteId:"+getCommunauteId()
+				+",keywords:"+getKeywords());
 		
 		boolean showunvalide = false;
 		
 		if (getDepartId() != -1) {
-			Map<String, Object> value = new HashMap<String, Object>();
-			value.put("id", departId);
-			joins.put("departement", value);
+			map.put("departement", service.getOne(Departement.class, departId));
 		}
 		if (getRegionId() != -1) {
-			Map<String, Object> value = new HashMap<String, Object>();
-			value.put("id", regionId);
-			joins.put("region", value);
+			map.put("region", service.getOne(Region.class, regionId));
 		}
 		if (getUserId() != -1) {
-			Map<String, Object> value = new HashMap<String, Object>();
-			value.put("id", userId);
-			joins.put("user", value);
+			map.put("user", service.getOne(User.class, userId));
 			
 			Map<String, Object> session = ActionContext.getContext().getSession();
 			User user = (User) session.get("user");
-			if (user.getId()==userId) 
+			if (user!=null && user.getId()==userId) 
 				showunvalide = true;
 		}
 		if (getCategorieId() != -1) {
-			Map<String, Object> value = new HashMap<String, Object>();
-			value.put("id", categorieId);
-			joins.put("categorie", value);
+			map.put("categorie", service.getOne(Categorie.class, categorieId));
 		}
 		if (getCommunauteId() != -1) {
-			Map<String, Object> value = new HashMap<String, Object>();
-			value.put("id", communauteId);
-			joins.put("communautes", value);
+			Set<Communaute> lesComs= new HashSet<Communaute>();
+			lesComs.add(service.getOne(Communaute.class, communauteId));
+			map.put("communautes", lesComs);
 		}
 		
 
-		return service.findByJointure(joins,showunvalide);
+		return service.mainSearch(map, keywords, showunvalide);
 	}
 
 	public void setMyAnnonces(List<Annonce> myAnnonces) {
@@ -313,5 +320,13 @@ Map<String, Map<String, Object>> joins = new HashMap<String, Map<String,Object>>
 
 	public int getCodePostal() {
 		return codePostal;
+	}
+
+	public void setKeywords(String keywords) {
+		this.keywords = keywords;
+	}
+
+	public String getKeywords() {
+		return keywords;
 	}
 }
