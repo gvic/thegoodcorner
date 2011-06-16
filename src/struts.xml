@@ -28,10 +28,6 @@
 			<result type="tiles">welcome</result>
 		</action>
 
-		<action name="testLog">
-			<result type="tiles">testLogged</result>
-		</action>
-
 		<action name="logout" class="actions.LogInAction" method="logout">
 			<result name="success" type="redirect">/index.html</result>
 		</action>
@@ -49,7 +45,9 @@
 		<action name="SignUp_*" class="actions.SignUpAction" method="{1}">
 			<result name="input" type="tiles">signup</result>
 			<result name="error" type="tiles">signup</result>
-			<result name="success" type="tiles">welcome</result>
+			<result name="success" type="redirectAction">
+				<param name="actionName">index</param>
+			</result>
 		</action>
 
 		<action name="admin" class="actions.PopulateAction" method="adminPopulate">
@@ -58,7 +56,6 @@
 
 		<action name="addCommunaute_*" class="actions.PopulateAction"
 			method="{1}">
-			
 			<result name="input">/addCommunaute.jsp</result>
 			<result name="error">/addCommunaute.jsp</result>
 			<result name="success" type="tiles">account</result>
@@ -72,7 +69,9 @@
 			</interceptor-ref>
 			<result name="input" type="tiles">submitAd</result>
 			<result name="error" type="tiles">submitAd</result>
-			<result name="success" type="tiles">welcome</result>
+			<result name="success" type="redirectAction">
+				<param name="actionName">index</param>
+			</result>
 		</action>
 
 		<action name="updateAccount_*" class="actions.AccountAction"
@@ -108,7 +107,9 @@
 		</action>
 
 		<action name="confirmAd" class="actions.ConfirmAd">
-			<result type="tiles">welcome</result>
+			<result type="redirectAction">
+				<param name="actionName">index</param>
+			</result>
 		</action>
 
 		<action name="account">
