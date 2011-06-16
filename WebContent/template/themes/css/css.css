@@ -94,6 +94,9 @@ a:hover {
 	text-shadow: 2px 2px 2px silver;
 	float: right; 	
 }
+.tips .center {
+	float: none;	
+}
 .button {
 	padding: 10px;
 	margin-right:3px;
