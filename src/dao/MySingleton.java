@@ -17,6 +17,6 @@ public class MySingleton {
 	  
 	  @PostConstruct
 	  public void init(){
-		  tmpImgId = 0;
+		  tmpImgId = 10;
 	  }
 }
