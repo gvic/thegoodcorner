@@ -37,8 +37,7 @@
 	<div class="thead"><s:text name="account.ads" /></div>
 	<ul>
 		<li>
-		<s:url action="list" id="listurl" includeParams="none">
-			<s:param name="userId" value="%{#session.user.id}" ></s:param>
+		<s:url action="list?userId=%{#session.user.id}" id="listurl" >
 		</s:url>
 		<s:a href="%{listurl}"  >
 			<s:text name="account.show.ads" />

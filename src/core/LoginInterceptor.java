@@ -26,7 +26,7 @@ public class LoginInterceptor implements Interceptor {
 		Map<String, Object> session =  arg0.getInvocationContext().getSession();  
         String actionName = arg0.getInvocationContext().getName();
         if (!"Login".equalsIgnoreCase(actionName.split("_")[0])
-    		&& !"loginPage".equalsIgnoreCase(actionName)) {  
+    		&& !"loginPage".equalsIgnoreCase(actionName) && !"listAdJson".equalsIgnoreCase(actionName)) {  
             session.put("lastAction", actionName);  
             System.out.println("Last Action :"+actionName);
         }  

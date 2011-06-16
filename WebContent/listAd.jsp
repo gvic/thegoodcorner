@@ -37,7 +37,7 @@ action="listAdJson?userId=%{userId}&regionId=%{regionId}&communauteId=%{communau
                 var file = cellvalue[0].path.split(".");
 				var format = file[1];
 				var nom = file[0];
-                return "<a href='<s:property value="adurl"/>?adId="+options.rowId+"' ><img src='"+nom+"_thumb2."+format+"' alt='' /></a>";
+                return "<a href='<s:property value="adurl"/>?adId="+options.rowId+"' ><img src='"+nom+"_thumb."+format+"' alt='' /></a>";
             }
         }
         function group(cellvalue, options, rowObject) {

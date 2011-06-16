@@ -1,7 +1,6 @@
 <%@ page language="java"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
-<s:actionerror/>
 <s:form id="signUpForm" theme="xhtml" action="SignUp_signUp" >
 	<s:textfield name="userBean.login" key="login.username" />
 	<s:password name="userBean.md5_mdp" key="login.password" />

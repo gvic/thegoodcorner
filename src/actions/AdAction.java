@@ -14,6 +14,8 @@ import org.apache.struts2.dispatcher.multipart.MultiPartRequestWrapper;
 import com.google.inject.Inject;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+
+import core.EjbModule;
 import core.ThumbNail2;
 import dao.AdService;
 import dao.UserService;
@@ -140,8 +142,6 @@ public class AdAction extends ActionSupport {
 		MultiPartRequestWrapper multipartRequest = ((MultiPartRequestWrapper) ServletActionContext
 				.getRequest());
 		adBean.setImgPaths(storeImages(multipartRequest));
-		// ANNONCE-IMAGEPATH relationship problem
-		// annonce_id isn't store in the imagePaths
 		service.save(adBean, userBean);
 		addActionMessage(getText("ad.sent"));
 		return SUCCESS;
@@ -159,7 +159,9 @@ public class AdAction extends ActionSupport {
 			Set<ImagePath> sip = new HashSet<ImagePath>();
 			for (int i = 0; i < fs.length; i++) {
 				String outputFormat = ct[i].split("/")[1];
-				String fileName = userId + "_" + adBean.getId() + "_" + i;
+//				adBean id not known at this time
+//				String fileName = userId + "_" + adBean.getId() + "_" + i;
+				String fileName = userId + "_" + EjbModule.tmpImgId() + "_" + i;
 				String imagePath = AdAction.UL_DIR + fileName + "."
 						+ outputFormat;
 				String thumbImagePath = AdAction.UL_DIR + fileName + "_thumb."
@@ -184,7 +186,7 @@ public class AdAction extends ActionSupport {
 
 				ThumbNail2 tng = new ThumbNail2();
 				tng.createThumbnail(imagePath, thumbImagePath, 300, 200);
-				tng.createThumbnail(imagePath, thumbImagePath2, 300, 200);
+				tng.createThumbnail(imagePath, thumbImagePath2, 200, 100);
 			}
 			ret = sip;
 		}

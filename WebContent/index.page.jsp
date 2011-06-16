@@ -3,9 +3,6 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 <div id="steps">
-	<s:actionerror />
-	<s:actionmessage />
-
 	<s:form id="searchAdForm" action="list" theme="simple">
 		<s:div id="first-step">
 			<h1>1. Place</h1>

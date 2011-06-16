@@ -14,8 +14,11 @@
 		<!-- This interceptor saves the last Action in session-->
 		<!-- But not the Login action-->
 			<interceptor name="loginInterceptor" class="core.LoginInterceptor"></interceptor>
+			<interceptor name="redirectMessage"
+      			class="core.RedirectMessageInterceptor" />
 			<interceptor-stack name="loginStack">
 				<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			    <interceptor-ref name="redirectMessage" />
 				<!-- Compulsary for AJAX validation callbacks -->
 				<interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>
 				<interceptor-ref name="defaultStack"></interceptor-ref>
@@ -25,6 +28,7 @@
 		<default-action-ref name="index"></default-action-ref>
 
 		<action name="index" class="actions.IndexAction" >
+			<result name="input" type="tiles">welcome</result>
 			<result type="tiles">welcome</result>
 		</action>
 
@@ -102,7 +106,8 @@
 			<result name="success" type="json">/listadaction</result>
 		</action>
 
-		<action name="list_*" class="actions.ListAdAction">
+		<action name="list" class="actions.ListAdAction" method="input">
+			<result name="input" type="tiles">listAd</result>
 			<result type="tiles">listAd</result>
 		</action>
 

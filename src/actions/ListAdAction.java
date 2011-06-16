@@ -236,10 +236,10 @@ public class ListAdAction extends ActionSupport {
 		if (getUserId() != -1) {
 			map.put("user", service.getOne(User.class, userId));
 			
-			Map<String, Object> session = ActionContext.getContext().getSession();
-			User user = (User) session.get("user");
-			if (user!=null && user.getId()==userId) 
-				showunvalide = true;
+//			Map<String, Object> session = ActionContext.getContext().getSession();
+//			User user = (User) session.get("user");
+//			if (user!=null && user.getId()==userId) 
+//				showunvalide = true;
 		}
 		if (getCategorieId() != -1) {
 			map.put("categorie", service.getOne(Categorie.class, categorieId));

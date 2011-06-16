@@ -300,6 +300,12 @@ public class AdServiceImpl implements AdService {
 			p_used = true;
 			p.getExpressions().add(cb.equal(rootReg.get(entry.getKey()), entry.getValue()));				
 		}
+		Predicate valide = cb.equal(rootReg.get("validee"), true);
+		if (!showUnvalide) {
+			p_used = true;
+			p.getExpressions().add(valide);
+		}
+
 		
 		String[] keyWords = keywords.split(" ");
 		Predicate p2 = cb.disjunction();

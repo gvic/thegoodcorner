@@ -4,6 +4,7 @@
 <s:actionerror/>
 <s:actionmessage/>
 
+
 <s:div id="annonce-%{annonceBean.id}" cssClass="annonce">
 <h2 class="annonce-title"><s:property value="annonceBean.title"/></h2>
 <span class="date"><s:date name="annonceBean.date_de_publication" format="%{getText('i18n.date.format')}"/></span>
@@ -18,9 +19,14 @@
 <s:iterator value="annonceBean.imgPaths">
 	<img alt="<s:property value="annonceBean.title"/>" src="<s:property value="path"/>" />
 </s:iterator>
+
+<s:a href="javascript:history.go(-1)"><s:text name="history.back"></s:text></s:a>
+
 </s:div>
 
 <s:div cssClass="menu-box">
 <div class="thead"><s:property value="annonceBean.user.prenom"/> (<s:property value="annonceBean.user.login"/>)</div>
-<s:a><s:text name="user.send.mail"></s:text></s:a>
+<ul>
+<li><s:a href="mailto:%{annonceBean.user.email}" ><s:text name="user.send.mail"></s:text></s:a></li>
+</ul>
 </s:div>
