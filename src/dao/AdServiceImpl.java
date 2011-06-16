@@ -308,7 +308,9 @@ public class AdServiceImpl implements AdService {
 		
 		if (coms != null) {
 			p_used = true;
-			p.getExpressions().add(cb.literal(coms).in(rootReg.get("communautes")));
+			for (Communaute com : coms) {
+				p.getExpressions().add(cb.literal(com).in(rootReg.get("communautes")));
+			}
 		}
 
 		
