@@ -226,6 +226,7 @@ public class ListAdAction extends ActionSupport {
 				+",keywords:"+getKeywords());
 		
 		boolean showunvalide = false;
+		Set<Communaute> lesComs = null;
 		
 		if (getDepartId() != -1) {
 			map.put("departement", service.getOne(Departement.class, departId));
@@ -245,13 +246,12 @@ public class ListAdAction extends ActionSupport {
 			map.put("categorie", service.getOne(Categorie.class, categorieId));
 		}
 		if (getCommunauteId() != -1) {
-			Set<Communaute> lesComs= new HashSet<Communaute>();
+			lesComs = new HashSet<Communaute>();
 			lesComs.add(service.getOne(Communaute.class, communauteId));
-			map.put("communautes", lesComs);
 		}
 		
 
-		return service.mainSearch(map, keywords, showunvalide);
+		return service.mainSearch(map, lesComs, keywords, showunvalide);
 	}
 
 	public void setMyAnnonces(List<Annonce> myAnnonces) {

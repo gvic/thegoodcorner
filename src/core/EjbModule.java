@@ -29,10 +29,4 @@ public class EjbModule implements Module {
     .toProvider(fromJndi(PopulateService.class, "dao.PopulateServiceImpl"));
     
   }
-  
-  static private int tmpImgId=0;
-  
-  static public int tmpImgId() {
-	  return tmpImgId++;
-  }
 }

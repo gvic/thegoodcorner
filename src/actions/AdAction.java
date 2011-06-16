@@ -18,6 +18,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import core.EjbModule;
 import core.ThumbNail2;
 import dao.AdService;
+import dao.MySingleton;
 import dao.UserService;
 import entities.Annonce;
 import entities.Categorie;
@@ -161,7 +162,7 @@ public class AdAction extends ActionSupport {
 				String outputFormat = ct[i].split("/")[1];
 //				adBean id not known at this time
 //				String fileName = userId + "_" + adBean.getId() + "_" + i;
-				String fileName = userId + "_" + EjbModule.tmpImgId() + "_" + i;
+				String fileName = userId + "_" + MySingleton.tmpImgId() + "_" + i;
 				String imagePath = AdAction.UL_DIR + fileName + "."
 						+ outputFormat;
 				String thumbImagePath = AdAction.UL_DIR + fileName + "_thumb."

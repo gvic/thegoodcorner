@@ -287,7 +287,7 @@ public class AdServiceImpl implements AdService {
 		return res;
 	}
 
-	public List<Annonce> mainSearch(Map<String,Object> map, String keywords, boolean showUnvalide) {
+	public List<Annonce> mainSearch(Map<String,Object> map, Set<Communaute> coms, String keywords, boolean showUnvalide) {
 		System.out.println("mainSearch() called");
 		List<Annonce> res = null;
 		
@@ -304,6 +304,11 @@ public class AdServiceImpl implements AdService {
 		if (!showUnvalide) {
 			p_used = true;
 			p.getExpressions().add(valide);
+		}
+		
+		if (coms != null) {
+			p_used = true;
+			p.getExpressions().add(cb.literal(coms).in(rootReg.get("communautes")));
 		}
 
 		

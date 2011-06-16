@@ -41,7 +41,7 @@ public interface AdService {
 	public Object findAd(String title, String description,
 			String geographicAreaSubmitted, String categorySubmitted);
 	
-	public List<Annonce> mainSearch(Map<String,Object> map, String keywords, boolean showUnvalide);
+	public List<Annonce> mainSearch(Map<String,Object> map,Set<Communaute> coms, String keywords, boolean showUnvalide);
 	
 	public List<Annonce> findAd(User u, String title);
 	
