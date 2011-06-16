@@ -36,10 +36,6 @@ public class ListAdAction extends ActionSupport {
 	private long departId = -1;
 	private int codePostal;
 	private long categorieId = -1;
-	private List<Departement> departements;
-	private List<Region> regions;
-	private List<Categorie> categories;
-	private List<Communaute> communities;
 	private long communauteId = -1;
 
 	// get how many rows we want to have into the grid - rowNum attribute in the
@@ -318,37 +314,4 @@ Map<String, Map<String, Object>> joins = new HashMap<String, Map<String,Object>>
 	public int getCodePostal() {
 		return codePostal;
 	}
-
-	public void setDepartements(List<Departement> departements) {
-		this.departements = departements;
-	}
-
-	public List<Departement> getDepartements() {
-		return departements;
-	}
-
-	public void setRegions(List<Region> regions) {
-		this.regions = regions;
-	}
-
-	public List<Region> getRegions() {
-		return service.getRegions();
-	}
-
-	public void setCommunities(List<Communaute> communautes) {
-		this.communities = communautes;
-	}
-
-	public List<Communaute> getCommunities() {
-		return service.getCommunautes();
-	}
-
-	public List<Categorie> getCategories() {
-		return service.getCategories();
-	}
-
-	public void setCategories(List<Categorie> categories) {
-		this.categories = categories;
-	}
-
 }
